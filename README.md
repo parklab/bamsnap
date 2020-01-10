@@ -10,6 +10,11 @@
 * [Pillow (Python Imaging Library)][pil] (5.0.0+)
 * [pysam][ps] (1.8.1+)
 * pyfasta
+	* numpy
+
+```bash
+pip install bamsnap
+```
 
 ## Usage
 
@@ -65,9 +70,12 @@ optional arguments:
 ### Examples
 
 ```
-$ bamsnap -bam data/test11.bam -pos 1:715348 -out test/ex1
+bamsnap -bam data/test11.bam -pos 1:715348 -out data/ex1
+bamsnap -bam data/test11.bam -bed data/region.bed -out data/ex2
+bamsnap -bamlist data/bamlist.txt -pos 1:817187 1:817848 -out data/ex3
+bamsnap -bamlist data/bamlist.txt -bed data/region2.bed -out data/ex4
 ```
-<img src="https://bampdx.com/wp-content/uploads/2015/12/BAMPDX-logo.png" height=28px width=45px>
+
 
 
 

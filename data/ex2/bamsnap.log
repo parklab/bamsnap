@@ -1,0 +1,16 @@
+2020-01-10 16:51:11,487 : [INFO] Processing position 1:715347-715548
+2020-01-10 16:51:11,838 : [INFO] Processing..data/test11.bam
+2020-01-10 16:51:17,495 : [INFO] Saved data/ex2/snapfiles/snap_test11.bam_1_715347-715548.png
+2020-01-10 16:51:17,495 : [INFO] Processing position 1:716347-716548
+2020-01-10 16:51:17,929 : [INFO] Processing..data/test11.bam
+2020-01-10 16:51:23,937 : [INFO] Saved data/ex2/snapfiles/snap_test11.bam_1_716347-716548.png
+2020-01-10 16:51:23,938 : [INFO] Saved data/ex2/bamsnap_index.html
+2020-01-10 16:51:23,939 : [INFO] Total running time: 12.4 sec
+2020-01-10 16:57:55,657 : [INFO] Processing position 1:715347-715548
+2020-01-10 16:57:56,021 : [INFO] Processing..data/test11.bam
+2020-01-10 16:58:00,129 : [INFO] Saved data/ex2/snapfiles/snap_test11.bam_1_715347-715548.png
+2020-01-10 16:58:00,129 : [INFO] Processing position 1:716347-716548
+2020-01-10 16:58:00,454 : [INFO] Processing..data/test11.bam
+2020-01-10 16:58:04,895 : [INFO] Saved data/ex2/snapfiles/snap_test11.bam_1_716347-716548.png
+2020-01-10 16:58:04,896 : [INFO] Saved data/ex2/bamsnap_index.html
+2020-01-10 16:58:04,896 : [INFO] Total running time: 9.2 sec

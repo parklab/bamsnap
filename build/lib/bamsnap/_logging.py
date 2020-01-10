@@ -2,9 +2,9 @@
 import logging
 
 _loggers = {}
-_silence_flag   = None
-_debug_flag     = None
-_logfile        = ""
+_silence_flag = None
+_debug_flag = None
+_logfile = ""
 
 
 def get_logger(silence=None, debug=None, logfile=""):
@@ -14,15 +14,15 @@ def get_logger(silence=None, debug=None, logfile=""):
     # print (debug)
     if name not in _loggers:
         _log = logging.getLogger(name)
-        
-        if silence != None:
+
+        if silence is not None:
             _silence_flag = silence
-        elif _silence_flag == None:
+        elif _silence_flag is None:
             _silence_flag = False
-        
-        if debug != None:
+
+        if debug is not None:
             _debug_flag = debug
-        elif _debug_flag == None:
+        elif _debug_flag is None:
             _debug_flag = False
 
         if _debug_flag:
