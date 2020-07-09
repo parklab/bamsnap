@@ -5,7 +5,7 @@ install_requires = [
     'pyfaidx>=0.5.3.1',
     'pysam>=0.11.2.2',
     'Pillow>=2.0.0',
-    'pytabix>=0.1'
+    'pytabix>=0.0.2'
 ]
 
 tests_require = [
