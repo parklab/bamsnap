@@ -1,4 +1,3 @@
-
 import logging
 
 _loggers = {}
@@ -10,7 +9,7 @@ _logfile = ""
 def get_logger(silence=None, debug=None, logfile=""):
     global _loggers, _silence_flag, _debug_flag, _logfile
 
-    name = "ppvmdr"
+    name = "bamsnap"
     # print (debug)
     if name not in _loggers:
         _log = logging.getLogger(name)

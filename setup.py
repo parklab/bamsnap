@@ -2,14 +2,10 @@
 from setuptools import setup, find_packages
 
 install_requires = [
-    # 'itertools', ### default pack in python3
-    # 'subprocess',
-    # 'multiprocessing',  ### only python2
     'pyfaidx>=0.5.3.1',
     'pysam>=0.11.2.2',
     'Pillow>=2.0.0',
-    'pyfasta>=0.5.2',
-    'numpy>=1.18.0'
+    'pytabix>=0.1'
 ]
 
 tests_require = [
@@ -19,13 +15,12 @@ tests_require = [
 
 extras_require = {
     'docs': [
-        'Sphinx>=1.1',
-        'numpydoc>=0.5'
+        'Sphinx>=1.1'
     ]
 }
 
 setup(name='bamsnap',
-      version='0.1.0',
+      version='0.2.0',
       url='https://github.com/danielmsk/bamsnap',
       license='MIT',
       author='Daniel Minseok Kwon',
@@ -37,7 +32,6 @@ setup(name='bamsnap',
           'Operating System :: OS Independent',
           'Topic :: Software Development :: Libraries',
           'License :: OSI Approved :: MIT License',
-          'Programming Language :: Python :: 2.7',
           'Programming Language :: Python :: 3.4',
           'Programming Language :: Python :: 3.5',
           'Programming Language :: Python :: 3.6',
@@ -53,7 +47,7 @@ setup(name='bamsnap',
       test_suite='nose.collector',
       # packages = ['.','templates'],
       package_data={
-          'bamsnap': ['templates/*'],
+          'bamsnap': ['templates/*', 'data/*'],
       },
       entry_points={
           'console_scripts': [

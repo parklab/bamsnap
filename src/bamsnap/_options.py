@@ -2,17 +2,14 @@
 import argparse
 import sys
 import os
-from . import conf
 from . import util
 
 NOPRINTOPTLIST = ['log', 'chrom', 'g_epos', 'g_spos']
 
 
 def postprocessing_option(opt):
-    if 'out' in opt.keys() and opt['out'] != "":
-        util.check_dir(opt['out'] + '/test')
     if 'out' in opt.keys() and (('logfile' not in opt.keys()) or (opt['logfile'] == "")):
-        opt['logfile'] = os.path.join(opt['out'], 'bamsnap.log')
+        opt['logfile'] = os.path.join(opt['out'] + '_bamsnap.log')
     return opt
 
 
@@ -34,8 +31,6 @@ def check_out_path(opt):
     if 'out' in opt.keys():
         util.check_dir(opt['out'])
 
-# TODO:
-
 
 def check_file(opt):
     flag = True
@@ -55,7 +50,10 @@ def print_option(opt):
     print("=======option=======")
     for k1 in sorted(opt.keys()):
         if k1 not in NOPRINTOPTLIST:
-            print('-' + k1 + " : " + str(opt[k1]))
+            if k1 == "poslist" and len(opt[k1]) >= 4:
+                print('-' + k1 + " : " + str(len(opt[k1])) + " variants")
+            else:
+                print('-' + k1 + " : " + str(opt[k1]))
     print("====================")
 
 
@@ -70,14 +68,15 @@ def set_pos_list(opt):
                 p1['chrom'] = arr[0].strip()
                 if '-' in arr[1]:
                     arr2 = arr[1].split('-')
-                    p1['t_spos'] = int(arr2[0]) - 1
-                    p1['t_epos'] = int(arr2[1])
+                    p1['t_spos'] = int(arr2[0])
+                    p1['t_epos'] = int(arr2[1]) + 1
                     if int(opt['margin']) > 0:
                         p1['g_spos'] = p1['t_spos'] - int(opt['margin'])
                         p1['g_epos'] = p1['t_epos'] + int(opt['margin'])
                 else:  # SNV
-                    p1['t_spos'] = int(arr[1]) - 1
-                    p1['t_epos'] = int(arr[1])
+                    p1['t_pos'] = int(arr[1])
+                    p1['t_spos'] = int(arr[1])
+                    p1['t_epos'] = int(arr[1]) + 1
                     p1['g_spos'] = p1['t_spos'] - int(opt['margin'])
                     p1['g_epos'] = p1['t_epos'] + int(opt['margin'])
                 poslist.append(p1)
@@ -91,8 +90,9 @@ def set_pos_list(opt):
                 arr[-1] = arr[-1].strip()
                 p1 = {}
                 p1['chrom'] = arr[0].strip()
-                p1['t_spos'] = int(arr[1]) - 1
-                p1['t_epos'] = int(arr[1])
+                p1['t_pos'] = int(arr[1])
+                p1['t_spos'] = int(arr[1])
+                p1['t_epos'] = int(arr[1]) + 1
                 p1['g_spos'] = p1['t_spos'] - int(opt['margin'])
                 p1['g_epos'] = p1['t_epos'] + int(opt['margin'])
                 poslist.append(p1)
@@ -105,8 +105,9 @@ def set_pos_list(opt):
                 arr[-1] = arr[-1].strip()
                 p1 = {}
                 p1['chrom'] = arr[0].strip()
-                p1['t_spos'] = int(arr[1]) - 1
-                p1['t_epos'] = int(arr[2])
+                p1['t_pos'] = int(arr[1])
+                p1['t_spos'] = int(arr[1])
+                p1['t_epos'] = int(arr[2]) + 1
                 p1['g_spos'] = p1['t_spos'] - int(opt['margin'])
                 p1['g_epos'] = p1['t_epos'] + int(opt['margin'])
                 poslist.append(p1)
@@ -143,53 +144,78 @@ def check_option(opt):
     if has_opt_error:
         return
 
+def convert_valuetype(typestr):
+    rsttype = None
+    if typestr is not None:
+        if typestr == "int":
+            rsttype = int
+        if typestr == "float":
+            rsttype = float
+    return rsttype
 
 def get_options():
-    parser = argparse.ArgumentParser(usage='%(prog)s <sub-command> [options]',
-                                     description='%(prog)s ver' + conf.VERSION + " (" + conf.VERSION_DATE + ")" + ': convert bam to image')
-    parser.add_argument('-v', '--version', action='version',
-                        version='%(prog)s ver' + conf.VERSION + " (" + conf.VERSION_DATE + ")")
+    confjson = util.load_json(util.getDataPath('conf.json'))
 
-    parser.add_argument('-bam', dest='bam', default=[], help='bam file', nargs="*")
-    parser.add_argument('-bamlist', dest='bamlist', default=None, help='list file with bam file paths')
-    parser.add_argument('-pos', dest='pos', default=[], nargs="*",
-                        help='genomic position (ex. 1:816687-818057, 12:7462545)')
-    parser.add_argument('-vcf', dest='vcf', default=None,
-                        help='list file with genomic positions with VCF format')
-    parser.add_argument('-bed', dest='bed', default=None,
-                        help='list file with genomic positions with BED format')
-    parser.add_argument('-out', dest='out', default='', help='title of output file')
-    parser.add_argument('-out_type', dest='out_type',
-                        choices=['png', 'jpg', 'image'], default='png', help='output file type')
-    parser.add_argument('-conf', dest='conf', default="", help='configuration file')
-    parser.add_argument('-ref', dest='ref', default="", help='Reference sequence fasta file (ex. hg19.fa)')
-    parser.add_argument('-width', dest='width', default=1000, type=int, help='image size : width (unit:px)')
-    parser.add_argument('-height', dest='height', default=None, help='image size : height (unit:px)')
-    parser.add_argument('-read_thickness', dest='read_thickness', default=5, type=int, help='read width (unit:px)')
-    parser.add_argument('-read_gap_h', dest='read_gap_h', default=2, type=int, help='read gap height (unit:px)')
-    parser.add_argument('-read_gap_w', dest='read_gap_w', default=2, type=int, help='read gap width (unit:px)')
-    parser.add_argument('-draw', dest='draw', default="coverage,heatmap,read",
-                        help='plot (default: -draw coverage,heatmap,read )')
-    parser.add_argument('-margin', dest='margin', default=200, type=int, help='genomic margin size')
-    parser.add_argument('-center_line', dest='center_line', default=False, help='draw center line')
-    parser.add_argument('-no_target_line', dest='no_target_line', default=False, help='do not draw target line')
+    parser = argparse.ArgumentParser(usage='%(prog)s <sub-command> [options]',
+                                     description='%(prog)s ver' + confjson['VERSION'] + " (" + confjson['VERSION_DATE'] + ")" + ': convert bam to image')
+    parser.add_argument('-v', '--version', action='version',
+                        version='%(prog)s ver' + confjson['VERSION'] + " (" + confjson['VERSION_DATE'] + ")")
+
+    for a1 in confjson['options']:
+        valuetype = convert_valuetype(a1['type'])
+        if a1['action'] is not None:
+            parser.add_argument('-' + a1['param'], default=a1['default'], help=a1['help'], action=a1['action'])
+        else:
+            parser.add_argument('-' + a1['param'], default=a1['default'], help=a1['help'], nargs=a1['nargs'], type=valuetype)
+
+    parser.add_argument('-silence', dest='silence', action="store_true", default=False, help='don\'t print any log.')
+    # parser.add_argument('-debug', dest='debug', action="store_true", default=False, help='turn on the debugging mode')
+    # parser.add_argument('-bam', dest='bam', default=[], help='bam file', nargs="*")
+    # parser.add_argument('-bamlist', dest='bamlist', default=None, help='list file with bam file paths')
+    # parser.add_argument('-title', dest='title', default=[], help='title (name) of bam file(s)', nargs="*")
+    # parser.add_argument('-pos', dest='pos', default=[], nargs="*",
+    #                     help='genomic position (ex. 1:816687-818057, 12:7462545)')
+    # parser.add_argument('-vcf', dest='vcf', default=None,
+    #                     help='list file with genomic positions with VCF format')
+    # parser.add_argument('-bed', dest='bed', default=None,
+    #                     help='list file with genomic positions with BED format')
+    # parser.add_argument('-out', dest='out', default='', help='title of output file')
+    # parser.add_argument('-out_type', dest='out_type',
+    #                     choices=['png', 'jpg'], default='png', help='output file type')
+    # parser.add_argument('-conf', dest='conf', default="", help='configuration file')
+    # parser.add_argument('-ref', dest='ref', default="", help='Reference sequence fasta file (ex. hg19.fa)')
+    # parser.add_argument('-width', dest='width', default=1000, type=int, help='image size : width (unit:px)')
+    # parser.add_argument('-height', dest='height', default=None, help='image size : height (unit:px)')
+    # parser.add_argument('-read_thickness', dest='read_thickness', default=5, type=int, help='read width (unit:px)')
+    # parser.add_argument('-read_gap_h', dest='read_gap_h', default=2, type=int, help='read gap height (unit:px)')
+    # parser.add_argument('-read_gap_w', dest='read_gap_w', default=2, type=int, help='read gap width (unit:px)')
+    # parser.add_argument('-draw', dest='draw', default="coverage,base,heatmap,read",
+    #                     help='plot (default: -draw coverage,heatmap,read )')
+    # parser.add_argument('-margin', dest='margin', default=200, type=int, help='genomic margin size')
+    # parser.add_argument('-center_line', dest='center_line', default=False, action="store_true", help='draw center line')
+    # parser.add_argument('-no_target_line', dest='no_target_line', default=False, action="store_true", help='do not draw target line')
 
     # coverage plot option
     # parser.add_argument('-draw_coverage_plot', dest='draw_coverage_plot',action="store_true", default=False, help='draw coverage plot')
-    parser.add_argument('-coverage_height', dest='coverage_height', default=40, type=int, help='coverage plot height')
-    parser.add_argument('-coverage_vaf', dest='coverage_vaf', default=10, type=float,
-                        help='coverage variant allele fraction threshold (unit:%%)')
+    # parser.add_argument('-base_height', dest='base_height', default=40, type=int, help='base plot height')
+
+    # parser.add_argument('-coverage_height', dest='coverage_height', default=40, type=int, help='coverage plot height')
+    # parser.add_argument('-coverage_vaf', dest='coverage_vaf', default=10, type=float,
+    #                     help='coverage variant allele fraction threshold (unit:%%)')
 
     # coverage heatmap height
     # parser.add_argument('-draw_heatmap', dest='draw_heatmap', action="store_true", default=False, help='draw heatmap')
-    parser.add_argument('-heatmap_height', dest='heatmap_height', default=5, type=int, help='coverage heatmap height')
+    # parser.add_argument('-heatmap_height', dest='heatmap_height', default=5, type=int, help='coverage heatmap height')
+
+    # parser.add_argument('-no_label', dest='no_label', default=False, action="store_true", help='do not draw label.')
+
+    # parser.add_argument('-no_coordinate', dest='no_coordinate', default=False, action="store_true", help='do not draw coordinate.')
+    # parser.add_argument('-coordinate_height', dest='coordinate_height', default=20, type=int, help='coordinate height')
 
     # parser.add_argument('-draw_read', dest='draw_read_plot',action="store_true", default=False, help='draw read plot')
-    parser.add_argument('-draw_gene', dest='draw_gene', default=True, help='draw gene structure')
-    parser.add_argument('-merged_image', dest='merged_image', default=False, help='draw a merged plot')
-    parser.add_argument('-colormap', dest='colormap', default=None, help='colormap file')
-    parser.add_argument('-silence', dest='silence', action="store_true", default=False, help='don\'t print any log.')
-    parser.add_argument('-debug', dest='debug', action="store_true", default=False, help='turn on the debugging mode')
+    # parser.add_argument('-no_geneplot', dest='no_geneplot', action="store_true", default=False, help='do not draw gene structure')
+    # parser.add_argument('-geneplot_height', dest='geneplot_height', default=50, type=int, help='gene plot height')
+    # parser.add_argument('-merged_image', dest='merged_image', default=False, action="store_true", help='draw a merged plot')
 
     if len(sys.argv) == 1 or (len(sys.argv) == 2 and sys.argv[1][0] != '-'):
         sys.argv.append('-h')

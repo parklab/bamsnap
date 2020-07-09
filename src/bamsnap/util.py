@@ -2,6 +2,8 @@ import os
 import sys
 import time
 import bamsnap
+import json
+from PIL import ImageColor
 if (sys.version_info > (3, 0)):
     from html.parser import HTMLParser
     from urllib.parse import urlparse
@@ -10,11 +12,52 @@ else:
     from HTMLParser import HTMLParser
     import urlparse
 
+def init_dict(dict1, key1):
+    try:
+        dict1[key1]
+    except KeyError:
+        dict1[key1] = {}
+    return dict1
+
+
+def add_dict_value(dict1, key1, add_vale=1):
+    try:
+        dict1[key1] += add_vale
+    except KeyError:
+        dict1[key1] = add_vale
+    return dict1
+
+def get_scale(x1, x2, width):
+    scale = 1.0 * width / abs(x2 - x1)
+    return scale
+
+def getrgb(hexcode, whitening=0):
+    rgb = ImageColor.getrgb("#" + hexcode)
+    if whitening > 0:
+        rgb = (rgb[0] + whitening, rgb[1] + whitening, rgb[2] + whitening)
+    return rgb
+
+
+def convert_int_list(strlist):
+    intlist = []
+    for s1 in strlist:
+        if s1 != '':
+            intlist.append(int(s1))
+    return intlist
+
+def comma(value):
+    return "{:,}".format(value)
 
 def mkDir(dpath):
     if not os.path.isdir(dpath):
         os.mkdir(dpath)
 
+def decodeb(bstr):
+    if type(bstr)== type(b'a'):
+        rst = bstr.decode('UTF-8')
+    else:
+        rst = bstr
+    return rst
 
 def check_dir(fname):
     if fname[0] != '/' and fname[0] != '.':
@@ -38,6 +81,7 @@ def fileSave(path, cont, opt, gzip_flag="n"):
         f = open(path, opt)
         f.write(cont)
         f.close
+
 
 
 def fileOpen(path):
@@ -86,3 +130,12 @@ def getPath():
 
 def getTemplatePath(tempfile):
     return (os.path.join(bamsnap.__path__[0], 'templates', tempfile))
+
+def getDataPath(datafile):
+    return (os.path.join(bamsnap.__path__[0], 'data', datafile))
+
+def load_json(jsonfile):
+    ds = ""
+    with open(jsonfile) as jfp:
+        ds = json.load(jfp)
+    return ds

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: bamsnap
-Version: 0.1.0
+Version: 0.2.0
 Summary: A converter from .bam to .png for specific genomic region.
 Home-page: https://github.com/danielmsk/bamsnap
 Author: Daniel Minseok Kwon
@@ -83,7 +83,12 @@ Description: # <img src="https://bampdx.com/wp-content/uploads/2015/12/BAMPDX-lo
         bamsnap -bam data/test11.bam -bed data/region.bed -out data/ex2
         bamsnap -bamlist data/bamlist.txt -pos 1:817187 1:817848 -out data/ex3
         bamsnap -bamlist data/bamlist.txt -bed data/region2.bed -out data/ex4
+        bamsnap -bam data/test11.bam -pos 1:715348 -out data/ex1 -draw_gene 
         ```
+        
+        
+        
+        
         
         
         
@@ -95,8 +100,6 @@ Platform: UNKNOWN
 Classifier: Operating System :: OS Independent
 Classifier: Topic :: Software Development :: Libraries
 Classifier: License :: OSI Approved :: MIT License
-Classifier: Programming Language :: Python :: 2.7
-Classifier: Programming Language :: Python :: 3.4
 Classifier: Programming Language :: Python :: 3.5
 Classifier: Programming Language :: Python :: 3.6
 Description-Content-Type: text/markdown
