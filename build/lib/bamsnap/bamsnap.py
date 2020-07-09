@@ -407,7 +407,7 @@ class BamSnap():
                                       str(pos1['t_spos'])+'-'+str(pos1['t_epos']) + ": " + str(round(t13-t11, 5)) +
                                       ' sec')
         t2 = time.time()
-        if not self.is_single_image_out:
+        if not self.is_single_image_out and not self.opt['save_image_only']:
             self.save_html()
 
         self.opt['log'].debug('Total running time for getting reference sequence (set_refseq): ' +

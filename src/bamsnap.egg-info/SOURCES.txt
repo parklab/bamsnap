@@ -24,7 +24,6 @@ src/bamsnap.egg-info/requires.txt
 src/bamsnap.egg-info/top_level.txt
 src/bamsnap/data/Homo_sapiens.GRCh38.99.bed.gz
 src/bamsnap/data/Homo_sapiens.GRCh38.99.bed.gz.tbi
-src/bamsnap/data/Homo_sapiens.GRCh38.99.gtf.gz
 src/bamsnap/data/Homo_sapiens.GRCh38.99.single_transcript.bed.gz
 src/bamsnap/data/Homo_sapiens.GRCh38.99.single_transcript.bed.gz.tbi
 src/bamsnap/data/conf.json
