@@ -2,6 +2,7 @@ import os
 import time
 from PIL import Image, ImageDraw, ImageColor, ImageOps, ImageFont
 from pyfaidx import Fasta
+from zipfile import ZipFile
 from .drawreadset import DrawReadSet, CoveragePlot, CoverageHeatmap
 from .coordinates import COORDINATES
 from .geneplot import GenePlot
@@ -376,6 +377,16 @@ class BamSnap():
 
         ia = self.add_margin_to_image(ia, self.opt['plot_margin_left'], self.opt['plot_margin_top'], self.opt['plot_margin_right'], self.opt['plot_margin_bottom'])
         self.save_image(ia, bamlist[0], pos1)
+    
+    def generate_zipfile(self):
+        outzip = self.opt['out'] + '.zip'
+        zo = ZipFile(outzip, 'w')
+        for folderName, subfolders, filenames in os.walk(self.opt['out']):
+            for filename in filenames:
+                filePath = os.path.join(folderName, filename)
+                zo.write(filePath, filePath)
+        zo.close()
+        self.opt['log'].info('Saved ' + outzip)
         
 
     def run(self):
@@ -407,8 +418,11 @@ class BamSnap():
                                       str(pos1['t_spos'])+'-'+str(pos1['t_epos']) + ": " + str(round(t13-t11, 5)) +
                                       ' sec')
         t2 = time.time()
-        if not self.is_single_image_out and not self.opt['save_image_only']:
-            self.save_html()
+        if not self.is_single_image_out:
+            if not self.opt['save_image_only']:
+                self.save_html()
+            if self.opt['zipout']:
+                self.generate_zipfile()
 
         self.opt['log'].debug('Total running time for getting reference sequence (set_refseq): ' +
                               str(round(timemap['set_refseq'], 3))+' sec')
