@@ -14,14 +14,14 @@ from .conf import COLOR, IMAGE_MARGIN_BOTTOM
 
 
 class BamSnap():
-    has_opt_error = False
-    bamlist = []
-    refseq = {}
-    outfnamelist = []
 
     def __init__(self, opt):
         self.opt = opt
         self.font = {}
+        self.bamlist = []
+        self.refseq = {}
+        self.outfnamelist = []
+        self.has_opt_error = False
         self.is_single_image_out = False
         self.drawplot = self.opt['draw']
         self.bamplot = self.opt['bamplot']
