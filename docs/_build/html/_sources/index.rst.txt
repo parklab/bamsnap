@@ -6,29 +6,27 @@
 BamSnap
 =======
 
-Installation
-------------
-**Prerequisites**
+BamSnap is a high-performance visualization tool for aligned BAM file based on command-line interface.
 
-* python 3.0+
-* [Pillow (Python Imaging Library)][pil] (5.0.0+)
-* [pysam][ps] (1.8.1+)
-* pyfasta
 
+Quick run
+---------
 .. code:: console
 
-  $ bamsnap -bam test.bam -pos 1:7364529 -out outpath
+  $ pip install bamsnap
+  $ bamsnap -bam test.bam -pos chr1:7364529 -out test.bam.png
 
+
+You can find more BamSnap examples and commands in `gallary <gallary.html>`_.
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 4
+   :caption: Contents
 
-
-
-Indices and tables
-==================
-
+   installation
+   gallary
+   version_history
+   
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`

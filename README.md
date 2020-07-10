@@ -27,8 +27,7 @@ pip install bamsnap
 ```
 git clone https://github.com/parklab/bamsnap
 cd bamsnap
-python setup.py sdist bdist_wheel
-pip install ./dist/bamsnap-O.O.O-py3-none-any.whl
+python setup.py install
 ```
 
 ## Usage

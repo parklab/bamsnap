@@ -93,7 +93,8 @@ class BamSnap():
     def set_refseq_from_ucsc(self, pos1):
         spos = pos1['g_spos']-self.opt['margin'] - 500
         epos = pos1['g_epos']+self.opt['margin'] + 1 + 500
-        seqver = "hg38"
+        # seqver = "hg38"
+        seqver = self.opt['refversion']
         if not pos1['chrom'].startswith('chr'):
             chrom = 'chr' + pos1['chrom']
         else:
@@ -139,8 +140,10 @@ class BamSnap():
         return ia
 
     def save_image(self, ia, bam, pos1):
+        imgtitle = ""
         if self.is_single_image_out:
             outfname = self.opt['out']
+            imgtitle = outfname
             u = outfname.upper()
             if not (u.endswith('.JPG') or u.endswith('.JPEG') or u.endswith('.PNG')):
                 outfname += '.' + self.opt['imagetype']
@@ -151,7 +154,7 @@ class BamSnap():
                 path = os.path.join(self.opt['out'], self.opt['image_dir_name'])
 
             bamtitle = bam.title.replace(' ', '_').replace('#', '_')
-            imgtitle = ""
+            
             if self.opt['separated_bam']:
                 imgtitle = bamtitle + '_'
 
@@ -183,11 +186,6 @@ class BamSnap():
         cont = cont.replace('##BAMSNAPIMAGES##', cont_bamsnapimages)
         fileSave(out, cont, 'w')
         self.opt['log'].info('Saved '+out)
-
-    def draw_gene(self, dr, panel_xy, chrom, spos, epos):
-        geneplot = GenePlot(chrom, spos, epos )
-        geneplot.draw(dr, panel_xy)
-
 
     def get_title_image(self, title, w, fontsize):
         margin = 10
@@ -303,7 +301,7 @@ class BamSnap():
         return ia
 
     def append_geneplot_image(self, ia, pos1, image_w):
-        geneplot = GenePlot(pos1['chrom'], pos1['g_spos'], pos1['g_epos'], self.xscale, image_w, show_transcript=True)
+        geneplot = GenePlot(pos1['chrom'], pos1['g_spos'], pos1['g_epos'], self.xscale, image_w, self.opt['refversion'], show_transcript=True)
         geneplot.font = self.get_font(self.opt['gene_fontsize'])
         geneplot.gene_pos_color = self.opt['gene_pos_color']
         geneplot.gene_neg_color = self.opt['gene_neg_color']

@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'BamSnap'
-copyright = '2020, Daniel Minseok Kwon'
+copyright = '2020'
 author = 'Daniel Minseok Kwon'
 
 
@@ -27,8 +27,7 @@ author = 'Daniel Minseok Kwon'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
-]
+extensions = ['sphinx_rtd_theme', 'sphinx.ext.autodoc']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

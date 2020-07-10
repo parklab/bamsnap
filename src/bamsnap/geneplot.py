@@ -76,14 +76,14 @@ class TranscriptAnnot():
 
 
 class GenePlot():
-    def __init__(self, chrom, spos, epos, xscale, w, show_transcript = True):
+    def __init__(self, chrom, spos, epos, xscale, w, refversion="hg38", show_transcript = True):
         self.chrom = chrom
         self.nchrom = chrom.replace('chr', '')
         self.spos = spos
         self.epos = epos
         self.g_len = self.epos - self.spos + 1
         self.font = None
-        self.gene_annot_file = getDataPath('Homo_sapiens.GRCh38.99.bed.gz')
+        self.gene_annot_file = getDataPath('Homo_sapiens.'+refversion.replace("hg","GRCh")+'.99.bed.gz')
         self.gene_annot_tb = tabix.open(self.gene_annot_file)
         self.gene_annot_header = []
         self.gene_annot = []

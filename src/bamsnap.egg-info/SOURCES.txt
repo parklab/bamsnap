@@ -22,10 +22,10 @@ src/bamsnap.egg-info/entry_points.txt
 src/bamsnap.egg-info/not-zip-safe
 src/bamsnap.egg-info/requires.txt
 src/bamsnap.egg-info/top_level.txt
+src/bamsnap/data/Homo_sapiens.GRCh37.87.bed.gz
+src/bamsnap/data/Homo_sapiens.GRCh37.87.bed.gz.tbi
 src/bamsnap/data/Homo_sapiens.GRCh38.99.bed.gz
 src/bamsnap/data/Homo_sapiens.GRCh38.99.bed.gz.tbi
-src/bamsnap/data/Homo_sapiens.GRCh38.99.single_transcript.bed.gz
-src/bamsnap/data/Homo_sapiens.GRCh38.99.single_transcript.bed.gz.tbi
 src/bamsnap/data/conf.json
 src/bamsnap/data/preproc_EnsembleGene_gtf2bed.py
 src/bamsnap/templates/VeraMono-Bold.ttf
