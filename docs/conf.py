@@ -19,7 +19,7 @@
 
 project = 'BamSnap'
 copyright = '2020'
-author = 'Daniel Minseok Kwon'
+author = 'Harvard Medical School'
 
 
 # -- General configuration ---------------------------------------------------
@@ -28,6 +28,10 @@ author = 'Daniel Minseok Kwon'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = ['sphinx_rtd_theme', 'sphinx.ext.autodoc']
+
+
+# The master toctree document.
+master_doc = 'index'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
