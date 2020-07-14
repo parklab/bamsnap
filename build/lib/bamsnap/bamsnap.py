@@ -14,14 +14,14 @@ from .conf import COLOR, IMAGE_MARGIN_BOTTOM
 
 
 class BamSnap():
-    has_opt_error = False
-    bamlist = []
-    refseq = {}
-    outfnamelist = []
 
     def __init__(self, opt):
         self.opt = opt
         self.font = {}
+        self.bamlist = []
+        self.refseq = {}
+        self.outfnamelist = []
+        self.has_opt_error = False
         self.is_single_image_out = False
         self.drawplot = self.opt['draw']
         self.bamplot = self.opt['bamplot']
@@ -140,8 +140,10 @@ class BamSnap():
         return ia
 
     def save_image(self, ia, bam, pos1):
+        imgtitle = ""
         if self.is_single_image_out:
             outfname = self.opt['out']
+            imgtitle = outfname
             u = outfname.upper()
             if not (u.endswith('.JPG') or u.endswith('.JPEG') or u.endswith('.PNG')):
                 outfname += '.' + self.opt['imagetype']
@@ -152,7 +154,7 @@ class BamSnap():
                 path = os.path.join(self.opt['out'], self.opt['image_dir_name'])
 
             bamtitle = bam.title.replace(' ', '_').replace('#', '_')
-            imgtitle = ""
+            
             if self.opt['separated_bam']:
                 imgtitle = bamtitle + '_'
 
@@ -328,8 +330,8 @@ class BamSnap():
                     ia_sub = self.get_bamplot_image(bam, pos1, image_w)
                     ia = self.append_image(ia, ia_sub)
 
-                    if not self.opt['border']:
-                        ia_sub = self.get_image_seperator(image_w, 30)
+                    if not self.opt['border'] and self.opt['separator_height'] > 0:
+                        ia_sub = self.get_image_seperator(image_w, self.opt['separator_height'])
                         ia = self.append_image(ia, ia_sub)
 
             if plot1 == "gene":

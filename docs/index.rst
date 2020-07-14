@@ -8,6 +8,8 @@ BamSnap
 
 BamSnap is a high-performance visualization tool for aligned BAM file based on command-line interface.
 
+.. image:: https://raw.githubusercontent.com/parklab/bamsnap/master/tests/out/NATRIO_chr10_117542948.png
+   :width: 100 %
 
 Quick run
 ---------
@@ -25,8 +27,10 @@ You can find more BamSnap examples and commands in `gallary <gallary.html>`_.
 
    installation
    gallary
+   base_plot
+   read_group
    version_history
-   
+
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`

@@ -24,6 +24,8 @@ class BasePlot():
 
     def draw(self, dr):
         y = self.h - 1
+        y1 = 0
+        y2 = y
         x1 = 0
         x2 = self.w
 
@@ -32,12 +34,35 @@ class BasePlot():
         dr.line([(x1, yi), (x2, yi)], fill=COLOR['SEPARATE'], width=1)
         dr.line([(x1, yi+h), (x2, yi+h)], fill=COLOR['SEPARATE'], width=1)
 
+        vcls = ""
         for i in range(self.g_len):
             posi = self.spos + i
             base = self.refseq[posi]
             # x1 = int(i * self.scale_x) + int(self.scale_x/2) - int(fontsize[0]/2)
-            xi = self.xscale.xmap[posi]['cpos'] - int(self.fontsize[0]/2)
-            dr.text((xi, yi), base, font=self.font, fill=COLOR['d'+base])
+            x1 = self.xscale.xmap[posi]['spos']
+            x2 = self.xscale.xmap[posi]['epos']
+            if vcls == "":
+                if (x2 - x1) > self.fontsize[0] + 5:
+                    vcls = "textoutline"
+                elif (x2 - x1) > self.fontsize[0]:
+                    vcls = "text"
+                elif (x2 - x1) >= 3:
+                    vcls = "outline"
+                else:
+                    vcls = "fill"
+
+            if vcls == "textoutline":
+                xi = self.xscale.xmap[posi]['cpos'] - int(self.fontsize[0]/2)
+                dr.rectangle([(x1, y1), (x2, y2)], fill=(255,255,255,255), outline=COLOR['w'+base], width=1)
+                dr.text((xi, yi), base, font=self.font, fill=COLOR['d'+base])
+            elif vcls == "text":
+                xi = self.xscale.xmap[posi]['cpos'] - int(self.fontsize[0]/2)
+                dr.text((xi, yi), base, font=self.font, fill=COLOR['d'+base])
+            elif vcls == "outline":
+                dr.rectangle([(x1, y1), (x2, y2)], fill=COLOR[base], outline=COLOR['w'+base], width=1)
+            else:
+                dr.rectangle([(x1, y1), (x2, y2)], fill=COLOR[base], width=0)
+
 
     def set_height(self):
         self.fontsize = self.font.getsize('C')

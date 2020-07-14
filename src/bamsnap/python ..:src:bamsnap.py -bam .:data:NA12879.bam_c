@@ -1,0 +1,12 @@
+python ../src/bamsnap.py -bam ./data/NA12879.bam_chr10_117542947.bam \
+    -title "NA12879 (Daughter)" \
+    -draw bamplot \
+    -bamplot coverage base \
+    -pos chr10:117542948 \
+    -separator_height 5 \
+    -margin 500 \
+    -no_title \
+    -width 700 \
+    -plot_margin_top 0 \
+    -plot_margin_bottom 0 \
+    -out ./out/NATRIO_chr10_117542948_2.png

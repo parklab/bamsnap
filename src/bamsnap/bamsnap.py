@@ -330,8 +330,8 @@ class BamSnap():
                     ia_sub = self.get_bamplot_image(bam, pos1, image_w)
                     ia = self.append_image(ia, ia_sub)
 
-                    if not self.opt['border']:
-                        ia_sub = self.get_image_seperator(image_w, 30)
+                    if not self.opt['border'] and self.opt['separator_height'] > 0:
+                        ia_sub = self.get_image_seperator(image_w, self.opt['separator_height'])
                         ia = self.append_image(ia, ia_sub)
 
             if plot1 == "gene":

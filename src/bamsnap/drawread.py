@@ -232,6 +232,8 @@ class DrawRead():
                     alt = self.readseqpos[gpos]
                     x1 = self.xscale.xmap[gpos]['spos']
                     x2 = self.xscale.xmap[gpos]['epos']
+                    if x1 == x2:
+                        x2 = x1 + 1
                     dr.line([(x1, y1 ), (x2, y1 )], fill=COLOR[color_tag+alt], width=self.read_thickness)
 
                 i += 1
