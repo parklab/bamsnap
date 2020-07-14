@@ -14,6 +14,8 @@ Prerequisites
 Install with pypi
 -----------------
 
+To install **BamSnap**, open a shell and run:
+
 .. code:: console
 
   $ pip install bamsnap

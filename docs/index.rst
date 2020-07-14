@@ -21,13 +21,22 @@ Quick run
 
 You can find more BamSnap examples and commands in `gallary <gallary.html>`_.
 
+
+Contents
+--------
+
 .. toctree::
    :maxdepth: 4
-   :caption: Contents
 
    installation
    gallary
+   options
+   input
+   output
+   coverage_plot
+   read_plot
    base_plot
+   gene_plot
    read_group
    version_history
 

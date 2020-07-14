@@ -2,6 +2,8 @@ Base plot (-draw base, -bamplot base)
 =====================================
 
 
+Base plot has three types. 
+
 .. image:: https://raw.githubusercontent.com/parklab/bamsnap/master/tests/out/NATRIO_chr10_117542948_baseplot_ex1.png
    :width: 100 %
 
