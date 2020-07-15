@@ -1,7 +1,7 @@
 {
     "TITLE":"BAMSNAP",
-    "VERSION":"0.2.3",
-    "VERSION_DATE":"2020-07-13",
+    "VERSION":"0.2.4",
+    "VERSION_DATE":"2020-07-15",
     "PROG":"bamsnap",
     "options":[
         {"param":"bam", "default":[], "nargs":"*", "action": null, "choices":null, "type":null, "help":"bam file(s)"},

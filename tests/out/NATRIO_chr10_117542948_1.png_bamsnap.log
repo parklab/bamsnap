@@ -428,3 +428,33 @@
 2020-07-15 10:09:20,979 : [INFO] Processing.. NA12879 (Daughter)
 2020-07-15 10:09:21,148 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex3.png
 2020-07-15 10:09:21,148 : [INFO] Total running time: 0.4 sec
+2020-07-15 10:35:39,951 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:35:39,969 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:35:40,404 : [INFO] Saved ./out/NATRIO_chr10_117542948_1.png
+2020-07-15 10:35:40,405 : [INFO] Total running time: 0.5 sec
+2020-07-15 10:35:40,413 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:35:40,644 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:35:42,903 : [INFO] Saved ./out/NATRIO_chr10_117542948_2.png
+2020-07-15 10:35:42,903 : [INFO] Total running time: 2.5 sec
+2020-07-15 10:35:42,911 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:35:43,128 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:35:43,554 : [INFO] Saved ./out/NATRIO_chr10_117542948.png
+2020-07-15 10:35:43,555 : [INFO] Total running time: 0.6 sec
+2020-07-15 10:35:43,561 : [INFO] Processing position chr9:114786933-114786934
+2020-07-15 10:35:43,781 : [INFO] Processing.. NA12877 (Father)
+2020-07-15 10:35:44,240 : [INFO] Processing.. NA12878 (Mother)
+2020-07-15 10:35:44,741 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:35:45,611 : [INFO] Saved ./out/NATRIO_chr9_114786933.png
+2020-07-15 10:35:45,612 : [INFO] Total running time: 2.1 sec
+2020-07-15 10:35:45,620 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:35:45,833 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:35:47,782 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex1.png
+2020-07-15 10:35:47,782 : [INFO] Total running time: 2.2 sec
+2020-07-15 10:35:47,789 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:35:48,008 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:35:48,274 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex2.png
+2020-07-15 10:35:48,274 : [INFO] Total running time: 0.5 sec
+2020-07-15 10:35:48,281 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:35:48,501 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:35:48,675 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex3.png
+2020-07-15 10:35:48,675 : [INFO] Total running time: 0.4 sec

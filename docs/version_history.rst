@@ -4,10 +4,11 @@ Version History
 v0.2
 ----
 
-0.2.3 (2020.07.15):
+0.2.4 (2020.07.15):
 	- fix bug in version number
 	- add separator height option
 	- add -ref_index_rebuild option (to prevent to rebuild a fasta index file ,when the fasta index file is older than the fasta file.)
+	- update documentation
 
 0.2.2 (2020.07.09):
 	- debug typo

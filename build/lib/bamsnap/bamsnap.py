@@ -116,7 +116,6 @@ class BamSnap():
     def set_refseq_from_localfasta(self, pos1):
         spos = pos1['g_spos']-self.opt['margin'] - 500
         epos = pos1['g_epos']+self.opt['margin']+1 + 500
-        print(self.opt.keys())
         seq = self.get_refseq(self.opt['ref'], pos1['chrom'], spos, epos, self.opt['ref_index_rebuild'])
         i = 0
         for gpos in range(spos, epos):
