@@ -116,14 +116,14 @@ class BamSnap():
     def set_refseq_from_localfasta(self, pos1):
         spos = pos1['g_spos']-self.opt['margin'] - 500
         epos = pos1['g_epos']+self.opt['margin']+1 + 500
-        seq = self.get_refseq(self.opt['ref'], pos1['chrom'], spos, epos)
+        seq = self.get_refseq(self.opt['ref'], pos1['chrom'], spos, epos, self.opt['ref_index_rebuild'])
         i = 0
         for gpos in range(spos, epos):
             self.refseq[gpos+1] = seq[i]
             i += 1
 
-    def get_refseq(self, ref, chrom, spos, epos):
-        f = Fasta(ref, rebuild=False)
+    def get_refseq(self, ref, chrom, spos, epos, rebuild_index=False):
+        f = Fasta(ref, rebuild=rebuild_index)
         fastachrommap = {}
         for c1 in list(f.keys()):
             arr = c1.split(' ')

@@ -14,6 +14,7 @@
         {"param":"imagetype", "default":"png", "nargs":null, "action":null, "choices":["png", "jpg"], "type":null, "help":"output file type"},
         {"param":"conf", "default":"", "nargs":null, "action":null, "choices":null, "type":null, "help":"configuration file"},
         {"param":"ref", "default":"", "nargs":null, "action":null, "choices":null, "type":null, "help":"Reference sequence fasta file (ex. hg19.fa)"},
+        {"param":"ref_index_rebuild", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"if you want to rebuild fasta index file (.fai), when it is older than the fasta file. (Default: false)"},
         {"param":"refversion", "default":"hg38", "nargs":null, "action":null, "choices":["hg19", "hg38"], "type":null, "help":"Reference version (default: hg38)"},
         {"param":"save_image_only", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"save image only"},
         {"param":"image_dir_name", "default":"bamsnap_images", "nargs":null, "action":null, "choices":null, "type":null, "help":"image directory name"},

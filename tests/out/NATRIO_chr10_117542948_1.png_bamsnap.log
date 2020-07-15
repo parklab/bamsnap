@@ -299,3 +299,132 @@
 2020-07-15 09:43:30,926 : [INFO] Processing.. NA12879 (Daughter)
 2020-07-15 09:43:31,094 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex3.png
 2020-07-15 09:43:31,094 : [INFO] Total running time: 0.4 sec
+2020-07-15 09:46:08,437 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 09:46:08,454 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 09:46:08,881 : [INFO] Saved ./out/NATRIO_chr10_117542948_1.png
+2020-07-15 09:46:08,882 : [INFO] Total running time: 0.4 sec
+2020-07-15 09:46:08,889 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 09:46:09,122 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 09:46:11,318 : [INFO] Saved ./out/NATRIO_chr10_117542948_2.png
+2020-07-15 09:46:11,319 : [INFO] Total running time: 2.4 sec
+2020-07-15 09:46:11,325 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 09:46:11,545 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 09:46:11,960 : [INFO] Saved ./out/NATRIO_chr10_117542948.png
+2020-07-15 09:46:11,961 : [INFO] Total running time: 0.6 sec
+2020-07-15 09:46:11,968 : [INFO] Processing position chr9:114786933-114786934
+2020-07-15 09:46:12,190 : [INFO] Processing.. NA12877 (Father)
+2020-07-15 09:46:12,627 : [INFO] Processing.. NA12878 (Mother)
+2020-07-15 09:46:13,107 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 09:46:13,948 : [INFO] Saved ./out/NATRIO_chr9_114786933.png
+2020-07-15 09:46:13,949 : [INFO] Total running time: 2.0 sec
+2020-07-15 09:46:13,957 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 09:46:14,188 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 09:46:16,031 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex1.png
+2020-07-15 09:46:16,032 : [INFO] Total running time: 2.1 sec
+2020-07-15 09:46:16,038 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 09:46:16,258 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 09:46:16,513 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex2.png
+2020-07-15 09:46:16,513 : [INFO] Total running time: 0.5 sec
+2020-07-15 09:46:16,519 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 09:46:16,733 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 09:46:16,899 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex3.png
+2020-07-15 09:46:16,899 : [INFO] Total running time: 0.4 sec
+2020-07-15 09:54:27,816 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 09:55:28,344 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 09:57:00,538 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 09:58:33,771 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:01:25,883 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:01:46,940 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:04:28,082 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:04:55,966 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:05:13,621 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:05:49,256 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:05:49,273 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:05:49,696 : [INFO] Saved ./out/NATRIO_chr10_117542948_1.png
+2020-07-15 10:05:49,697 : [INFO] Total running time: 0.4 sec
+2020-07-15 10:05:49,705 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:05:49,928 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:05:52,101 : [INFO] Saved ./out/NATRIO_chr10_117542948_2.png
+2020-07-15 10:05:52,102 : [INFO] Total running time: 2.4 sec
+2020-07-15 10:05:52,108 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:05:52,338 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:05:52,747 : [INFO] Saved ./out/NATRIO_chr10_117542948.png
+2020-07-15 10:05:52,747 : [INFO] Total running time: 0.6 sec
+2020-07-15 10:05:52,754 : [INFO] Processing position chr9:114786933-114786934
+2020-07-15 10:05:52,989 : [INFO] Processing.. NA12877 (Father)
+2020-07-15 10:05:53,427 : [INFO] Processing.. NA12878 (Mother)
+2020-07-15 10:05:53,909 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:05:54,761 : [INFO] Saved ./out/NATRIO_chr9_114786933.png
+2020-07-15 10:05:54,762 : [INFO] Total running time: 2.0 sec
+2020-07-15 10:05:54,771 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:05:54,981 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:05:56,831 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex1.png
+2020-07-15 10:05:56,832 : [INFO] Total running time: 2.1 sec
+2020-07-15 10:05:56,838 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:05:57,051 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:05:57,305 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex2.png
+2020-07-15 10:05:57,305 : [INFO] Total running time: 0.5 sec
+2020-07-15 10:05:57,312 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:05:57,530 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:05:57,697 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex3.png
+2020-07-15 10:05:57,697 : [INFO] Total running time: 0.4 sec
+2020-07-15 10:06:13,991 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:06:14,009 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:06:14,434 : [INFO] Saved ./out/NATRIO_chr10_117542948_1.png
+2020-07-15 10:06:14,434 : [INFO] Total running time: 0.4 sec
+2020-07-15 10:06:14,442 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:06:14,668 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:06:16,864 : [INFO] Saved ./out/NATRIO_chr10_117542948_2.png
+2020-07-15 10:06:16,865 : [INFO] Total running time: 2.4 sec
+2020-07-15 10:06:16,871 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:06:17,107 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:06:17,517 : [INFO] Saved ./out/NATRIO_chr10_117542948.png
+2020-07-15 10:06:17,517 : [INFO] Total running time: 0.6 sec
+2020-07-15 10:06:17,524 : [INFO] Processing position chr9:114786933-114786934
+2020-07-15 10:06:17,752 : [INFO] Processing.. NA12877 (Father)
+2020-07-15 10:06:18,286 : [INFO] Processing.. NA12878 (Mother)
+2020-07-15 10:06:18,775 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:06:19,663 : [INFO] Saved ./out/NATRIO_chr9_114786933.png
+2020-07-15 10:06:19,665 : [INFO] Total running time: 2.1 sec
+2020-07-15 10:06:19,673 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:06:19,877 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:06:21,792 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex1.png
+2020-07-15 10:06:21,792 : [INFO] Total running time: 2.1 sec
+2020-07-15 10:06:21,798 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:06:22,019 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:06:22,283 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex2.png
+2020-07-15 10:06:22,284 : [INFO] Total running time: 0.5 sec
+2020-07-15 10:06:22,289 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:06:22,515 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:06:22,699 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex3.png
+2020-07-15 10:06:22,699 : [INFO] Total running time: 0.4 sec
+2020-07-15 10:08:42,118 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:09:11,199 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:09:11,628 : [INFO] Saved ./out/NATRIO_chr10_117542948_1.png
+2020-07-15 10:09:11,628 : [INFO] Total running time: 29.5 sec
+2020-07-15 10:09:11,636 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:09:13,373 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:09:15,545 : [INFO] Saved ./out/NATRIO_chr10_117542948_2.png
+2020-07-15 10:09:15,545 : [INFO] Total running time: 3.9 sec
+2020-07-15 10:09:15,552 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:09:15,769 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:09:16,180 : [INFO] Saved ./out/NATRIO_chr10_117542948.png
+2020-07-15 10:09:16,181 : [INFO] Total running time: 0.6 sec
+2020-07-15 10:09:16,187 : [INFO] Processing position chr9:114786933-114786934
+2020-07-15 10:09:16,406 : [INFO] Processing.. NA12877 (Father)
+2020-07-15 10:09:16,847 : [INFO] Processing.. NA12878 (Mother)
+2020-07-15 10:09:17,335 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:09:18,199 : [INFO] Saved ./out/NATRIO_chr9_114786933.png
+2020-07-15 10:09:18,201 : [INFO] Total running time: 2.0 sec
+2020-07-15 10:09:18,209 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:09:18,416 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:09:20,288 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex1.png
+2020-07-15 10:09:20,288 : [INFO] Total running time: 2.1 sec
+2020-07-15 10:09:20,294 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:09:20,512 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:09:20,768 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex2.png
+2020-07-15 10:09:20,768 : [INFO] Total running time: 0.5 sec
+2020-07-15 10:09:20,774 : [INFO] Processing position chr10:117542948-117542949
+2020-07-15 10:09:20,979 : [INFO] Processing.. NA12879 (Daughter)
+2020-07-15 10:09:21,148 : [INFO] Saved ./out/NATRIO_chr10_117542948_baseplot_ex3.png
+2020-07-15 10:09:21,148 : [INFO] Total running time: 0.4 sec
