@@ -5,12 +5,13 @@ from src import bamsnap
 
 bamsnap_prog = "src/bamsnap.py"
 
-
+# -ref /Users/pcaso/db/DATA/PUB/reference/GRCh38d1/GRCh38_full_analysis_set_plus_decoy_hla.fa \
 cmdlist = []
 cmdlist.append("""
     -bam ./data/NA12879.bam_chr10_117542947.bam \
     -title "NA12879 (Daughter)" \
     -pos chr10:117542948 \
+    -ref /Volumes/RAMDisk/GRCh38_full_analysis_set_plus_decoy_hla.fa \
     -out ./out/NATRIO_chr10_117542948_1.png
 """)
 cmdlist.append("""

@@ -123,7 +123,7 @@ class BamSnap():
             i += 1
 
     def get_refseq(self, ref, chrom, spos, epos):
-        f = Fasta(ref)
+        f = Fasta(ref, rebuild=False)
         fastachrommap = {}
         for c1 in list(f.keys()):
             arr = c1.split(' ')

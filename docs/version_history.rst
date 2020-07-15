@@ -4,9 +4,10 @@ Version History
 v0.2
 ----
 
-0.2.3 (2020.07.11):
+0.2.3 (2020.07.15):
 	- fix bug in version number
 	- add separator height option
+	- prevent to rebuild a fasta index file ,when the fasta index file is older than the fasta file. 
 
 0.2.2 (2020.07.09):
 	- debug typo
@@ -27,6 +28,12 @@ v0.1
 
 
 
+Todo
+----
+
+- add SVG output
+- add PDF output
+- add bamviewer
 
 
 

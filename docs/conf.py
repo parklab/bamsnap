@@ -22,12 +22,15 @@ copyright = '2020'
 author = 'Harvard Medical School'
 
 
+# If your documentation needs a minimal Sphinx version, state it here.
+needs_sphinx = '1.3'
+
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx_rtd_theme', 'sphinx.ext.autodoc']
+extensions = ['sphinx_rtd_theme', 'sphinx.ext.autodoc', 'sphinx.ext.viewcode', 'sphinx.ext.todo']
 
 
 # The master toctree document.
