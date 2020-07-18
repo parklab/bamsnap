@@ -1,5 +1,6 @@
 import os
 import time
+import threading
 from PIL import Image, ImageDraw, ImageColor, ImageOps, ImageFont
 from pyfaidx import Fasta
 from zipfile import ZipFile
@@ -26,6 +27,7 @@ class BamSnap():
         self.drawplot = self.opt['draw']
         self.bamplot = self.opt['bamplot']
         self.xscale = None
+        self.thread = {}
         self.set_is_single_image_out()
 
     def get_font(self, font_size, font_type='regular'):
@@ -385,12 +387,18 @@ class BamSnap():
                 zo.write(filePath, filePath)
         zo.close()
         self.opt['log'].info('Saved ' + outzip)
-        
+    
+    def start_thread_drawplot(self, pos1, image_w, bamlist):
+        tno = 0
+        for tno in self.opt['thread']:
+            self.thread[tno] = threading.Thread(target=self.drawplot_bamlist, args=(pos1, image_w, bamlist,))
+            self.thread[tno].start()
 
     def run(self):
         t0 = time.time()
         timemap = {'set_refseq': 0}
         self.load_bamlist()
+
         if not self.has_opt_error:
             image_w = self.opt['width'] - self.opt['plot_margin_left'] - self.opt['plot_margin_right']
             for pos1 in self.opt['poslist']:
@@ -407,10 +415,15 @@ class BamSnap():
 
                 if self.opt['separated_bam']:
                     for bidx, bam in enumerate(self.bamlist):
-                        self.drawplot_bamlist(pos1, image_w, [bam])
+                        self.start_thread_drawplot(pos1, image_w, [bam])
+                        # self.drawplot_bamlist(pos1, image_w, [bam])
                 else:
-                    self.drawplot_bamlist(pos1, image_w, self.bamlist)
+                    self.start_thread_drawplot(pos1, image_w, self.bamlist)
+                    # self.drawplot_bamlist(pos1, image_w, self.bamlist)
                 
+                for tno in self.opt['thread']:
+                    self.thread[tno].join()
+
                 t13 = time.time()
                 self.opt['log'].debug('Running time for processing position '+pos1['chrom']+':' +
                                       str(pos1['t_spos'])+'-'+str(pos1['t_epos']) + ": " + str(round(t13-t11, 5)) +

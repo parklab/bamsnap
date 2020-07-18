@@ -1,0 +1,4 @@
+# example of bamlist file
+./data/NA12878.bam	NA12878 (F)
+./data/NA12877.bam	NA12877 (M)
+./data/NA12879.bam	NA12879 (D)

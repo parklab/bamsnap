@@ -1,5 +1,6 @@
 import os
 import time
+import threading
 from PIL import Image, ImageDraw, ImageColor, ImageOps, ImageFont
 from pyfaidx import Fasta
 from zipfile import ZipFile
@@ -19,13 +20,15 @@ class BamSnap():
         self.opt = opt
         self.font = {}
         self.bamlist = []
-        self.refseq = {}
         self.outfnamelist = []
         self.has_opt_error = False
         self.is_single_image_out = False
         self.drawplot = self.opt['draw']
         self.bamplot = self.opt['bamplot']
-        self.xscale = None
+        self.thread = {}
+        self.poslist = []
+        for pos1 in self.opt['poslist']:
+            self.poslist.append(pos1)
         self.set_is_single_image_out()
 
     def get_font(self, font_size, font_type='regular'):
@@ -69,12 +72,13 @@ class BamSnap():
                     title = ""
                 self.bamlist.append(BAM(bamfile, title))
 
-    def set_refseq(self, pos1):
-        self.refseq = {}
+    def get_refseq(self, pos1):
+        refseq = {}
         if self.opt['ref'] == "":
-            self.set_refseq_from_ucsc(pos1)
+            refseq = self.get_refseq_from_ucsc(pos1)
         else:
-            self.set_refseq_from_localfasta(pos1)
+            refseq = self.get_refseq_from_localfasta(pos1)
+        return refseq
 
     # def set_refseq_from_ncbiapi(self):
     #     url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide"
@@ -90,7 +94,7 @@ class BamSnap():
     #         self.refseq[gpos] = seq[i]
     #         i += 1
 
-    def set_refseq_from_ucsc(self, pos1):
+    def get_refseq_from_ucsc(self, pos1):
         spos = pos1['g_spos']-self.opt['margin'] - 500
         epos = pos1['g_epos']+self.opt['margin'] + 1 + 500
         # seqver = "hg38"
@@ -109,20 +113,24 @@ class BamSnap():
             if line[0] != '<':
                 seq += line.strip().upper()
         i = 0
+        refseq = {}
         for gpos in range(spos, epos):
-            self.refseq[gpos] = seq[i]
+            refseq[gpos] = seq[i]
             i += 1
+        return refseq
 
-    def set_refseq_from_localfasta(self, pos1):
+    def get_refseq_from_localfasta(self, pos1):
         spos = pos1['g_spos']-self.opt['margin'] - 500
         epos = pos1['g_epos']+self.opt['margin']+1 + 500
-        seq = self.get_refseq(self.opt['ref'], pos1['chrom'], spos, epos, self.opt['ref_index_rebuild'])
+        seq = self.get_refseq_from_fasta(self.opt['ref'], pos1['chrom'], spos, epos, self.opt['ref_index_rebuild'])
         i = 0
+        refseq = {}
         for gpos in range(spos, epos):
-            self.refseq[gpos+1] = seq[i]
+            refseq[gpos+1] = seq[i]
             i += 1
+        return refseq
 
-    def get_refseq(self, ref, chrom, spos, epos, rebuild_index=False):
+    def get_refseq_from_fasta(self, ref, chrom, spos, epos, rebuild_index=False):
         f = Fasta(ref, rebuild=rebuild_index)
         fastachrommap = {}
         for c1 in list(f.keys()):
@@ -132,7 +140,6 @@ class BamSnap():
         # fasta_chrom = chrom + ' dna:chromosome chromosome:GRCh37:'+chrom+':1:'+str(CHROM_LEN['b37d5'][chrom])+':1'
         refseq = f[fastachrommap[chrom]][spos:epos+1]
         return str(refseq)
-
 
     def add_margin_to_image(self, ia, margin_left=0, margin_top=0, margin_right=0, margin_bottom=0):
         if max(margin_left, margin_top, margin_right, margin_bottom) > 0:
@@ -171,7 +178,7 @@ class BamSnap():
         else:
             ia.save(outfname, "PNG", quality=1, optimize=True)
 
-        self.opt['log'].info('Saved ' + outfname)
+        self.opt['log'].info("(" + threading.current_thread().name + ") Saved " + outfname)
         self.outfnamelist.append({'t': imgtitle, 'img': outfname.split('/')[-1]})
 
     def save_html(self):
@@ -222,13 +229,13 @@ class BamSnap():
         ia = Image.new('RGBA', (image_w, 0), getrgb(bgcolor))
         return ia
 
-    def get_bamplot_image(self, bam, pos1, image_w):
-        rset = DrawReadSet(bam, pos1['chrom'], pos1['g_spos'], pos1['g_epos'], self.xscale, self.refseq)
+    def get_bamplot_image(self, bam, pos1, image_w, xscale, refseq):
+        rset = DrawReadSet(bam, pos1['chrom'], pos1['g_spos'], pos1['g_epos'], xscale, refseq)
         rset.read_gap_w = self.opt['read_gap_width']
         rset.read_gap_h = self.opt['read_gap_height']
         rset.read_thickness = self.opt['read_thickness']
         rset.coverage_vaf = self.opt['coverage_vaf']
-        rset.xscale = self.xscale
+        rset.xscale = xscale
         rset.calculate_readmap(is_strand_group=True)
 
         im = self.init_image(image_w, self.opt['bgcolor'])
@@ -240,13 +247,13 @@ class BamSnap():
 
         for pidx, plot1 in enumerate(self.bamplot):
             if plot1 == "heatmap":
-                covhmplot = CoverageHeatmap(rset, self.xscale)
+                covhmplot = CoverageHeatmap(rset, xscale)
                 covhmplot.font = self.get_font(self.opt['coverage_fontsize'])
                 ia_sub = covhmplot.get_image(image_w, self.opt['heatmap_height'], self.opt['heatmap_bgcolor'])
                 im = self.append_image(im, ia_sub)
 
             if plot1 == "coverage":
-                covplot = CoveragePlot(rset, self.xscale, self.opt['coverage_vaf'])
+                covplot = CoveragePlot(rset, xscale, self.opt['coverage_vaf'])
                 covplot.font = self.get_font(self.opt['coverage_fontsize'])
                 ia_sub = covplot.get_image(image_w, self.opt['coverage_height'], self.opt['coverage_bgcolor'])
                 im = self.append_image(im, ia_sub)
@@ -269,13 +276,13 @@ class BamSnap():
                     im = self.append_image(im, ia_sub)
 
             if plot1 == "coordinates":
-                im = self.append_coordinates_image(im, pos1, image_w)
+                im = self.append_coordinates_image(im, pos1, image_w, xscale)
 
             if plot1 == "gene":
-                im = self.append_geneplot_image(im, pos1, image_w)
+                im = self.append_geneplot_image(im, pos1, image_w, xscale)
 
             if plot1 == "base":
-                im = self.append_baseplot_image(im, pos1, image_w)
+                im = self.append_baseplot_image(im, pos1, image_w, xscale, refseq)
 
         if self.opt['border']:
             padding_bottom = 15
@@ -290,8 +297,8 @@ class BamSnap():
 
         return im
 
-    def append_coordinates_image(self, ia, pos1, image_w):
-        coord = COORDINATES(pos1['chrom'], pos1['g_spos'], pos1['g_epos'], self.xscale, image_w, self.opt['coordinates_height'], self.opt['debug'])
+    def append_coordinates_image(self, ia, pos1, image_w, xscale):
+        coord = COORDINATES(pos1['chrom'], pos1['g_spos'], pos1['g_epos'], xscale, image_w, self.opt['coordinates_height'], self.opt['debug'])
         coord.font = self.get_font(self.opt['coordinates_fontsize'])
         coord.axisloc = self.opt['coordinates_axisloc']
         coord.bgcolor = self.opt['coordinates_bgcolor']
@@ -300,8 +307,8 @@ class BamSnap():
         ia = self.append_image(ia, ia_sub)
         return ia
 
-    def append_geneplot_image(self, ia, pos1, image_w):
-        geneplot = GenePlot(pos1['chrom'], pos1['g_spos'], pos1['g_epos'], self.xscale, image_w, self.opt['refversion'], show_transcript=True)
+    def append_geneplot_image(self, ia, pos1, image_w, xscale):
+        geneplot = GenePlot(pos1['chrom'], pos1['g_spos'], pos1['g_epos'], xscale, image_w, self.opt['refversion'], show_transcript=True)
         geneplot.font = self.get_font(self.opt['gene_fontsize'])
         geneplot.gene_pos_color = self.opt['gene_pos_color']
         geneplot.gene_neg_color = self.opt['gene_neg_color']
@@ -309,25 +316,25 @@ class BamSnap():
         ia = self.append_image(ia, ia_sub)
         return ia
 
-    def append_baseplot_image(self, ia, pos1, image_w):
-        baseplot = BasePlot(pos1['chrom'], pos1['g_spos'], pos1['g_epos'], self.refseq, self.xscale, image_w)
+    def append_baseplot_image(self, ia, pos1, image_w, xscale, refseq):
+        baseplot = BasePlot(pos1['chrom'], pos1['g_spos'], pos1['g_epos'], refseq, xscale, image_w)
         baseplot.font = self.get_font(self.opt['base_fontsize'])
         ia_sub = baseplot.get_image(self.opt['base_margin_top'], self.opt['base_margin_bottom'])
         ia = self.append_image(ia, ia_sub)
         return ia
 
-    def drawplot_bamlist(self, pos1, image_w, bamlist):
+    def drawplot_bamlist(self, pos1, image_w, bamlist, xscale, refseq):
         ia = self.init_image(image_w, self.opt['bgcolor'])
         drawA = None
 
         for pidx, plot1 in enumerate(self.drawplot):
             if plot1 == "coordinates":
-                ia = self.append_coordinates_image(ia, pos1, image_w)
+                ia = self.append_coordinates_image(ia, pos1, image_w, xscale)
 
             if plot1 == "bamplot":
                 for bidx, bam in enumerate(bamlist):
-                    self.opt['log'].info("Processing.. " + bam.title)
-                    ia_sub = self.get_bamplot_image(bam, pos1, image_w)
+                    # self.opt['log'].info("("+threading.current_thread().name + ") Processing.. " + bam.title)
+                    ia_sub = self.get_bamplot_image(bam, pos1, image_w, xscale, refseq)
                     ia = self.append_image(ia, ia_sub)
 
                     if not self.opt['border'] and self.opt['separator_height'] > 0:
@@ -335,10 +342,10 @@ class BamSnap():
                         ia = self.append_image(ia, ia_sub)
 
             if plot1 == "gene":
-                ia = self.append_geneplot_image(ia, pos1, image_w)
+                ia = self.append_geneplot_image(ia, pos1, image_w, xscale)
 
             if plot1 == "base":
-                ia = self.append_baseplot_image(ia, pos1, image_w)
+                ia = self.append_baseplot_image(ia, pos1, image_w, xscale, refseq)
             
         if self.opt['center_line']:
             drawA = ImageDraw.Draw(ia)
@@ -348,15 +355,15 @@ class BamSnap():
 
         if not self.opt['no_target_line']:
             drawA = ImageDraw.Draw(ia)
-            x1 = self.xscale.xmap[pos1['t_spos']]['spos'] - 1
-            x2 = self.xscale.xmap[pos1['t_spos']]['epos'] + 1
+            x1 = xscale.xmap[pos1['t_spos']]['spos'] - 1
+            x2 = xscale.xmap[pos1['t_spos']]['epos'] + 1
             for h1 in range(0, ia.height, 7):
                 drawA.line([(x1, h1), (x1, h1+2)], fill=COLOR['CENTER_LINE'], width=1)
                 drawA.line([(x2, h1), (x2, h1+2)], fill=COLOR['CENTER_LINE'], width=1)
 
             if self.opt['debug']:
                 for xi in range(pos1['g_spos'], pos1['g_epos']+1):
-                    x1 = self.xscale.xmap[xi]['spos']
+                    x1 = xscale.xmap[xi]['spos']
                     drawA.line([(x1, 20), (x1, ia.height)], fill=(0,0,0,255), width=1)
                 drawA.line([(int(image_w/2), 0), (int(image_w/2), ia.height)], fill=(255,0,0,255), width=1)
 
@@ -384,37 +391,52 @@ class BamSnap():
                 filePath = os.path.join(folderName, filename)
                 zo.write(filePath, filePath)
         zo.close()
-        self.opt['log'].info('Saved ' + outzip)
-        
+        self.opt['log'].info("(" + threading.current_thread().name + ") Saved " + outzip)
+    
+    def start_thread_drawplot(self, image_w, bamlist):
+        for tno in range(self.opt['thread']):
+            self.thread[tno] = threading.Thread(target=self.start_thread_drawplot_bamlist, args=(image_w, bamlist,), name='thread_' + str(tno))
+            self.thread[tno].start()
+
+    def start_thread_drawplot_bamlist(self, image_w, bamlist):
+        while len(self.poslist) > 0:
+            pos1 = self.poslist.pop(0)
+            t11 = time.time()
+            # print('>', pos1, len(self.poslist), threading.current_thread().name)
+            refseq = self.get_refseq(pos1)
+            xscale = Xscale(pos1['g_spos'], pos1['g_epos'], image_w)
+            self.drawplot_bamlist(pos1, image_w, bamlist, xscale, refseq)
+            t12 = time.time()
+            self.opt['log'].info("(" + threading.current_thread().name + ") " + str(round(t12-t11, 5)) + " sec")
+
 
     def run(self):
         t0 = time.time()
         timemap = {'set_refseq': 0}
         self.load_bamlist()
-        if not self.has_opt_error:
+
+        if not self.has_opt_error and len(self.poslist) > 0:
             image_w = self.opt['width'] - self.opt['plot_margin_left'] - self.opt['plot_margin_right']
-            for pos1 in self.opt['poslist']:
-                self.xscale = Xscale(pos1['g_spos'], pos1['g_epos'], image_w)
-                self.opt['log'].info("Processing position " + pos1['chrom'] + ':' +
-                                     str(pos1['t_spos']) + '-' + str(pos1['t_epos']))
 
-                t11 = time.time()
-                self.set_refseq(pos1)
-                t12 = time.time()
-                self.opt['log'].debug('Running time for getting reference sequence (set_refseq): ' +
-                                      str(round(t12-t11, 5)) + ' sec')
-                timemap['set_refseq'] += t12 - t11
+            if self.opt['separated_bam']:
+                for bidx, bam in enumerate(self.bamlist):
+                    self.start_thread_drawplot(image_w, [bam])
+            else:
+                self.start_thread_drawplot(image_w, self.bamlist)
 
-                if self.opt['separated_bam']:
-                    for bidx, bam in enumerate(self.bamlist):
-                        self.drawplot_bamlist(pos1, image_w, [bam])
-                else:
-                    self.drawplot_bamlist(pos1, image_w, self.bamlist)
-                
-                t13 = time.time()
-                self.opt['log'].debug('Running time for processing position '+pos1['chrom']+':' +
-                                      str(pos1['t_spos'])+'-'+str(pos1['t_epos']) + ": " + str(round(t13-t11, 5)) +
-                                      ' sec')
+            # for pos1 in self.opt['poslist']:
+            #     self.opt['log'].info("Processing position " + pos1['chrom'] + ':' + str(pos1['t_spos']) + '-' + str(pos1['t_epos']))
+            #     t11 = time.time()
+            #     t12 = time.time()
+            #     self.opt['log'].debug('Running time for getting reference sequence (set_refseq): ' + str(round(t12-t11, 5)) + ' sec')
+            #     timemap['set_refseq'] += t12 - t11
+            #     t13 = time.time()
+            #     self.opt['log'].debug('Running time for processing position '+pos1['chrom']+':' +
+            #                           str(pos1['t_spos'])+'-'+str(pos1['t_epos']) + ": " + str(round(t13-t11, 5)) + ' sec')
+
+            for tno in range(self.opt['thread']):
+                self.thread[tno].join()
+
         t2 = time.time()
         if not self.is_single_image_out:
             if not self.opt['save_image_only']:

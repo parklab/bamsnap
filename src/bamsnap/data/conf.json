@@ -1,12 +1,13 @@
 {
     "TITLE":"BAMSNAP",
-    "VERSION":"0.2.4",
-    "VERSION_DATE":"2020-07-15",
+    "VERSION":"0.2.5",
+    "VERSION_DATE":"2020-07-17",
     "PROG":"bamsnap",
     "options":[
         {"param":"bam", "default":[], "nargs":"*", "action": null, "choices":null, "type":null, "help":"bam file(s)"},
         {"param":"bamlist", "default":null, "nargs":null, "action":null, "choices":null, "type":null, "help":"list file with bam file paths"},
         {"param":"title", "default":[], "nargs":"*", "action":null, "choices":null, "type":null, "help":"title (name) of bam file(s)"},
+        {"param":"no_title", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"do not draw label."},
         {"param":"pos", "default":[], "nargs":"*", "action":null, "choices":null, "type":null, "help":"genomic position (ex. 1:816687-818057, 12:7462545)"},
         {"param":"vcf", "default":null, "nargs":null, "action":null, "choices":null, "type":null, "help":"list file with genomic positions with VCF format"},
         {"param":"bed", "default":null, "nargs":null, "action":null, "choices":null, "type":null, "help":"list file with genomic positions with BED format"},
@@ -20,6 +21,7 @@
         {"param":"image_dir_name", "default":"bamsnap_images", "nargs":null, "action":null, "choices":null, "type":null, "help":"image directory name"},
         {"param":"zipout", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"make a single zip file"},
         {"param":"separator_height", "default":30, "nargs":null, "action":null, "choices":null, "type":"int", "help":"separator's height"},
+        {"param":"thread", "default":1, "nargs":null, "action":null, "choices":null, "type":"int", "help":"number of threads for multi-thread processing (default: 0)"},
 
         {"param":"draw", "default":["coordinates","bamplot","base","gene"], "nargs":"*", "action":null, "choices":null, "type":null, "help":"plot (default: -draw coordinates bamplot base gene)"},
         {"param":"bamplot", "default":["coverage","base","read"], "nargs":"*", "action":null, "choices":null, "type":null, "help":"plot (default: -bamplot coverage base read)"},
@@ -37,8 +39,8 @@
         {"param":"read_gap_width", "default":2, "nargs":null, "action":null, "choices":null, "type":"int", "help":"read gap width (unit:px)"},
         {"param":"read_bgcolor", "default":"FFFFFF", "nargs":null, "action":null, "choices":null, "type":null, "help":"read background color"},
         {"param":"read_color", "default":"C8C8C8", "nargs":null, "action":null, "choices":null, "type":null, "help":"read color"},
-        {"param":"read_pos_color", "default":"ffac9c", "nargs":null, "action":null, "choices":null, "type":null, "help":"positive strand read color"},
-        {"param":"read_neg_color", "default":"A19Cff", "nargs":null, "action":null, "choices":null, "type":null, "help":"negative strand read color"},
+        {"param":"read_pos_color", "default":"FFAC9C", "nargs":null, "action":null, "choices":null, "type":null, "help":"positive strand read color"},
+        {"param":"read_neg_color", "default":"A19CFF", "nargs":null, "action":null, "choices":null, "type":null, "help":"negative strand read color"},
         {"param":"read_group", "default":"", "nargs":null, "action":null, "choices":["strand"], "type":null, "help":"read group"},
 
         {"param":"margin", "default":50, "nargs":null, "action":null, "choices":null, "type":"int", "help":"genomic margin size"},
@@ -59,7 +61,7 @@
         {"param":"heatmap_height", "default":5, "nargs":null, "action":null, "choices":null, "type":"int", "help":"coverage heatmap height"},
         {"param":"heatmap_bgcolor", "default":"FFFFFF", "nargs":null, "action":null, "choices":null, "type":null, "help":"coverage heatmap plot background color"},
         
-        {"param":"no_title", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"do not draw label."},
+        
         
         {"param":"gene_height", "default":50, "nargs":null, "action":null, "choices":null, "type":"int", "help":"gene plot height"},
         {"param":"gene_fontsize", "default":10, "nargs":null, "action":null, "choices":null, "type":"int", "help":"font size of gene plot"},
