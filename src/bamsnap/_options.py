@@ -47,14 +47,15 @@ def check_file(opt):
 
 def print_option(opt):
     global NOPRINTOPTLIST
-    print("=======option=======")
-    for k1 in sorted(opt.keys()):
-        if k1 not in NOPRINTOPTLIST:
-            if k1 == "poslist" and len(opt[k1]) >= 4:
-                print('-' + k1 + " : " + str(len(opt[k1])) + " variants")
-            else:
-                print('-' + k1 + " : " + str(opt[k1]))
-    print("====================")
+    # print("=======option=======")
+    # for k1 in sorted(opt.keys()):
+    #     if k1 not in NOPRINTOPTLIST:
+    #         if k1 == "poslist" and len(opt[k1]) >= 4:
+    #             print('-' + k1 + " : " + str(len(opt[k1])) + " variants")
+    #         else:
+    #             print('-' + k1 + " : " + str(opt[k1]))
+    # print("====================")
+    pass
 
 
 def set_pos_list(opt):

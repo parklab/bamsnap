@@ -21,7 +21,7 @@
         {"param":"image_dir_name", "default":"bamsnap_images", "nargs":null, "action":null, "choices":null, "type":null, "help":"image directory name"},
         {"param":"zipout", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"make a single zip file"},
         {"param":"separator_height", "default":30, "nargs":null, "action":null, "choices":null, "type":"int", "help":"separator's height"},
-        {"param":"thread", "default":1, "nargs":null, "action":null, "choices":null, "type":"int", "help":"number of threads for multi-thread processing (default: 0)"},
+        {"param":"process", "default":1, "nargs":null, "action":null, "choices":null, "type":"int", "help":"number of process for multi-processing (default: 1)"},
 
         {"param":"draw", "default":["coordinates","bamplot","base","gene"], "nargs":"*", "action":null, "choices":null, "type":null, "help":"plot (default: -draw coordinates bamplot base gene)"},
         {"param":"bamplot", "default":["coverage","base","read"], "nargs":"*", "action":null, "choices":null, "type":null, "help":"plot (default: -bamplot coverage base read)"},

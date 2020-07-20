@@ -1,0 +1,76 @@
+2020-07-20 10:12:44,668 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr1:26876885.png : 1.75794 sec
+2020-07-20 10:12:44,902 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:12308511.png : 1.99504 sec
+2020-07-20 10:12:44,932 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr1:18872164.png : 2.02306 sec
+2020-07-20 10:12:46,259 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:13778643.png : 3.35082 sec
+2020-07-20 10:12:46,288 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr1:13778646.png : 3.37973 sec
+2020-07-20 10:12:46,515 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr1:45803673.png : 1.84552 sec
+2020-07-20 10:12:46,929 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:33036775.png : 2.0257 sec
+2020-07-20 10:12:48,368 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr1:45330040.png : 3.43222 sec
+2020-07-20 10:12:49,032 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:64869437.png : 2.10207 sec
+2020-07-20 10:12:49,607 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:45330036.png : 3.34707 sec
+2020-07-20 10:12:49,644 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr1:45330036.png : 3.3551 sec
+2020-07-20 10:12:50,092 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr1:111229711.png : 1.7242 sec
+2020-07-20 10:12:50,130 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr1:112670381.png : 3.61472 sec
+2020-07-20 10:12:52,262 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr1:150473579.png : 2.13043 sec
+2020-07-20 10:12:52,579 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:112670387.png : 3.54645 sec
+2020-07-20 10:12:53,267 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr1:147186642.png : 3.17371 sec
+2020-07-20 10:12:53,335 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:89133354.png : 3.72699 sec
+2020-07-20 10:12:53,459 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr1:89133387.png : 3.8138 sec
+2020-07-20 10:12:54,496 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr1:183249733.png : 2.23386 sec
+2020-07-20 10:12:54,906 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:115840660.png : 1.57119 sec
+2020-07-20 10:12:55,442 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:162868730.png : 2.86236 sec
+2020-07-20 10:12:55,470 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr1:183249732.png : 2.202 sec
+2020-07-20 10:12:56,019 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr2:25878403.png : 1.52186 sec
+2020-07-20 10:12:56,613 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr1:147186640.png : 3.15365 sec
+2020-07-20 10:12:57,065 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr2:20671172.png : 1.59397 sec
+2020-07-20 10:12:57,457 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:197441683.png : 2.01462 sec
+2020-07-20 10:12:57,504 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:169888699.png : 2.59704 sec
+2020-07-20 10:12:57,771 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr1:171703413.png : 1.15749 sec
+2020-07-20 10:12:58,498 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:212699801.png : 0.99318 sec
+2020-07-20 10:12:59,169 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr2:11587744.png : 1.3968 sec
+2020-07-20 10:12:59,177 : [INFO] Total running time: 16.3 sec
+2020-07-20 10:13:37,232 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr1:26876885.png : 1.74142 sec
+2020-07-20 10:13:37,460 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:12308511.png : 1.97326 sec
+2020-07-20 10:13:37,479 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr1:18872164.png : 1.98947 sec
+2020-07-20 10:13:38,799 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:13778643.png : 3.31114 sec
+2020-07-20 10:13:38,833 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr1:13778646.png : 3.34399 sec
+2020-07-20 10:13:39,054 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr1:45803673.png : 1.82103 sec
+2020-07-20 10:13:39,468 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:33036775.png : 2.00662 sec
+2020-07-20 10:13:40,887 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr1:45330040.png : 3.40693 sec
+2020-07-20 10:13:41,547 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:64869437.png : 2.07827 sec
+2020-07-20 10:13:42,126 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:45330036.png : 3.32548 sec
+2020-07-20 10:13:42,165 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr1:45330036.png : 3.33144 sec
+2020-07-20 10:13:42,614 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr1:111229711.png : 1.72579 sec
+2020-07-20 10:13:42,615 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr1:112670381.png : 3.55983 sec
+2020-07-20 10:13:44,848 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr1:150473579.png : 2.23225 sec
+2020-07-20 10:13:45,237 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:112670387.png : 3.68906 sec
+2020-07-20 10:13:45,923 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr1:147186642.png : 3.30851 sec
+2020-07-20 10:13:45,959 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:89133354.png : 3.8314 sec
+2020-07-20 10:13:46,118 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr1:89133387.png : 3.95238 sec
+2020-07-20 10:13:47,102 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr1:183249733.png : 2.2502 sec
+2020-07-20 10:13:47,524 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:115840660.png : 1.5652 sec
+2020-07-20 10:13:48,094 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:162868730.png : 2.85664 sec
+2020-07-20 10:13:48,127 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr1:183249732.png : 2.20307 sec
+2020-07-20 10:13:48,619 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr2:25878403.png : 1.51586 sec
+2020-07-20 10:13:49,265 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr1:147186640.png : 3.14601 sec
+2020-07-20 10:13:49,707 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr2:20671172.png : 1.57989 sec
+2020-07-20 10:13:50,097 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:197441683.png : 2.00206 sec
+2020-07-20 10:13:50,099 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:169888699.png : 2.57408 sec
+2020-07-20 10:13:50,419 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr1:171703413.png : 1.15293 sec
+2020-07-20 10:13:51,093 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:212699801.png : 0.99316 sec
+2020-07-20 10:13:51,821 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr2:11587744.png : 1.40124 sec
+2020-07-20 10:13:51,830 : [INFO] Total running time: 16.4 sec
+2020-07-20 10:13:52,799 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_1.png : 0.95737 sec
+2020-07-20 10:13:52,803 : [INFO] Total running time: 1.0 sec
+2020-07-20 10:13:55,206 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_2.png : 2.39388 sec
+2020-07-20 10:13:55,210 : [INFO] Total running time: 2.4 sec
+2020-07-20 10:13:55,870 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948.png : 0.64991 sec
+2020-07-20 10:13:55,874 : [INFO] Total running time: 0.7 sec
+2020-07-20 10:13:58,470 : [INFO] (proc 1) Saved ./out/NATRIO_chr9_114786933.png : 2.57903 sec
+2020-07-20 10:13:58,477 : [INFO] Total running time: 2.6 sec
+2020-07-20 10:14:00,798 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_baseplot_ex1.png : 2.30938 sec
+2020-07-20 10:14:00,801 : [INFO] Total running time: 2.3 sec
+2020-07-20 10:14:01,311 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_baseplot_ex2.png : 0.49987 sec
+2020-07-20 10:14:01,314 : [INFO] Total running time: 0.5 sec
+2020-07-20 10:14:01,727 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_baseplot_ex3.png : 0.40183 sec
+2020-07-20 10:14:01,730 : [INFO] Total running time: 0.4 sec

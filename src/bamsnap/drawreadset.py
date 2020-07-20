@@ -159,8 +159,8 @@ class DrawReadSet():
     STRAND_GROUP_LIST = ['pos_strand', 'neg_strand']
 
     def __init__(self, bam, chrom, g_spos, g_epos, xscale, refseq="",  coverage_vaf=10):
-        self.bam = bam
-        self.samAlign = pysam.AlignmentFile(self.bam.filename, "rb")
+        # self.samAlign = bam.samAlign
+        self.samAlign = pysam.AlignmentFile(bam.filename, "rb")
         self.chrom = chrom
         self.refseq = refseq
         self.g_spos = g_spos
@@ -246,12 +246,9 @@ class DrawReadSet():
 
         for group in group_list:
             self.max_cov[group] = 0
-
-        # print(">self.g_spos-self.read_gap_w:", self.g_spos,self.read_gap_w,self.g_spos-self.read_gap_w)
+        
         for x in self.samAlign.pileup(self.chrom, self.g_spos-self.read_gap_w, self.g_epos):
             gpos = x.reference_pos
-            # cov = len(x.pileups)
-
             cov = {}
             base_composition = {}
             for group in group_list:
@@ -261,6 +258,7 @@ class DrawReadSet():
             for pr in x.pileups:
                 a = pr.alignment
                 rid = self.get_rid(a)
+                
                 if not self.is_exist_read(rid):
                     r = DrawRead(a)
                     r.refseq = self.refseq
@@ -273,15 +271,13 @@ class DrawReadSet():
                         self.readset[rid] = r
                 else:
                     r = self.readset[rid]
-
-                # if a.mapq > 20 and r.is_OK():
+                
                 if r.is_OK():
                     if pr.query_position != None:
                         cov = add_dict_value(cov, 'all', 1)
                         base = a.query_sequence[pr.query_position]
                         base_composition = self.add_base_composition(base_composition, 'all', base, gpos)
                         
-
                     if rid not in self.readlist['all']:
                         self.readlist['all'].append(rid)
 
@@ -301,11 +297,13 @@ class DrawReadSet():
 
                         cov = add_dict_value(cov, group, 1)
                         base_composition = self.add_base_composition(base_composition, group, base, gpos)
-                        
+            
             for group in group_list:
                 self.covmap = init_dict(self.covmap, group)
                 self.covmap[group][gpos] = (cov[group], base_composition[group])
-
+            
+            
+        
         for group in group_list:
             try:
                 for rid in self.readlist[group]:
@@ -314,6 +312,7 @@ class DrawReadSet():
                         self.max_cov[group] = yidx
             except KeyError:
                 self.max_cov[group] = 0
+        
                 
 
     def get_estimated_height(self, group='all'):
