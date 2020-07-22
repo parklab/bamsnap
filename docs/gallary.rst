@@ -48,3 +48,18 @@ Gallary
     -out ./out/NATRIO_chr10_117542948_3.png \
     -separator_height 0
 
+
+
+.. image:: ../tests/out/NATRIO_chr10_117542948_coordinates1.png
+   :width: 100 %
+
+.. code:: console
+
+  $ bamsnap \
+    -bam ./data/NA12879.bam \
+    -pos chr10:117542948 \
+    -no_title \
+    -draw coordinates \
+    -out ./out/NATRIO_chr10_117542948_coordinates1.png \
+    -no_target_line \
+    -coordinates_axisloc bottom

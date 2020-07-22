@@ -7,7 +7,7 @@ from zipfile import ZipFile
 from .drawreadset import DrawReadSet, CoveragePlot, CoverageHeatmap
 from .coordinates import COORDINATES
 from .geneplot import GenePlot
-from .baseplot import BasePlot
+from .basetrack import BaseTrack
 from .scale import Xscale
 from .bam import BAM
 from .util import get_url, getTemplatePath, fileOpen, fileSave, check_dir, getrgb, get_scale, is_exist
@@ -334,7 +334,7 @@ class BamSnap():
         return ia
 
     def append_baseplot_image(self, ia, pos1, image_w, xscale, refseq):
-        baseplot = BasePlot(pos1['chrom'], pos1['g_spos'], pos1['g_epos'], refseq, xscale, image_w)
+        baseplot = BaseTrack(pos1['chrom'], pos1['g_spos'], pos1['g_epos'], refseq, xscale, image_w)
         baseplot.font = self.get_font(self.opt['base_fontsize'])
         ia_sub = baseplot.get_image(self.opt['base_margin_top'], self.opt['base_margin_bottom'])
         ia = self.append_image(ia, ia_sub)

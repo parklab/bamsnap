@@ -4,7 +4,7 @@ from .util import getTemplatePath, get_scale, getrgb
 import tabix
 
 
-class BasePlot():
+class BaseTrack():
     def __init__(self, chrom, spos, epos, refseq, xscale, w):
         self.chrom = chrom
         self.nchrom = chrom.replace('chr', '')
@@ -31,8 +31,8 @@ class BasePlot():
 
         yi = int( y / 2 ) - 5
         h = 10
-        dr.line([(x1, yi), (x2, yi)], fill=COLOR['SEPARATE'], width=1)
-        dr.line([(x1, yi+h), (x2, yi+h)], fill=COLOR['SEPARATE'], width=1)
+        dr.line([(x1, 0), (x2, 0)], fill=COLOR['SEPARATE'], width=1)
+        dr.line([(x1, y), (x2, y)], fill=COLOR['SEPARATE'], width=1)
 
         vcls = ""
         for i in range(self.g_len):
@@ -54,10 +54,11 @@ class BasePlot():
             if vcls == "textoutline":
                 xi = self.xscale.xmap[posi]['cpos'] - int(self.fontsize[0]/2)
                 dr.rectangle([(x1, y1), (x2, y2)], fill=(255,255,255,255), outline=COLOR['w'+base], width=1)
-                dr.text((xi, yi), base, font=self.font, fill=COLOR['d'+base])
+                dr.text((xi, 0), base, font=self.font, fill=COLOR['d'+base])
+                
             elif vcls == "text":
                 xi = self.xscale.xmap[posi]['cpos'] - int(self.fontsize[0]/2)
-                dr.text((xi, yi), base, font=self.font, fill=COLOR['d'+base])
+                dr.text((xi, 0), base, font=self.font, fill=COLOR['d'+base])
             elif vcls == "outline":
                 dr.rectangle([(x1, y1), (x2, y2)], fill=COLOR[base], outline=COLOR['w'+base], width=1)
             else:

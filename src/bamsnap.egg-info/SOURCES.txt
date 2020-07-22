@@ -7,7 +7,7 @@ src/bamsnap/_logging.py
 src/bamsnap/_options.py
 src/bamsnap/bam.py
 src/bamsnap/bamsnap.py
-src/bamsnap/baseplot.py
+src/bamsnap/basetrack.py
 src/bamsnap/conf.py
 src/bamsnap/coordinates.py
 src/bamsnap/drawread.py

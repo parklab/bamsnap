@@ -92,6 +92,8 @@
 <li class="toctree-l1"><a class="reference internal" href="coverage_plot.html">Coverage track (<code class="docutils literal notranslate"><span class="pre">-bamplot</span> <span class="pre">coverage</span></code>)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base_plot.html">Base track (<code class="docutils literal notranslate"><span class="pre">-draw</span> <span class="pre">base</span></code>, <code class="docutils literal notranslate"><span class="pre">-bamplot</span> <span class="pre">base</span></code>)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gene_plot.html">Gene track (<code class="docutils literal notranslate"><span class="pre">-draw</span> <span class="pre">gene</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coordinates_plot.html">Coordinates track (<code class="docutils literal notranslate"><span class="pre">-draw</span> <span class="pre">coordinates</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heatmap.html">Heatmap track (<code class="docutils literal notranslate"><span class="pre">-bamplot</span> <span class="pre">heatmap</span></code>)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version_history.html">Version History</a></li>
 </ul>
 
@@ -173,6 +175,9 @@
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> bamsnap -h
 </pre></div>
 </div>
+<p>BamSnap is open-source and can be found on <a class="reference external" href="https://github.com/parklab/bamsnap">github</a>.</p>
+<a class="reference external image-reference" href="https://pypi.org/project/bamsnap/"><img alt="Latest PyPI version" src="https://img.shields.io/pypi/v/bamsnap.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.org/project/bamsnap/"><img alt="Number of PyPI downloads" src="https://img.shields.io/pypi/dm/bamsnap.svg" /></a>
 </div>
 <div class="section" id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
@@ -185,7 +190,18 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="gallary.html">Gallary</a></li>
-<li class="toctree-l1"><a class="reference internal" href="options.html">Optional arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Optional arguments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="options.html#input-files">Input files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html#output-file">Output file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html#plot-layout">Plot layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html#read-alignment-track">Read alignment track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html#base-track">Base track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html#coverage-track">Coverage track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html#heatmap-track">Heatmap track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html#gene-track">Gene track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html#coordinates-track">Coordinates track</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="input.html">Input files</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="input.html#alignment-file">Alignment file</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="input.html#bam-file-bam">BAM file (<code class="docutils literal notranslate"><span class="pre">-bam</span></code>)</a><ul>
@@ -232,19 +248,19 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="gene_plot.html">Gene track (<code class="docutils literal notranslate"><span class="pre">-draw</span> <span class="pre">gene</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coordinates_plot.html">Coordinates track (<code class="docutils literal notranslate"><span class="pre">-draw</span> <span class="pre">coordinates</span></code>)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="coordinates_plot.html#axis-location-coordinates-axisloc">Axis location (<code class="docutils literal notranslate"><span class="pre">-coordinates_axisloc</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="heatmap.html">Heatmap track (<code class="docutils literal notranslate"><span class="pre">-bamplot</span> <span class="pre">heatmap</span></code>)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version_history.html">Version History</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="version_history.html#v0-2">v0.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="version_history.html#v0-1">v0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version_history.html#v0-2-x-release-series">v0.2.x release series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version_history.html#v0-1-x-release-series">v0.1.x release series</a></li>
 <li class="toctree-l2"><a class="reference internal" href="version_history.html#todo">Todo</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
 </div>
 </div>
 

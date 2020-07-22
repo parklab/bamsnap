@@ -7,7 +7,7 @@ from zipfile import ZipFile
 from .drawreadset import DrawReadSet, CoveragePlot, CoverageHeatmap
 from .coordinates import COORDINATES
 from .geneplot import GenePlot
-from .baseplot import BasePlot
+from .basetrack import BaseTrack
 from .scale import Xscale
 from .bam import BAM
 from .util import get_url, getTemplatePath, fileOpen, fileSave, check_dir, getrgb, get_scale, is_exist
@@ -191,7 +191,7 @@ class BamSnap():
         check_dir(outfname)
         if self.opt['imagetype'] == "jpg":
             ia = ia.convert("RGB")
-            ia.save(outfname, "JPEG", quality=1, optimize=True)
+            ia.save(outfname, "JPEG", quality=100, optimize=True)
         else:
             ia.save(outfname, "PNG", quality=1, optimize=True)
 
@@ -217,8 +217,7 @@ class BamSnap():
         font = self.get_font(fontsize, 'bold')
         fontsize = font.getsize(title)
         h = fontsize[1] + 3 + margin * 2
-        im = Image.new('RGBA', (w, h), getrgb(self.opt['bgcolor']))
-        # im = Image.new('RGBA', (w, h), getrgb("F000F0"))
+        im = Image.new('RGB', (w, h), getrgb(self.opt['bgcolor']))
         dr = ImageDraw.Draw(im)
 
         if self.opt['border']:
@@ -237,14 +236,14 @@ class BamSnap():
         return ia
 
     def get_image_seperator(self, w, h):
-        im = Image.new('RGBA', (w, h), getrgb(self.opt['bgcolor']))
+        im = Image.new('RGB', (w, h), getrgb(self.opt['bgcolor']))
         dr = ImageDraw.Draw(im)
         h1 = int(h/2)
         dr.line([(0, h1), (w, h1)], fill=getrgb('000000'), width=1)
         return im
 
     def init_image(self, image_w, bgcolor="FFFFFF"):
-        ia = Image.new('RGBA', (image_w, 0), getrgb(bgcolor))
+        ia = Image.new('RGB', (image_w, 0), getrgb(bgcolor))
         return ia
 
     def get_bamplot_image(self, bam, pos1, image_w, xscale, refseq):
@@ -335,7 +334,7 @@ class BamSnap():
         return ia
 
     def append_baseplot_image(self, ia, pos1, image_w, xscale, refseq):
-        baseplot = BasePlot(pos1['chrom'], pos1['g_spos'], pos1['g_epos'], refseq, xscale, image_w)
+        baseplot = BaseTrack(pos1['chrom'], pos1['g_spos'], pos1['g_epos'], refseq, xscale, image_w)
         baseplot.font = self.get_font(self.opt['base_fontsize'])
         ia_sub = baseplot.get_image(self.opt['base_margin_top'], self.opt['base_margin_bottom'])
         ia = self.append_image(ia, ia_sub)

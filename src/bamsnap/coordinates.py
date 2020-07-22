@@ -6,7 +6,7 @@ from .util import getTemplatePath, comma, getrgb, get_scale
 class COORDINATES():
     MIN_BAR_SIZE = 3
     MIN_AXIS_LABEL_WIDTH = 180
-    GAP_LABEL_AND_BAR = 3
+    GAP_LABEL_AND_BAR = 1
 
     def __init__(self, chrom, spos, epos, xscale, w, h, debug=False):
         self.chrom = chrom
@@ -64,6 +64,7 @@ class COORDINATES():
         x1 = 0
         x2 = self.w
         yi = 0
+
         if self.axisloc == "top" or self.axisloc == "middle":
             dr.line([(x1, yi), (x2, yi)], fill=getrgb(self.axiscolor), width=1)
             for xi in self.axis_x_list:
@@ -74,7 +75,10 @@ class COORDINATES():
             pos1 = comma(posi)
             xi = self.axis_x_list[i]
             d = int(len(pos1) * self.single_font_size[0]) / 2
-            dr.text((xi - d, yi), pos1, font=self.font, fill=getrgb(self.labelcolor))
+            if self.axisloc == "middle":
+                dr.text((xi - d, yi), pos1, font=self.font, fill=getrgb(self.labelcolor))
+            else:
+                dr.text((xi - d, yi), pos1, font=self.font, fill=getrgb(self.labelcolor))
 
         if self.debug:
             for posi in range(self.spos, self.epos+1):

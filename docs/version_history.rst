@@ -1,10 +1,13 @@
 Version History
 ===============
 
-v0.2
-----
-0.2.6 (2020.07.20):
+v0.2.x release series
+---------------------
+
+0.2.6 (2020.07.22):
 	- debug in saving JPG file.
+	- debug in coodinates axis location (middle)
+	- debug in base font size.
 	- update document.
 
 0.2.5 (2020.07.17):
@@ -27,8 +30,8 @@ v0.2
 	- add read group
 
 
-v0.1
-----
+v0.1.x release series
+---------------------
 
 0.1 :
 	- basic read alignment view

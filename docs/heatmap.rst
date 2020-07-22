@@ -1,5 +1,5 @@
-Heatmap track (-bamplot heatmap)
-================================
+Heatmap track (``-bamplot heatmap``)
+====================================
 
 
 * ``-heatmap_height`` (default=5) : coverage heatmap height

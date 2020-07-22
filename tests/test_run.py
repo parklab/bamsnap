@@ -92,6 +92,16 @@ cmdlist.append("""
     -out ./out/NATRIO_chr10_117542948_baseplot_ex3.png
 """) # base plot example 3
 
+cmdlist.append("""
+    -bam ./data/NA12879.bam \
+    -pos chr10:117542948 \
+    -no_title \
+    -draw coordinates \
+    -out ./out/NATRIO_chr10_117542948_coordinates3.png \
+    -no_target_line \
+    -coordinates_axisloc middle
+""") # coordinates track example 3
+
 
 def test_run():
     for cmd in cmdlist:

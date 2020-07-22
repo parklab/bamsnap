@@ -30,24 +30,39 @@ You can find more examples and commands in `gallary <gallary.html>`_. Use ``-h``
   $ bamsnap -h
 
 
+BamSnap is open-source and can be found on `github <https://github.com/parklab/bamsnap>`_.
+
+
+.. image:: https://img.shields.io/pypi/v/bamsnap.svg
+   :target: https://pypi.org/project/bamsnap/
+   :alt: Latest PyPI version
+
+.. image:: https://img.shields.io/pypi/dm/bamsnap.svg
+   :target: https://pypi.org/project/bamsnap/
+   :alt: Number of PyPI downloads
+
+
+
 Contents
 --------
 
 .. toctree::
    :maxdepth: 4
 
-   installation
-   gallary
-   options
-   input
-   output
-   plot
-   read_plot
-   coverage_plot
-   base_plot
-   gene_plot
-   version_history
+   installation.rst
+   gallary.rst
+   options.rst
+   input.rst
+   output.rst
+   plot.rst
+   read_plot.rst
+   coverage_plot.rst
+   base_plot.rst
+   gene_plot.rst
+   coordinates_plot.rst
+   heatmap.rst
+   version_history.rst
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`
