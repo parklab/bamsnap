@@ -1,17 +1,31 @@
-Base plot (-draw base, -bamplot base)
-=====================================
+Base track (``-draw base``, ``-bamplot base``)
+==============================================
+
+Layout options
+--------------
+
+.. image:: ./img/pic_base1.png
+   :width: 100 %
 
 
-Base plot has three types. 
+* ``-base_fontsize`` (default=9) : font size of base
+* ``-base_height`` (default=30) : base track height
+* ``-base_margin_top`` (default=0) : top margin size of base track
+* ``-base_margin_bottom`` (default=0) : bottom margin size of base track
 
-.. image:: https://raw.githubusercontent.com/parklab/bamsnap/master/tests/out/NATRIO_chr10_117542948_baseplot_ex1.png
+
+Base track types
+----------------
+
+Base track has three types which are determed automatically based on the width that a base can occupy.
+
+.. image:: ../tests/out/NATRIO_chr10_117542948_baseplot_ex1.png
    :width: 100 %
 
 .. code:: console
 
-  $ bamsnap 
-    -bam ./data/NA12879.bam_chr10_117542947.bam \
-    -title "NA12879 (Daughter)" \
+  $ bamsnap \
+    -bam ./data/NA12879.bam \
     -draw bamplot \
     -bamplot coverage base \
     -pos chr10:117542948 \
@@ -24,14 +38,13 @@ Base plot has three types.
     -out ./out/NATRIO_chr10_117542948_baseplot_ex1.png
 
 
-.. image:: https://raw.githubusercontent.com/parklab/bamsnap/master/tests/out/NATRIO_chr10_117542948_baseplot_ex2.png
+.. image:: ../tests/out/NATRIO_chr10_117542948_baseplot_ex2.png
    :width: 100 %
 
 .. code:: console
 
-  $ bamsnap 
-    -bam ./data/NA12879.bam_chr10_117542947.bam \
-    -title "NA12879 (Daughter)" \
+  $ bamsnap \
+    -bam ./data/NA12879.bam \
     -draw bamplot \
     -bamplot coverage base \
     -pos chr10:117542948 \
@@ -43,14 +56,13 @@ Base plot has three types.
     -plot_margin_bottom 0 \
     -out ./out/NATRIO_chr10_117542948_baseplot_ex2.png
 
-.. image:: https://raw.githubusercontent.com/parklab/bamsnap/master/tests/out/NATRIO_chr10_117542948_baseplot_ex3.png
+.. image:: ../tests/out/NATRIO_chr10_117542948_baseplot_ex3.png
    :width: 100 %
 
 .. code:: console
 
-  $ bamsnap 
-    -bam ./data/NA12879.bam_chr10_117542947.bam \
-    -title "NA12879 (Daughter)" \
+  $ bamsnap \
+    -bam ./data/NA12879.bam \
     -draw bamplot \
     -bamplot coverage base \
     -pos chr10:117542948 \

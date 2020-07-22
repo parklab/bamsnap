@@ -3,9 +3,12 @@ Version History
 
 v0.2
 ----
+0.2.6 (2020.07.20):
+	- debug in saving JPG file.
+	- update document.
+
 0.2.5 (2020.07.17):
 	- add multiprocessing option(``-process``)
-
 
 0.2.4 (2020.07.15):
 	- fix bug in version number
@@ -14,7 +17,7 @@ v0.2
 	- update documentation
 
 0.2.2 (2020.07.09):
-	- debug typo
+	- debug typos
 
 0.2.0 (2020.06.09):
 	- add gene plot
@@ -38,9 +41,3 @@ Todo
 - add SVG output
 - add PDF output
 - add bamviewer
-
-
-
-
-
-

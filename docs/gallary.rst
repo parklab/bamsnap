@@ -6,8 +6,8 @@ Gallary
 
 .. code:: console
 
-  $ bamsnap 
-    -bam ./data/NA12879.bam_chr10_117542947.bam \
+  $ bamsnap \
+    -bam ./data/NA12879.bam \
     -title "NA12879 (Daughter)" \
     -pos chr10:117542948 \
     -out ./out/NATRIO_chr10_117542948.png \
@@ -18,10 +18,10 @@ Gallary
 
 .. code:: console
 
-  $ bamsnap 
-    -bam ./data/NA12877.bam_chr9_114786932.bam \
-      ./data/NA12878.bam_chr9_114786932.bam \
-      ./data/NA12879.bam_chr9_114786932.bam \
+  $ bamsnap \
+    -bam ./data/NA12877.bam \
+      ./data/NA12878.bam \
+      ./data/NA12879.bam \
     -title "NA12877 (Father)" "NA12878 (Mother)" "NA12879 (Daughter)" \
     -pos chr9:114786933 \
     -out ./out/NATRIO_chr9:114786933.png \
@@ -33,4 +33,18 @@ Gallary
     -plot_margin_right 20 \
     -border
 
+
+.. image:: ../tests/out/NATRIO_chr10_117542948_3.png
+   :width: 100 %
+
+.. code:: console
+
+  $ bamsnap \
+    -bam ./data/NA12879.bam \
+    -pos chr10:117542948 \
+    -no_title \
+    -draw bamplot \
+    -bamplot coverage \
+    -out ./out/NATRIO_chr10_117542948_3.png \
+    -separator_height 0
 

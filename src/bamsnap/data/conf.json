@@ -1,13 +1,14 @@
 {
     "TITLE":"BAMSNAP",
-    "VERSION":"0.2.5",
-    "VERSION_DATE":"2020-07-17",
+    "VERSION":"0.2.6",
+    "VERSION_DATE":"2020-07-20",
     "PROG":"bamsnap",
     "options":[
         {"param":"bam", "default":[], "nargs":"*", "action": null, "choices":null, "type":null, "help":"bam file(s)"},
         {"param":"bamlist", "default":null, "nargs":null, "action":null, "choices":null, "type":null, "help":"list file with bam file paths"},
         {"param":"title", "default":[], "nargs":"*", "action":null, "choices":null, "type":null, "help":"title (name) of bam file(s)"},
         {"param":"no_title", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"do not draw label."},
+        {"param":"title_fontsize", "default":18, "nargs":null, "action":null, "choices":null, "type":"int", "help":"font size of title"},
         {"param":"pos", "default":[], "nargs":"*", "action":null, "choices":null, "type":null, "help":"genomic position (ex. 1:816687-818057, 12:7462545)"},
         {"param":"vcf", "default":null, "nargs":null, "action":null, "choices":null, "type":null, "help":"list file with genomic positions with VCF format"},
         {"param":"bed", "default":null, "nargs":null, "action":null, "choices":null, "type":null, "help":"list file with genomic positions with BED format"},
@@ -17,56 +18,55 @@
         {"param":"ref", "default":"", "nargs":null, "action":null, "choices":null, "type":null, "help":"Reference sequence fasta file (ex. hg19.fa)"},
         {"param":"ref_index_rebuild", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"if you want to rebuild fasta index file (.fai), when it is older than the fasta file. (Default: false)"},
         {"param":"refversion", "default":"hg38", "nargs":null, "action":null, "choices":["hg19", "hg38"], "type":null, "help":"Reference version (default: hg38)"},
+        {"param":"margin", "default":50, "nargs":null, "action":null, "choices":null, "type":"int", "help":"genomic margin size"},
         {"param":"save_image_only", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"save image only"},
         {"param":"image_dir_name", "default":"bamsnap_images", "nargs":null, "action":null, "choices":null, "type":null, "help":"image directory name"},
         {"param":"zipout", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"make a single zip file"},
         {"param":"separator_height", "default":30, "nargs":null, "action":null, "choices":null, "type":"int", "help":"separator's height"},
         {"param":"process", "default":1, "nargs":null, "action":null, "choices":null, "type":"int", "help":"number of process for multi-processing (default: 1)"},
 
-        {"param":"draw", "default":["coordinates","bamplot","base","gene"], "nargs":"*", "action":null, "choices":null, "type":null, "help":"plot (default: -draw coordinates bamplot base gene)"},
-        {"param":"bamplot", "default":["coverage","base","read"], "nargs":"*", "action":null, "choices":null, "type":null, "help":"plot (default: -bamplot coverage base read)"},
-        {"param":"width", "default":1000, "nargs":null, "action":null, "choices":null, "type":"int", "help":"image file size : width (unit:px)"},
-        {"param":"height", "default":null, "nargs":null, "action":null, "choices":null, "type":null, "help":"image file size : height (unit:px)"},
-        {"param":"bgcolor", "default":"FFFFFF", "nargs":null, "action":null, "choices":null, "type":null, "help":"background color"},
-        {"param":"plot_margin_top", "default":20, "nargs":null, "action":null, "choices":null, "type":"int", "help":"top margin size of plot"},
-        {"param":"plot_margin_bottom", "default":20, "nargs":null, "action":null, "choices":null, "type":"int", "help":"bottom margin size of plot"},
-        {"param":"plot_margin_left", "default":0, "nargs":null, "action":null, "choices":null, "type":"int", "help":"left margin size of plot"},
-        {"param":"plot_margin_right", "default":0, "nargs":null, "action":null, "choices":null, "type":"int", "help":"right margin size of plot"},
-        {"param":"border", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"draw border in plot"},
+        {"param":"draw", "default":["coordinates","bamplot","base","gene"], "nargs":"*", "action":null, "choices":null, "type":null, "help":"track composition (default: -draw coordinates bamplot base gene)"},
+        {"param":"bamplot", "default":["coverage","base","read"], "nargs":"*", "action":null, "choices":null, "type":null, "help":"track composition of bamplot (default: -bamplot coverage base read)"},
+        {"param":"width", "default":1000, "nargs":null, "action":null, "choices":null, "type":"int", "help":"image width (unit:px, default: 1000)"},
+        {"param":"height", "default":null, "nargs":null, "action":null, "choices":null, "type":null, "help":"image height (unit:px)"},
+        {"param":"bgcolor", "default":"FFFFFF", "nargs":null, "action":null, "choices":null, "type":null, "help":"background color (default: FFFFFF)"},
+        {"param":"plot_margin_top", "default":20, "nargs":null, "action":null, "choices":null, "type":"int", "help":"top margin size of plot (default: 20)"},
+        {"param":"plot_margin_bottom", "default":20, "nargs":null, "action":null, "choices":null, "type":"int", "help":"bottom margin size of plot (default: 20)"},
+        {"param":"plot_margin_left", "default":0, "nargs":null, "action":null, "choices":null, "type":"int", "help":"left margin size of plot (default: 0)"},
+        {"param":"plot_margin_right", "default":0, "nargs":null, "action":null, "choices":null, "type":"int", "help":"right margin size of plot (default: 0)"},
+        {"param":"border", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"draw border in plot (default: false)"},
         
         {"param":"read_thickness", "default":5, "nargs":null, "action":null, "choices":null, "type":"int", "help":"read thickness (unit:px)"},
         {"param":"read_gap_height", "default":2, "nargs":null, "action":null, "choices":null, "type":"int", "help":"read gap height (unit:px)"},
-        {"param":"read_gap_width", "default":2, "nargs":null, "action":null, "choices":null, "type":"int", "help":"read gap width (unit:px)"},
+        {"param":"read_gap_width", "default":2, "nargs":null, "action":null, "choices":null, "type":"int", "help":"min size of read gap width (unit:px)"},
         {"param":"read_bgcolor", "default":"FFFFFF", "nargs":null, "action":null, "choices":null, "type":null, "help":"read background color"},
         {"param":"read_color", "default":"C8C8C8", "nargs":null, "action":null, "choices":null, "type":null, "help":"read color"},
         {"param":"read_pos_color", "default":"FFAC9C", "nargs":null, "action":null, "choices":null, "type":null, "help":"positive strand read color"},
         {"param":"read_neg_color", "default":"A19CFF", "nargs":null, "action":null, "choices":null, "type":null, "help":"negative strand read color"},
         {"param":"read_group", "default":"", "nargs":null, "action":null, "choices":["strand"], "type":null, "help":"read group"},
 
-        {"param":"margin", "default":50, "nargs":null, "action":null, "choices":null, "type":"int", "help":"genomic margin size"},
+        
         {"param":"center_line", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"draw center line"},
         {"param":"no_target_line", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"do not draw target line"},
 
-        {"param":"base_fontsize", "default":9, "nargs":null, "action":null, "choices":null, "type":"int", "help":"font size of base plot"},
-        {"param":"base_height", "default":30, "nargs":null, "action":null, "choices":null, "type":"int", "help":"base plot height"},
-        {"param":"base_margin_top", "default":0, "nargs":null, "action":null, "choices":null, "type":"int", "help":"top margin size of base plot"},
-        {"param":"base_margin_bottom", "default":0, "nargs":null, "action":null, "choices":null, "type":"int", "help":"bottom margin size of base plot"},
+        {"param":"base_fontsize", "default":9, "nargs":null, "action":null, "choices":null, "type":"int", "help":"font size of base track"},
+        {"param":"base_height", "default":30, "nargs":null, "action":null, "choices":null, "type":"int", "help":"base track height"},
+        {"param":"base_margin_top", "default":0, "nargs":null, "action":null, "choices":null, "type":"int", "help":"top margin size of base track"},
+        {"param":"base_margin_bottom", "default":0, "nargs":null, "action":null, "choices":null, "type":"int", "help":"bottom margin size of base track"},
 
-        {"param":"coverage_height", "default":40, "nargs":null, "action":null, "choices":null, "type":"int", "help":"coverage plot height"},
+        {"param":"coverage_height", "default":40, "nargs":null, "action":null, "choices":null, "type":"int", "help":"coverage track height"},
         {"param":"coverage_fontsize", "default":9, "nargs":null, "action":null, "choices":null, "type":"int", "help":"coverage font size"},
         {"param":"coverage_vaf", "default":0.2, "nargs":null, "action":null, "choices":null, "type":"float", "help":"coverage variant allele fraction threshold (default: 0.2)"},
         {"param":"coverage_color", "default":"C8C8C8", "nargs":null, "action":null, "choices":null, "type":null, "help":"coverage color"},
-        {"param":"coverage_bgcolor", "default":"FFFFFF", "nargs":null, "action":null, "choices":null, "type":null, "help":"coverage plot background color"},
+        {"param":"coverage_bgcolor", "default":"FFFFFF", "nargs":null, "action":null, "choices":null, "type":null, "help":"coverage track background color"},
         
         {"param":"heatmap_height", "default":5, "nargs":null, "action":null, "choices":null, "type":"int", "help":"coverage heatmap height"},
-        {"param":"heatmap_bgcolor", "default":"FFFFFF", "nargs":null, "action":null, "choices":null, "type":null, "help":"coverage heatmap plot background color"},
+        {"param":"heatmap_bgcolor", "default":"FFFFFF", "nargs":null, "action":null, "choices":null, "type":null, "help":"coverage heatmap background color"},
         
-        
-        
-        {"param":"gene_height", "default":50, "nargs":null, "action":null, "choices":null, "type":"int", "help":"gene plot height"},
-        {"param":"gene_fontsize", "default":10, "nargs":null, "action":null, "choices":null, "type":"int", "help":"font size of gene plot"},
-        {"param":"gene_pos_color", "default":"ffac9c", "nargs":null, "action":null, "choices":null, "type":null, "help":"positive strand color"},
-        {"param":"gene_neg_color", "default":"A19Cff", "nargs":null, "action":null, "choices":null, "type":null, "help":"negative strand color"},
+        {"param":"gene_height", "default":50, "nargs":null, "action":null, "choices":null, "type":"int", "help":"gene track height"},
+        {"param":"gene_fontsize", "default":10, "nargs":null, "action":null, "choices":null, "type":"int", "help":"font size of gene track"},
+        {"param":"gene_pos_color", "default":"FFAC9C", "nargs":null, "action":null, "choices":null, "type":null, "help":"positive strand color"},
+        {"param":"gene_neg_color", "default":"A19CFF", "nargs":null, "action":null, "choices":null, "type":null, "help":"negative strand color"},
 
         {"param":"coordinates_height", "default":20, "nargs":null, "action":null, "choices":null, "type":"int", "help":"coordinate height"},
         {"param":"coordinates_fontsize", "default":12, "nargs":null, "action":null, "choices":null, "type":"int", "help":"coordinate font size"},
@@ -75,7 +75,7 @@
         {"param":"coordinates_labelcolor", "default":"000000", "nargs":null, "action":null, "choices":null, "type":null, "help":"coordinate label color"},
 
         {"param":"separated_bam", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"draw a plot for each bam"},
-        {"param":"title_fontsize", "default":18, "nargs":null, "action":null, "choices":null, "type":"int", "help":"font size of title"},
+        
 
         {"param":"debug", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"turn on the debugging mode"}
     ]

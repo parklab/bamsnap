@@ -51,6 +51,10 @@ If you don't want to add label, you can use ``-no_title`` option.
 .. image:: img/pic_title3.png
    :width: 300 px
 
+.. note::
+   By default, the font size of title is 18. You can change the font size with ``-title_fontsize`` (e.g. ``-title_fontsize 10``).
+
+
 BAM list file (``-bamlist``)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -80,8 +84,8 @@ Or, you can use just one columns (bam file path) without its title. In this case
 Genomic position
 ----------------
 
-Single position (``-pos``)
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+Genomic position (``-pos``)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You can add one or more genomic position(or region) with ``-pos`` option. 
 

@@ -87,11 +87,11 @@
 <li class="toctree-l1"><a class="reference internal" href="options.html">Optional arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="input.html">Input files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="output.html">Output files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="coverage_plot.html">Coverage plot (-bamplot coverage)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="read_plot.html">Read alignment plot (-bamplot read)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="base_plot.html">Base plot (-draw base, -bamplot base)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gene_plot.html">Gene plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="read_group.html">Read group (-read_group)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot.html">Plot options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_plot.html">Read alignment track (<code class="docutils literal notranslate"><span class="pre">-bamplot</span> <span class="pre">read</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coverage_plot.html">Coverage track (<code class="docutils literal notranslate"><span class="pre">-bamplot</span> <span class="pre">coverage</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base_plot.html">Base track (<code class="docutils literal notranslate"><span class="pre">-draw</span> <span class="pre">base</span></code>, <code class="docutils literal notranslate"><span class="pre">-bamplot</span> <span class="pre">base</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gene_plot.html">Gene track (<code class="docutils literal notranslate"><span class="pre">-draw</span> <span class="pre">gene</span></code>)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version_history.html">Version History</a></li>
 </ul>
 
@@ -160,15 +160,19 @@
             
   <div class="section" id="bamsnap">
 <h1>BamSnap<a class="headerlink" href="#bamsnap" title="Permalink to this headline">¶</a></h1>
-<p>BamSnap is a high-performance visualization tool for aligned BAM file based on command-line interface.</p>
-<a class="reference internal image-reference" href="https://raw.githubusercontent.com/parklab/bamsnap/master/tests/out/NATRIO_chr10_117542948.png"><img alt="https://raw.githubusercontent.com/parklab/bamsnap/master/tests/out/NATRIO_chr10_117542948.png" src="https://raw.githubusercontent.com/parklab/bamsnap/master/tests/out/NATRIO_chr10_117542948.png" style="width: 100%;" /></a>
-<div class="section" id="quick-run">
-<h2>Quick run<a class="headerlink" href="#quick-run" title="Permalink to this headline">¶</a></h2>
+<p><strong>BamSnap</strong> is a high-performance visualization tool for aligned BAM file. <strong>BamSnap</strong> is a command line program written in python. All commands involve typing <code class="docutils literal notranslate"><span class="pre">bamsnap</span></code> at the command prompt (e.g. DOS window or Unix termninal) followed by a number of options to specify the data files / parameters to be used.</p>
+<a class="reference internal image-reference" href="_images/NATRIO_chr10_117542948.png"><img alt="_images/NATRIO_chr10_117542948.png" src="_images/NATRIO_chr10_117542948.png" style="width: 100%;" /></a>
+<div class="section" id="running-bamsnap">
+<h2>Running BamSnap<a class="headerlink" href="#running-bamsnap" title="Permalink to this headline">¶</a></h2>
+<p><strong>BamSnap</strong> is a command-line program. Open up a command prompt or terminal window and take all bam snapshots by typing commands as described below.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> pip install bamsnap
 <span class="gp">$</span> bamsnap -bam test.bam -pos chr1:7364529 -out test.bam.png
 </pre></div>
 </div>
-<p>You can find more BamSnap examples and commands in <a class="reference external" href="gallary.html">gallary</a>.</p>
+<p>You can find more examples and commands in <a class="reference external" href="gallary.html">gallary</a>. Use <code class="docutils literal notranslate"><span class="pre">-h</span></code> for options to be used with <code class="docutils literal notranslate"><span class="pre">bamsnap</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> bamsnap -h
+</pre></div>
+</div>
 </div>
 <div class="section" id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
@@ -192,7 +196,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="input.html#genomic-position">Genomic position</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="input.html#single-position-pos">Single position (<code class="docutils literal notranslate"><span class="pre">-pos</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#genomic-position-pos">Genomic position (<code class="docutils literal notranslate"><span class="pre">-pos</span></code>)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="input.html#vcf-file-vcf">VCF file (<code class="docutils literal notranslate"><span class="pre">-vcf</span></code>)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="input.html#bed-file-bed">BED file (<code class="docutils literal notranslate"><span class="pre">-bed</span></code>)</a></li>
 </ul>
@@ -205,21 +209,29 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="output.html">Output files</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="output.html#image-file-png-jpg">Image file (PNG, JPG)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="output.html#compressed-file-zipout">Compressed file (<code class="docutils literal notranslate"><span class="pre">-zipout</span></code>)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="output.html#html-file-index-html">HTML file (index html)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="output.html#compressed-file-zipout">Compressed file (-zipout)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="coverage_plot.html">Coverage plot (-bamplot coverage)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="read_plot.html">Read alignment plot (-bamplot read)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="read_plot.html#related-options">Related options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot.html">Plot options</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plot.html#plot-composition-draw-bamplot">Plot composition (<code class="docutils literal notranslate"><span class="pre">-draw</span></code>, <code class="docutils literal notranslate"><span class="pre">-bamplot</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot.html#plot-layout-options">Plot layout options</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="base_plot.html">Base plot (-draw base, -bamplot base)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gene_plot.html">Gene plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="read_group.html">Read group (-read_group)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="read_group.html#group-by-strand-read-group-strand">Group by strand (-read_group strand)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_plot.html">Read alignment track (<code class="docutils literal notranslate"><span class="pre">-bamplot</span> <span class="pre">read</span></code>)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="read_plot.html#layout-options">Layout options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="read_plot.html#read-group-read-group">Read group (<code class="docutils literal notranslate"><span class="pre">-read_group</span></code>)</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="coverage_plot.html">Coverage track (<code class="docutils literal notranslate"><span class="pre">-bamplot</span> <span class="pre">coverage</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base_plot.html">Base track (<code class="docutils literal notranslate"><span class="pre">-draw</span> <span class="pre">base</span></code>, <code class="docutils literal notranslate"><span class="pre">-bamplot</span> <span class="pre">base</span></code>)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base_plot.html#layout-options">Layout options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base_plot.html#base-track-types">Base track types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gene_plot.html">Gene track (<code class="docutils literal notranslate"><span class="pre">-draw</span> <span class="pre">gene</span></code>)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version_history.html">Version History</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="version_history.html#v0-2">v0.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="version_history.html#v0-1">v0.1</a></li>

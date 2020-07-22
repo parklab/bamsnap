@@ -190,6 +190,7 @@ class BamSnap():
 
         check_dir(outfname)
         if self.opt['imagetype'] == "jpg":
+            ia = ia.convert("RGB")
             ia.save(outfname, "JPEG", quality=1, optimize=True)
         else:
             ia.save(outfname, "PNG", quality=1, optimize=True)
@@ -412,7 +413,7 @@ class BamSnap():
     
     def start_process_drawplot(self, image_w, bamlist):
         for tno in range(self.opt['process']):
-            self.process[tno] = mp.Process(target=self.start_process_drawplot_bamlist, args=(image_w, bamlist,self.split_poslist[tno]), name='process ' + str(tno))
+            self.process[tno] = mp.Process(target=self.start_process_drawplot_bamlist, args=(image_w, bamlist,self.split_poslist[tno]), name='proc ' + str(tno+1))
             self.process[tno].start()
 
     def start_process_drawplot_bamlist(self, image_w, bamlist, poslist):
