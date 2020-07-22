@@ -17,19 +17,6 @@ Layout options
 * ``-no_target_line`` (default=false): do not draw target line
 
 
-.. code:: console
-
-  $ bamsnap \
-    -bam ./data/NA12879.bam \
-    -pos chr10:117542948 \
-    -no_title \
-    -draw bamplot \
-    -bamplot read \
-    -out ./out/NATRIO_chr10_117542948_3.png \
-    -read_thickness 15 \
-    -read_gap_height 10 \
-    -read_gap_width 5
-
 
 Read group (``-read_group``)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -39,16 +26,18 @@ Read group (``-read_group``)
 * ``-read_pos_color`` (default='FFAC9C') : positive strand read color
 * ``-read_neg_color`` (default='A19CFF') : negative strand read color
 
-.. code:: console
+.. code-block:: console
+   :linenos:
+   :emphasize-lines: 6,8
 
-  $ bamsnap \
-    -bam ./data/NA12879.bam \
-    -pos chr10:117542948 \
-    -no_title \
-    -draw bamplot \
-    -bamplot read \
-    -out ./out/NATRIO_chr10_117542948_6.png \
-    -read_group strand
+   $ bamsnap \
+     -bam ./data/NA12879.bam \
+     -pos chr10:117542948 \
+     -no_title \
+     -draw bamplot \
+     -bamplot read \
+     -out ./out/NATRIO_chr10_117542948_6.png \
+     -read_group strand
 
 .. image:: ../tests/out/NATRIO_chr10_117542948_6.png
    :width: 100 %

@@ -6,6 +6,18 @@
 BamSnap
 =======
 
+.. image:: https://img.shields.io/pypi/v/bamsnap.svg
+   :target: https://pypi.org/project/bamsnap/
+   :alt: Latest PyPI version
+
+.. image:: https://img.shields.io/pypi/dm/bamsnap.svg
+   :target: https://pypi.org/project/bamsnap/
+   :alt: Number of PyPI downloads
+
+.. image:: https://readthedocs.org/projects/bamsnap/badge/?version=latest
+   :target: https://bamsnap.readthedocs.io/en/latest/
+   :alt: Documentation of BamSnap
+
 **BamSnap** is a high-performance visualization tool for aligned BAM file. **BamSnap** is a command line program written in python. All commands involve typing ``bamsnap`` at the command prompt (e.g. DOS window or Unix termninal) followed by a number of options to specify the data files / parameters to be used. 
 
 .. image:: ../tests/out/NATRIO_chr10_117542948.png
@@ -33,22 +45,13 @@ You can find more examples and commands in `gallary <gallary.html>`_. Use ``-h``
 BamSnap is open-source and can be found on `github <https://github.com/parklab/bamsnap>`_.
 
 
-.. image:: https://img.shields.io/pypi/v/bamsnap.svg
-   :target: https://pypi.org/project/bamsnap/
-   :alt: Latest PyPI version
 
-.. image:: https://img.shields.io/pypi/dm/bamsnap.svg
-   :target: https://pypi.org/project/bamsnap/
-   :alt: Number of PyPI downloads
-
-.. image:: https://readthedocs.org/projects/bamsnap/badge/?version=latest
-   :target: https://bamsnap.readthedocs.io/en/latest/
-   :alt: Documentation of BamSnap
 
 Contents
 --------
 
 .. toctree::
+   :numbered:
    :maxdepth: 4
 
    installation.rst
