@@ -41,7 +41,9 @@ BamSnap is open-source and can be found on `github <https://github.com/parklab/b
    :target: https://pypi.org/project/bamsnap/
    :alt: Number of PyPI downloads
 
-
+.. image:: https://readthedocs.org/projects/bamsnap/badge/?version=latest
+   :target: https://bamsnap.readthedocs.io/en/latest/
+   :alt: Documentation of BamSnap
 
 Contents
 --------
