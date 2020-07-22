@@ -9,14 +9,18 @@ BAMSNAP is high-performed command-based visualization tool for the aligned BAM f
 
 For more details, see BamSnap [**Documentation**](http://bamsnap.readthedocs.io/en/latest).
 
+[<img src="https://img.shields.io/pypi/v/bamsnap.svg">](https://pypi.org/project/bamsnap/)
+[<img src="https://img.shields.io/pypi/dm/bamsnap.svg">](https://pypi.org/project/bamsnap/)
+[<img src="https://readthedocs.org/projects/bamsnap/badge/?version=latest">](https://bamsnap.readthedocs.io/)
+
 ## Installation
 
 ### Prerequisites
 * python 3.4+
-* [Pillow (Python Imaging Library)][pil] (5.0.0+)
-* [pysam][ps] (1.8.1+)
-* pyfaidx
-* pytabix
+* [Pillow (Python Imaging Library)](https://pypi.org/project/Pillow/)
+* [pysam](https://pypi.org/project/pysam/)
+* [pyfaidx](https://pypi.org/project/pyfaidx/)
+* [pytabix](https://pypi.org/project/pytabix/)
 
 ### Install with pip
 
