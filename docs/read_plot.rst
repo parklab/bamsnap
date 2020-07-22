@@ -47,9 +47,10 @@ Read group (``-read_group``)
     -no_title \
     -draw bamplot \
     -bamplot read \
-    -out ./out/NATRIO_chr10_117542948_2.png \
+    -out ./out/NATRIO_chr10_117542948_6.png \
     -read_group strand
 
-.. image:: ../tests/out/NATRIO_chr10_117542948_2.png
+.. image:: ../tests/out/NATRIO_chr10_117542948_6.png
    :width: 100 %
+
 

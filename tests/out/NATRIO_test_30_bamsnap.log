@@ -45,3 +45,50 @@
 2020-07-22 16:00:14,934 : [INFO] Total running time: 0.4 sec
 2020-07-22 16:00:15,187 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_coordinates3.png : 0.24281 sec
 2020-07-22 16:00:15,190 : [INFO] Total running time: 0.3 sec
+2020-07-22 16:24:17,363 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr1:26876885.png : 1.88151 sec
+2020-07-22 16:24:17,458 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:12308511.png : 1.97964 sec
+2020-07-22 16:24:17,632 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr1:18872164.png : 2.15116 sec
+2020-07-22 16:24:18,834 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:13778643.png : 3.35547 sec
+2020-07-22 16:24:19,147 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr1:13778646.png : 3.66718 sec
+2020-07-22 16:24:19,174 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr1:45803673.png : 1.80977 sec
+2020-07-22 16:24:19,430 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:33036775.png : 1.97162 sec
+2020-07-22 16:24:21,033 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr1:45330040.png : 3.4005 sec
+2020-07-22 16:24:21,455 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:64869437.png : 2.02415 sec
+2020-07-22 16:24:22,133 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:45330036.png : 3.29806 sec
+2020-07-22 16:24:22,449 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr1:45330036.png : 3.30167 sec
+2020-07-22 16:24:22,680 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr1:111229711.png : 1.64637 sec
+2020-07-22 16:24:22,697 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr1:112670381.png : 3.52308 sec
+2020-07-22 16:24:24,793 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr1:150473579.png : 2.09452 sec
+2020-07-22 16:24:24,985 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:112670387.png : 3.52938 sec
+2020-07-22 16:24:25,838 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr1:147186642.png : 3.15684 sec
+2020-07-22 16:24:25,838 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:89133354.png : 3.7039 sec
+2020-07-22 16:24:26,238 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr1:89133387.png : 3.78843 sec
+2020-07-22 16:24:26,989 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr1:183249733.png : 2.19583 sec
+2020-07-22 16:24:27,389 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:115840660.png : 1.55073 sec
+2020-07-22 16:24:27,812 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:162868730.png : 2.82556 sec
+2020-07-22 16:24:28,089 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr1:183249732.png : 2.25026 sec
+2020-07-22 16:24:28,518 : [INFO] (proc 5) Saved ./out/NATRIO_test_30/chr2:25878403.png : 1.52782 sec
+2020-07-22 16:24:29,510 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr1:147186640.png : 3.27092 sec
+2020-07-22 16:24:29,762 : [INFO] (proc 4) Saved ./out/NATRIO_test_30/chr2:20671172.png : 1.67236 sec
+2020-07-22 16:24:29,900 : [INFO] (proc 1) Saved ./out/NATRIO_test_30/chr1:197441683.png : 2.0875 sec
+2020-07-22 16:24:30,072 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:169888699.png : 2.68201 sec
+2020-07-22 16:24:30,672 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr1:171703413.png : 1.1608 sec
+2020-07-22 16:24:31,049 : [INFO] (proc 2) Saved ./out/NATRIO_test_30/chr1:212699801.png : 0.97588 sec
+2020-07-22 16:24:32,069 : [INFO] (proc 3) Saved ./out/NATRIO_test_30/chr2:11587744.png : 1.39679 sec
+2020-07-22 16:24:32,077 : [INFO] Total running time: 16.6 sec
+2020-07-22 16:24:32,718 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_1.png : 0.62894 sec
+2020-07-22 16:24:32,721 : [INFO] Total running time: 0.6 sec
+2020-07-22 16:24:35,156 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_2.png : 2.42468 sec
+2020-07-22 16:24:35,160 : [INFO] Total running time: 2.4 sec
+2020-07-22 16:24:35,815 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948.png : 0.64408 sec
+2020-07-22 16:24:35,818 : [INFO] Total running time: 0.7 sec
+2020-07-22 16:24:37,839 : [INFO] (proc 1) Saved ./out/NATRIO_chr9_114786933.png : 2.00312 sec
+2020-07-22 16:24:37,846 : [INFO] Total running time: 2.0 sec
+2020-07-22 16:24:40,106 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_baseplot_ex1.png : 2.24809 sec
+2020-07-22 16:24:40,110 : [INFO] Total running time: 2.3 sec
+2020-07-22 16:24:40,613 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_baseplot_ex2.png : 0.49295 sec
+2020-07-22 16:24:40,616 : [INFO] Total running time: 0.5 sec
+2020-07-22 16:24:41,071 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_baseplot_ex3.png : 0.44465 sec
+2020-07-22 16:24:41,075 : [INFO] Total running time: 0.5 sec
+2020-07-22 16:24:41,335 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_coordinates3.png : 0.24881 sec
+2020-07-22 16:24:41,338 : [INFO] Total running time: 0.3 sec
