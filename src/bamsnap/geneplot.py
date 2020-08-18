@@ -83,7 +83,7 @@ class GenePlot():
         self.epos = epos
         self.g_len = self.epos - self.spos + 1
         self.font = None
-        self.gene_annot_file = getDataPath('Homo_sapiens.'+REFER_SEQ_VERSION[refversion]+'.bed.gz')
+        self.gene_annot_file = getDataPath(GENE_ANNOT_FILE.replace("#REFSEQVERSION#", REFER_SEQ_VERSION[refversion]))
         self.gene_annot_tb = tabix.open(self.gene_annot_file)
         self.gene_annot_header = []
         self.gene_annot = []

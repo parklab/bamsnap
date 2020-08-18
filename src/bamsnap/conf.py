@@ -46,6 +46,6 @@ COLOR['GENE_NEG'] = (232, 116, 137, 255)
 
 IMAGE_MARGIN_BOTTOM = 20
 
-GENE_ANNOT_FILE  = "data/Homo_sapiens.GRCh38.99.bed.gz"
+GENE_ANNOT_FILE  = "data/Homo_sapiens.#REFSEQVERSION#.bed.gz"
 
 REFER_SEQ_VERSION = {'GRCh37': 'GRCh37', 'hg19':'GRCh37', 'GRCh38':'GRCh38', 'hg38':'GRCh38'}
