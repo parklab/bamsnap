@@ -1,0 +1,61 @@
+
+
+.example-inner{
+  display: inline;
+}
+
+
+.example-inner .drop-content {
+    display: none;
+
+}
+
+.example-inner .drop-target {
+    cursor: pointer;
+}
+
+
+.drop-theme-basic.drop-target-example-hover-card.drop-element {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-transition: opacity 0.2s;
+    -moz-transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+    opacity: 0;
+}
+
+.drop-theme-basic.drop-target-example-hover-card.drop-element.drop-open {
+    display: none;
+}
+
+.drop-theme-basic.drop-target-example-hover-card.drop-element.drop-open-transitionend {
+    display: block;
+    /*
+    padding: .2em .6em .3em;
+    font-size: 100%;
+    font-weight: 500;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+    background-color: #000;
+    */
+}
+
+.drop-theme-basic.drop-target-example-hover-card.drop-element.drop-after-open {
+    opacity: 1;
+}
+
+
+
+
+
+
+
+

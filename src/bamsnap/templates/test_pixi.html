@@ -1,0 +1,252 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Hello World</title>
+</head>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="pixi.min.js"></script>
+<body>
+
+<div align="center">
+    <canvas id="gmapCanvas" width="512" height="384" style="padding:0px; border:1px solid lightgray"></canvas>
+  </div>
+
+<script type="text/javascript">
+
+function vertical_dash(x,h,linewidth, color){
+  var dashed = new PIXI.Graphics();
+  dashed.lineStyle(linewidth, color, 0.6);
+  b_w=2;w_w=4;y=0;
+  for (i=0; i<10000; i++){
+    dashed.moveTo(x,y);
+    y = y + b_w;
+    dashed.lineTo(x,y);
+    y = y + w_w;
+    if (y>h){break;}
+  }
+  return dashed;
+}
+
+function drawdash(x0,y0,x1,y1,linewidth, color){
+  var dashed = new PIXI.Graphics();
+  dashed.lineStyle(1, color, 1); // linewidth,color,alpha
+  dashed.moveTo(0, 0);
+  dashed.lineTo(linewidth,0);
+  dashed.moveTo(linewidth*1.5,0);
+  dashed.lineTo(linewidth*2.5,0);
+  var dashedtexture = dashed.generateCanvasTexture(1,1);
+  var linelength=Math.pow(Math.pow(x1-x0,2) + Math.pow(y1-y0,2) , 0.5);
+  var tilingSprite = new PIXI.extras.TilingSprite(dashedtexture, linelength, linewidth);
+  tilingSprite.x=x0;
+  tilingSprite.y=y0;
+  tilingSprite.rotation = angle(x0,y0,x1,y1)*Math.PI/180;
+  tilingSprite.pivot.set(linewidth/2, linewidth/2);
+  return tilingSprite;
+  
+  function angle(x0,y0,x1,y1){
+    var diff_x = Math.abs(x1 - x0),
+        diff_y = Math.abs(y1 - y0);
+    var cita;
+   if(x1>x0){
+        if(y1>y0){
+            cita= 360*Math.atan(diff_y/diff_x)/(2*Math.PI);
+        }else
+       {
+            if(y1<y0){ 
+                cita=-360*Math.atan(diff_y/diff_x)/(2*Math.PI);
+            }else{  
+                cita=0;
+            }
+        }
+    }else
+    {
+        if(x1<x0){
+            if(y1>y0){
+                cita=180-360*Math.atan(diff_y/diff_x)/(2*Math.PI);
+            }else
+            {
+                if(y1<y0){ 
+                    cita=180+360*Math.atan(diff_y/diff_x)/(2*Math.PI);
+                }else{  
+                    cita=180;
+                }
+            } 
+        }else{ 
+            if(y1>y0){ 
+                cita=90;
+            }else
+            {
+                if(y1<y0){ 
+                    cita=-90;
+                }else{  
+                    cita=0;
+                }
+            }
+        }
+    }
+    return cita;
+  }
+}
+
+
+chrom = "1";
+pos = 7471069;
+spos = pos-1000;
+
+options = {
+  name:'test0.bam',
+  height:50,
+  color:0xBBBBBB,
+};
+
+basecolor = {A:0x03c101,T:0xff0000,G:0xcb6507,C:0x0005c1}
+baseidxcolor={2:0x03c101,3:0xff0000,4:0xcb6507,5:0x0005c1}
+baseidx = {A:2,T:3,G:4,C:5}
+
+function draw_depth_panel(g, data, opt){
+  color = opt.color;
+  max_dp = d3.max(data['dp']);
+  panel_h = 100;
+  for (i = 0; i < data['len']; i++) {
+    y = opt.height * data['dp'][i] / max_dp;
+    // opt.height
+    g.lineStyle(1, color,1).moveTo(i, panel_h+opt.height).lineTo(i,panel_h+opt.height-y);
+  }
+
+  ///// Variant
+  for (i=0;i<data['var'].length;i++){
+    var arr = data['var'][i].split('/');
+    x = parseInt(arr[0]);
+    refbase = arr[1]
+    for (j=2;j<6;j++){
+      if (arr[j] != '0'){
+        y = opt.height * parseInt(arr[j])/ max_dp;
+        //console.log(y);
+        if(y>=1 & baseidx[refbase] != j){
+          g.lineStyle(1, baseidxcolor[j],1).moveTo(x, panel_h+opt.height).lineTo(x,panel_h+opt.height-y); 
+        }
+      }
+    }
+  }
+}
+
+function sync_ajax(g, options){
+  $.ajax({
+      type: "GET",
+      url: "/gmap/ajax_depth/?p="+chrom+":"+spos,
+      dataType: 'json',
+      async: true,
+      data: "",
+      success: function(data){
+          // alert(data['test'][1]);
+          draw_depth_panel(g, data, options);
+      }
+  });
+}
+
+
+$(document).ready(function () {
+  var pixiCanvas = d3.select('#gmapCanvas');
+
+  renderer = PIXI.autoDetectRenderer({
+    width:1000,
+    height: 400,
+    antialias: true,
+    view:pixiCanvas.node(),
+    backgroundColor: 0xFFFFFF,
+    resolution: 1
+  });
+
+  // pixiCanvas.call(d3.behavior.zoom().scaleExtent([0.1, 10]).on("zoom", zoom)) /// d3.v3
+  pixiCanvas.call(d3.zoom().scaleExtent([1, 8]).on("zoom", zoom)) // d3.v4
+
+  function zoom() {
+      g.position.x = d3.event.translate[0];
+      //print(graphics.position.x);
+      // graphics.position.y = d3.event.translate[1];
+      g.scale.x = d3.event.scale;
+      // graphics.scale.y = d3.event.scale;
+      //console.log(g.scale.x);
+  }
+
+
+  stage = new PIXI.Container();
+
+  animate();
+  function animate() {
+      //Render the stage
+      renderer.render(stage);
+      requestAnimationFrame(animate);
+      
+  }
+
+  var mouseEventHandler = function(e){
+      // document.getElementById("log").innerText = e.type;
+      // console.log(e.data.global.x);
+      //g_cursorguide.moveTo(e.data.global.x,0).lineTo(e.data.global.x,500);
+      g_cursorguide.x = e.data.global.x;
+      
+  }
+
+
+  let g = new PIXI.Graphics();
+  stage.addChild(g);
+  sync_ajax(g, options);
+
+
+  // let g_cursorguide = new PIXI.Graphics();
+  g_cursorguide=vertical_dash(0,500,1, 0x666666);
+  stage.addChild(g_cursorguide);
+  // g_cursorguide.lineStyle(1, 0x000000,0.5).moveTo(0, 0).lineTo(0, 500);
+
+
+  stage.interactive = true;
+  stage.buttonMode = true;
+  // stage.on("mousedown", mouseEventHandler);
+  // stage.on("mouseup", mouseEventHandler);
+  // stage.on("mouseover", mouseEventHandler);
+  stage.on("mousemove", mouseEventHandler);
+
+  
+
+  // TEXT
+  var style = new PIXI.TextStyle({
+      fontFamily: 'Arial',
+      fontSize: 15,
+      fill: ['#FF0000'], // gradient
+  });
+
+  var richText = new PIXI.Text(options.name, style);
+  richText.x = 55;
+  richText.y = 80;
+  stage.addChild(richText);
+
+  console.log("Hello");
+
+
+  // var mouseposition = renderer.plugins.interaction.mouse.global;
+  // console.log(mouseposition);
+  
+
+
+  // console.log(renderer.interaction);
+  
+  // graphics.position.set(10, 10);
+  // graphics.lineStyle(1, 0x000000,0.5)
+  //        .moveTo(80, 20)
+  //        .lineTo(100, 200)
+  //        .quadraticCurveTo(30,40,50,300);
+
+  
+
+  // renderer.render(stage);
+  // var width = document.getElementById("gmap-canvas").width;
+});
+
+</script>
+
+
+
+</body>
+</html>

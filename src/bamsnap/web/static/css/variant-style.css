@@ -1,0 +1,54 @@
+.variant_populationFreq{
+	float:right;
+	width:600px;
+	margin:0px;
+}
+
+.variant_populationFreq .title{
+	padding-top: 0px;
+	margin-top: 10px;
+	border-bottom: 2px solid #518FE9;
+}
+
+.variant_mainBody{
+	border:0px solid #999999;
+}
+
+.variant_variantInfo{
+
+}
+
+.variant_variantInfo .title{
+	padding-top: 0px;
+	margin-top: 10px;
+	border-bottom: 2px solid #AAAAAA;
+}
+
+.variant_PopMaxMAF{
+	margin-bottom: 10px;
+}
+
+.variant_PopMaxMAF th{
+	width:200px;
+	color:#999999;
+}
+
+table.variant_PopMafTable td{
+	border-bottom: 1px solid #666666;
+}
+
+table.variant_PopMafTable .variant_pop{
+	width:150px;
+	height:40px;
+	border-bottom: 1px solid #666666;
+}
+
+table.variant_PopMafTable .variant_PopMafTable_header th{
+  border-bottom: 2px solid #000000;
+}
+
+
+table.variant_mainBody tr, td, th{
+  border-bottom: 0px solid #FFFFFF;
+}
+

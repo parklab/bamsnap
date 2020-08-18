@@ -1,0 +1,60 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>truth02.png</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #FFFFFF;
+        }
+    </style>
+	</head>
+<body>
+
+<br>
+<img id="truth02id" name="truth02png" src="http://liesandcowpies.com/testMe/truth02.png" alt="truth02.png">
+<br>
+<script src="http://liesandcowpies.com/testMe/pixi.min.js"></script>
+<script>
+//Aliases
+// var 
+//    resources = PIXI.loader.resources,
+//    Sprite = PIXI.Sprite;
+
+//Create a Pixi stage and renderer and add the 
+//renderer.view to the DOM
+var stage = new PIXI.Container(),
+    renderer = PIXI.autoDetectRenderer(600, 400);
+	
+ // Set the background color of the renderer to a baby-blue'ish color
+renderer.backgroundColor = 0x3498db;
+document.body.appendChild(renderer.view);
+
+var texture02 = PIXI.Texture.fromCanvas(document.getElementById("truth02id"));
+
+var sprite02 = new PIXI.Sprite(texture02);
+
+PIXI.loader
+  .add("truth02")
+  .load(setup);
+//Define any variables that are used in more than one function
+
+function setup() {
+  sprite02.y = 96; 
+  stage.addChild(sprite02);
+ 
+  //Start the game loop
+  gameLoop();
+}
+function gameLoop(){
+  //Loop this function 60 times per second
+  requestAnimationFrame(gameLoop);
+  //Move the sprite02 1 pixel per frame
+  sprite02.x += 1;
+  //Render the stage
+  renderer.render(stage);
+}
+</script>
+</body>
+</html>

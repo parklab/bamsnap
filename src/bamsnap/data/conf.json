@@ -1,7 +1,7 @@
 {
     "TITLE":"BAMSNAP",
-    "VERSION":"0.2.6",
-    "VERSION_DATE":"2020-07-20",
+    "VERSION":"0.2.7",
+    "VERSION_DATE":"2020-07-23",
     "PROG":"bamsnap",
     "options":[
         {"param":"bam", "default":[], "nargs":"*", "action": null, "choices":null, "type":null, "help":"bam file(s)"},
@@ -24,6 +24,7 @@
         {"param":"zipout", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"make a single zip file"},
         {"param":"separator_height", "default":30, "nargs":null, "action":null, "choices":null, "type":"int", "help":"separator's height"},
         {"param":"process", "default":1, "nargs":null, "action":null, "choices":null, "type":"int", "help":"number of process for multi-processing (default: 1)"},
+        {"param":"viewer", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"run viewer"},
 
         {"param":"draw", "default":["coordinates","bamplot","base","gene"], "nargs":"*", "action":null, "choices":null, "type":null, "help":"track composition (default: -draw coordinates bamplot base gene)"},
         {"param":"bamplot", "default":["coverage","base","read"], "nargs":"*", "action":null, "choices":null, "type":null, "help":"track composition of bamplot (default: -bamplot coverage base read)"},

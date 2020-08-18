@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Daniel Minseok Kwon">
+    <!--<link rel="icon" href="../../favicon.ico">-->
+    <link rel="stylesheet" type="text/css" href="/static/semantic/semantic.min.css">
+    <script src="/static/js/jquery-3.4.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="/static/semantic/semantic.min.js"></script>
+    <!-- <script src="/static/js/main.js"></script> -->
+    <!--<link href="/static/css/bootstrap-theme.min.css" rel="stylesheet">-->
+    <!-- <script src="/static/js/d3.v3.min.js"></script> -->
+    <!-- <script src="/static/js/d3.v4.min.js"></script> -->
+    <!-- <script src="/static/js/main.js"></script> -->
+<!--
+    <link href="/static/css/jquery.treetable.css" rel="stylesheet" type="text/css" />
+    <script src="/static/js/jquery.treetable.js"></script>
+ -->
+    <!-- <link href="/static/css/jquery.treegrid.css" rel="stylesheet"> -->
+
+    {% block script %}{% endblock %}
+
+    <title>{% block title %}BSM Variant Database{% endblock %}</title>
+</head>
+<body>
+<!-- Fixed navbar -->
+
+
+<button class="ui button">Follow</button>
+
+<div class="ui animated button" tabindex="0">
+  <div class="visible content">Next</div>
+  <div class="hidden content">
+    <i class="right arrow icon"></i>
+  </div>
+</div>
+<div class="ui vertical animated button" tabindex="0">
+  <div class="hidden content">Shop</div>
+  <div class="visible content">
+    <i class="shop icon"></i>
+  </div>
+</div>
+<div class="ui animated fade button" tabindex="0">
+  <div class="visible content">Sign-up for a Pro account</div>
+  <div class="hidden content">
+    $3 2.99 a month
+  </div>
+</div>
+
+<!-- Error message modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+        <button type="button" class="close" data-dissmiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{errmsg}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: #00000c;">
+  <div class="navbar-header-line"></div>
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><font color='#FCBB00'>{{TITLE}}</font></a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="/#about">About</a></li>
+        <!-- <li><a href="/project/common_tissue_project">Common tissue project</a></li> -->
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/project/common_tissue_project">Common Tissue Project</a></li>
+            <li><a href="/project/asd">Autism spectrum disorder</a></li>
+            <li class="dropdown-header">Schizophrenia</li>
+            <li class="dropdown-header">Tourette Syndrome</li>
+            <li class="dropdown-header">Focal cortical dysplasias spectrum</li>
+            <li class="dropdown-header">Bipolar disorder</li>
+          </ul>
+        </li>
+        <!--
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data viewer <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/dataviewer/matrixviewer/view">Matrix veiwer</a></li>
+          </ul>
+        </li>-->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/sample/sample_list">Browse sample</a></li>
+            <li><a href="/dataset/variantset_list">Browse variant set</a></li>
+            <li><a href="/gene/gene_list">Browse genes</a></li>
+            <li><a href="/variant/variant_list">Browse variants</a></li>
+            <li><a href="/cnv/cnv_browser">Browse CNV</a></li>
+            <li><a href="/variant/ideogram">Ideogram</a></li>
+            <!-- <li class="divider"></li>
+            <li><a href="/gene/list_view">Autism realted genes</a></li>
+            <li><a href="/gene/list_view">SZH realted genes</a></li> -->
+          </ul>
+        </li>
+        <!-- <li><a href="#" data-toggle="modal" data-target="#sampleselector"><i class="glyphicon glyphicon-th-list"></i> Sample selector</a></li> -->
+
+
+        <!--<li  ><a href="/search">Search</a></li>-->
+        <!--<li  ><a href="/download">Download</a></li>-->
+        <!--
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documents <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">API</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Nav header</li>
+            <li><a href="#">Separated link</a></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+
+        <li><a href="http://localhost/bsm/index.php/contact">Contact</a></li>
+        -->
+      </ul>
+
+      <ul class="nav navbar-nav" style="margin-right: 0;float: right !important;">
+        <li>
+          {% block nav_search_bar %}
+          <div class="inner-addon left-addon">
+              <i class="glyphicon glyphicon-search"></i>
+              <input type="text" class="form-control" placeholder="Search" id='searchterm' />
+          </div>
+          <input type="hidden" id="searchurl" value="/main/query_manager/?q=">
+          {% endblock %}
+        </li>
+        <li><a href="http://brainsomaticmosaicism.org/" target=_blank>BSMN project</a></li>
+        <li><a href="https://www.nimh.nih.gov" target=_blank><img src="/static/img/nih_logo_144853_8.png" border=0 width=34px height=20px></a></li>
+      </ul>
+
+
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+
+
+<div id="main_wrapper">
+{% block main_banner %}{% endblock %}
+{% block content %}{% endblock %}
+</div>
+
+<footer id="page-footer" data-reactid="140">
+     <div class="footer">
+      <div class="container">
+        <p class="text-muted">
+            <!--MutBox is managed by Min-Seok Kwon (minseok_kwon@hms.harvard.edu).<br>-->
+            <!--This web site was tested in Chrome, Safari, Firefox and IE.<br>-->
+            {{TITLE}} is powered by MutBox, <a href='https://www.djangoproject.com/' target=_blank>Django</a>, <a href='https://www.python.org' target=_blank>Python3</a>, <a href='' target=_blank>Bootstrap</a>, <a href='https://jquery.com/' target=_blank>JQuery</a>, <a href='https://jquery.com/' target=_blank>Samtools</a>, <a href='https://www.highcharts.com/' target=_blank>HighChart</a> and <a href='http://higlass.io/' target=_blank>HiGlass</a>. <br>
+            Version {{VERSION}} ({{VERSION_DATE}})
+        </p>
+      </div>
+    </div>
+</footer>
+
+
+</body>
+</html>

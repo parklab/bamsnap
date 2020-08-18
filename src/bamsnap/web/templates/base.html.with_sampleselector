@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Brain Somatic Variant Database">
+    <meta name="author" content="Daniel Minseok Kwon">
+    <!--<link rel="icon" href="../../favicon.ico">-->
+    <script src="/static/js/jquery-2.1.1.min.js"></script>
+    <script src="/static/js/jquery-ui-1.12.1.min.js"></script>
+    <!--<script src="/static/js/jquery.js" type="text/javascript"></script>-->
+    <script src="/static/js/bootstrap.3.2.0.min.js"></script>
+    <script src="/static/pack/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="/static/js/js.cookie.js"></script>
+    <script src="/static/pack/bootstrap-table/src/extensions/reorder-rows/bootstrap-table-reorder-rows.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.treegrid.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.treegrid.bootstrap3.js"></script>
+
+
+    <link href="/static/pack/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/main.css?randkey={{randkey}}" rel="stylesheet">
+    <link href="/static/css/jquery-ui-1.12.1.min.css" rel="stylesheet">
+    <!--<link href="/static/css/bootstrap-theme.min.css" rel="stylesheet">-->
+    <script src="/static/js/d3.v3.min.js"></script>
+    <!-- <script src="/static/js/d3.v4.min.js"></script> -->
+    <script src="/static/js/main.js"></script>
+<!-- 
+    <link href="/static/css/jquery.treetable.css" rel="stylesheet" type="text/css" />
+    <script src="/static/js/jquery.treetable.js"></script>
+ -->
+    <link href="/static/css/jquery.treegrid.css" rel="stylesheet">
+    
+    {% block script %}{% endblock %}
+
+    <title>{% block title %}BSM Variant Database{% endblock %}</title>
+</head>
+<body>
+<!-- Fixed navbar -->
+
+<!-- Error message modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+        <button type="button" class="close" data-dissmiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{errmsg}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: #00000c;">
+  <div class="navbar-header-line"></div>
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><font color='#FCBB00'>{{TITLE}}</font></a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="/about">About BSMN</a></li>
+        <!-- <li><a href="/project/common_tissue_project">Common tissue project</a></li> -->
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/project/common_tissue_project">Common Tissue Project</a></li>
+            <li class="dropdown-header">Autism spectrum disorder</li>
+            <li class="dropdown-header">Schizophrenia</li>
+            <li class="dropdown-header">Tourette Syndrome</li>
+            <li class="dropdown-header">Focal cortical dysplasias spectrum</li>
+            <li class="dropdown-header">Bipolar disorder</li>
+          </ul>
+        </li>
+        <!--
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data viewer <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/dataviewer/matrixviewer/view">Matrix veiwer</a></li>
+          </ul>
+        </li>-->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/sample/sample_list">Browse sample</a></li>
+            <li><a href="/dataset/variantset_list">Browse variant set</a></li>
+            <li><a href="/gene/gene_list">Browse genes</a></li>
+            <li><a href="/variant/variant_list">Browse variants</a></li>
+            <!-- <li class="divider"></li>
+            <li><a href="/gene/list_view">Autism realted genes</a></li>
+            <li><a href="/gene/list_view">SZH realted genes</a></li> -->
+          </ul>
+        </li>
+        <!-- <li><a href="#" data-toggle="modal" data-target="#sampleselector"><i class="glyphicon glyphicon-th-list"></i> Sample selector</a></li> -->
+        
+
+        <!--<li  ><a href="/search">Search</a></li>-->
+        <!--<li  ><a href="/download">Download</a></li>-->
+        <!--  
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documents <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">API</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Nav header</li>
+            <li><a href="#">Separated link</a></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+
+        <li><a href="http://localhost/bsm/index.php/contact">Contact</a></li>
+        -->
+      </ul>
+
+      <ul class="nav navbar-nav" style="margin-right: 0;float: right !important;">
+        <li>
+          {% block nav_search_bar %}
+          <div class="inner-addon left-addon">
+              <i class="glyphicon glyphicon-search"></i> 
+              <input type="text" class="form-control" placeholder="Search" id='searchterm' />
+          </div>
+          <input type="hidden" id="searchurl" value="/main/query_manager/?q=">
+          {% endblock %}
+        </li>
+        <li><a href="http://brainsomaticmosaicism.org/" target=_blank>BSMN project</a></li>
+        <li><a href="https://www.nimh.nih.gov" target=_blank><img src="/static/img/nih_logo_144853_8.png" border=0 width=34px height=20px></a></li>
+      </ul>
+
+
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+<!---SAMPLE SELECTOR---->
+<div class="modal fade" id="sampleselector" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Sample selector</h4>
+      </div>
+      <div class="modal-body">
+        <!-- <div class="pre-scrollable"> -->
+        <table id="sampleselectortable"
+           data-toolbar="#toolbarSampelSel"
+           data-search="true"
+           data-show-refresh="true"
+           data-show-toggle="false"
+           data-show-columns="true"
+           data-show-export="true"
+           data-cookie="true"
+           data-cookie-id-table="saveId"
+           data-detail-formatter="detailFormatter"
+           data-minimum-count-columns="2"
+           data-show-pagination-switch="false"
+           data-pagination="false"
+           data-id-field="id"
+           data-show-footer="false"
+           data-side-pagination="server"
+           data-url="/sample/list_ajax/"
+           data-response-handler="responseHandler">
+        </table>
+        <p>&nbsp;</p>
+<script type="text/javascript">
+
+    var $table = $('#sampleselectortable'),
+        $remove = $('#remove'),
+        selections = [];
+
+    function initTable() {
+        $table.bootstrapTable({
+            height: getHeight(),
+            columns: [
+                [
+                    {
+                        field: 'default_checked',
+                        checkbox: true,
+                        align: 'center',
+                        valign: 'middle',
+                        width:'10px',
+                        formatter: stateFormatter
+                    }, {
+                        title: 'no',
+                        align: 'center',
+                        valign: 'middle',
+                        width:'10px',
+                        formatter: runningFormatter
+                    }, {
+                        title: 'Project',
+                        field: 'cls1',
+                        sortable: true,
+                        visible:false,
+                        align: 'center',
+                    }, {
+                        title: 'Group',
+                        field: 'cls2',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                    }, {
+                        title: 'Type',
+                        field: 'cls3',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                    }, {
+                        title: 'Tech',
+                        field: 'cls4',
+                        sortable: true,
+                        footerFormatter: totalNameFormatter,
+                        align: 'center'
+                    }, {
+                        title: 'ID',
+                        field: 'SID',
+                        sortable: true,
+                        align: 'center',
+                    }, {
+                        title: 'filename',
+                        field: 'ori_bam',
+                        sortable: false,
+                        visible:false,
+                        align: 'left',
+                    }, {
+                        field: 'operate',
+                        align: 'center',
+                        events: operateEvents,
+                        formatter: operateFormatter
+                    }
+                ]
+            ]
+        });
+        // sometimes footer render error.
+        setTimeout(function () {
+            $table.bootstrapTable('resetView');
+        }, 200);
+
+        $table.on('check.bs.table uncheck.bs.table '+'check-all.bs.table uncheck-all.bs.table', function () {
+          // console.log('test>>>>');
+          // $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+          // save your data, here just save the current page
+          selections = getIdSelections();
+          Cookies.set('selected.samples',selections)
+          // console.log(Cookies.get('selected.samples'));
+          // console.log('<<<<test');
+          // setCookie(this, "testCookie", selections);
+          // push or splice the selections if you want to save all data selections
+        });
+
+        $table.on('expand-row.bs.table', function (e, index, row, $detail) {
+            if (index % 2 == 1) {
+                $detail.html('Loading from ajax request...');
+                $.get('LICENSE', function (res) {
+                    $detail.html(res.replace(/\n/g, '<br>'));
+                });
+            }
+        });
+
+        
+
+        $table.on('all.bs.table', function (e, name, args) {
+            console.log(name, args);
+        });
+
+        $table.on('reset-view.bs.table', function (e, name, args) {
+        });
+
+        // $remove.click(function () {
+        //     var ids = getIdSelections();
+        //     $table.bootstrapTable('remove', {
+        //         field: 'id',
+        //         values: ids
+        //     });
+        //     $remove.prop('disabled', true);
+        // });
+        $(window).resize(function () {
+            $table.bootstrapTable('resetView', {
+                height: getHeight()
+            });
+        });
+    }
+
+	function stateFormatter(value, row, index) {
+        if (row.ori_bam.length < 1){return {disabled: true,checked: false}};
+        if (Cookies.get('selected.samples')==undefined){
+            selections = [];
+        }else{
+            selections = JSON.parse(Cookies.get('selected.samples'));
+        }
+
+        // console.log('>>>>',row.id, row.cls2, row.check, $.inArray(row.id, selections)!==-1);
+        if ($.inArray(row.id, selections)!==-1) {return {checked: true};};
+        
+        return value;
+    }
+
+    function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'), function (row) {
+            return row.id
+        });
+    }
+
+    function responseHandler(res) {
+        //console.log('responseHandler');
+        $.each(res.rows, function (i, row) {
+            row.state = $.inArray(row.id, selections) !== -1;
+        });
+        return res;
+    }
+
+    function runningFormatter(value, row, index, field){
+      return (index+1);
+    }
+
+    function detailFormatter(index, row) {
+        var html = [];
+        $.each(row, function (key, value) {
+            html.push('<p><b>' + key + ':</b> ' + value + '</p>');
+        });
+        return html.join('');
+    }
+
+    function operateFormatter(value, row, index) {
+        return [
+            '<a class="link" href="javascript:void(0)" title="link">',
+            '<i class="glyphicon glyphicon-new-window"></i>',
+            '</a>  ',
+        ].join('');
+    }
+
+    window.operateEvents = {
+        'click .like': function (e, value, row, index) {
+            alert('You click like action, row: ' + JSON.stringify(row));
+        },
+        'click .link1': function (e, value, row, index) {
+            alert('You click like action, row: ' + JSON.stringify(row));
+        },
+        // 'click .remove': function (e, value, row, index) {
+        //     $table.bootstrapTable('remove', {
+        //         field: 'id',
+        //         values: [row.id]
+        //     });
+        // }
+    };
+
+    function totalNameFormatter(data) {
+        return data.length;
+    }
+
+    function getHeight() {
+         return $(window).height() - 300;
+        //return 600;
+    }
+
+    $(function () {
+        var scripts = [
+                '/static/pack/bootstrap-table/src/extensions/export/bootstrap-table-export.js',
+                '/static/js/tableExport.js',
+                '/static/pack/bootstrap-table/src/extensions/editable/bootstrap-table-editable.js',
+                '/static/pack/bootstrap-table/src/extensions/cookie/bootstrap-table-cookie.min.js',
+                '/static/js/bootstrap-editable.js'
+            ],
+            eachSeries = function (arr, iterator, callback) {
+                callback = callback || function () {};
+                if (!arr.length) {
+                    return callback();
+                }
+                var completed = 0;
+                var iterate = function () {
+                    iterator(arr[completed], function (err) {
+                        if (err) {
+                            callback(err);
+                            callback = function () {};
+                        }
+                        else {
+                            completed += 1;
+                            if (completed >= arr.length) {
+                                callback(null);
+                            }
+                            else {
+                                iterate();
+                            }
+                        }
+                    });
+                };
+                iterate();
+            };
+
+        eachSeries(scripts, getScript, initTable);
+    });
+
+    function getScript(url, callback) {
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.src = url;
+
+        var done = false;
+        // Attach handlers for all browsers
+        script.onload = script.onreadystatechange = function() {
+            if (!done && (!this.readyState ||
+                    this.readyState == 'loaded' || this.readyState == 'complete')) {
+                done = true;
+                if (callback)
+                    callback();
+
+                // Handle memory leak in IE
+                script.onload = script.onreadystatechange = null;
+            }
+        };
+
+        head.appendChild(script);
+
+        // We handle everything using the script element injection
+        return undefined;
+    }
+</script>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id='sampleselect_savechange'>Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!---END SAMPLE SELECTOR---->
+
+
+<!-- <div class="modal fade" id="sampleselector" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Sample selector</h4>
+      </div>
+      <div class="modal-body">
+        <div class="pre-scrollable">
+        <table class="sampleSelectorTree">
+          {% for s1 in samples.tree_sample_data%}
+          <tr class="{{s1.class}}">
+            <td><i class="glyphicon glyphicon-unchecked" id="{{s1.id}}"></i>{{s1.title}}</td><td>{{s1.id}}</td><td>{{s1.no}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- glyphicon glyphicon-check -->
+
+
+<div id="main_wrapper">
+{% block main_banner %}{% endblock %}
+<div class="container theme-showcase">
+{% block content %}{% endblock %}
+</div>
+</div>
+
+<footer id="page-footer" data-reactid="140">
+     <div class="footer">
+      <div class="container">
+        <p class="text-muted">
+            <!--MutBox is managed by Min-Seok Kwon (minseok_kwon@hms.harvard.edu).<br>-->
+            <!--This web site was tested in Chrome, Safari, Firefox and IE.<br>-->
+            {{TITLE}} is powered by MutBox, <a href='https://www.djangoproject.com/' target=_blank>Django</a>, <a href='https://www.python.org' target=_blank>Python3</a>, <a href='' target=_blank>Bootstrap</a>, <a href='https://jquery.com/' target=_blank>JQuery</a>, <a href='https://jquery.com/' target=_blank>Samtools</a>, <a href='https://www.highcharts.com/' target=_blank>HighChart</a> and <a href='http://higlass.io/' target=_blank>HiGlass</a>. <br>
+            Version {{VERSION}} ({{VERSION_DATE}})
+        </p>
+      </div>
+    </div>
+</footer>
+
+<script type="text/javascript">
+errmsg = "{{errmsg}}";
+if (errmsg.length > 0){
+  $('#myModal').modal();
+}
+$(document).ready(function() {
+	$('#sampleselect_savechange').click(function() {
+	    location.reload();
+	});
+//   $('.sampleSelectorTree').treegrid({
+//     expanderExpandedClass: 'glyphicon glyphicon-minus',
+//     expanderCollapsedClass: 'glyphicon glyphicon-plus',
+//   });
+
+//   $('#treegrid-CH_FB_WGS_1 treegrid-parent-5154').on('click', function (e) {
+//     // $(this).toggleClass("glyphicon glyphicon-check");
+//     var iSelector = $(this);
+//     if(iSelector.hasClass('glyphicon-unchecked')) {
+//       iSelector.removeClass('glyphicon-unchecked');iSelector.addClass('glyphicon-check');
+//     }else{
+//       iSelector.removeClass('glyphicon-check');iSelector.addClass('glyphicon-unchecked');
+//     }
+//   });
+});
+</script>
+
+</body>
+</html>

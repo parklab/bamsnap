@@ -1,0 +1,119 @@
+
+#variant_table_dropdown_wrapper{
+    width:100%;
+    height:120px;
+}
+
+.variant_table_dropdown {
+  float : right;
+  /* width: 100px; */
+  margin:2px 5px 10px 0px;
+  /* background-color: #00DDDD; */
+}
+.variant_table_dropdown .lbl{
+    font-size:13px;
+}
+
+.variant_table_dropdown .dropdown .btn{
+    width:200px;
+    /* font-size:12px; */
+    text-align:left;
+    /* height:30px; */
+}
+.variant_table_dropdown .dropdown .dropdown-menu{
+    width:200px;
+}
+
+.variant_table_dropdown .dropdown .dropdown-menu a{
+    font-size:12px;
+}
+
+#upset_chart1{
+    /* margin:110px 0px 0px 0px; */
+    width:100%;
+    height:530px;
+    /* background-color:antiquewhite; */
+}
+
+.bar {
+  fill:royalblue;
+}
+
+.bar:hover {
+  fill: steelblue;
+}
+
+.axis text {
+  font: 14px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+
+
+.x.axis path {
+  /* display: none; */
+}
+
+.upset upset_bar1{
+    width:10px;
+    height:10px;
+    background: #222; 
+}
+
+.tooltip {
+  position: absolute;
+  padding: 10px;
+  font: 13px sans-serif;
+  background: #222;
+  color: #fff;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+  opacity: 0.9;
+  visibility: hidden;
+}
+
+
+.interLane {
+  fill:#EEE;
+}
+
+.interLane:hover {
+  fill:ivory;
+}
+
+.interline {
+  fill:#000;
+  cursor: pointer;
+}
+
+.interline:hover {
+  fill:#999;
+  cursor: pointer;
+}
+
+.usg {
+  fill:#000;
+}
+
+.usg:hover {
+  fill:#999;
+}
+
+
+.upsetDot{
+  /* fill:gray; */
+  stroke-width: 59;
+  cursor: pointer;
+}
+
+.barLabel{
+    fill:#333;
+    font: 12px sans-serif;
+}

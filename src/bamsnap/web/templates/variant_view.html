@@ -1,0 +1,377 @@
+{% extends "base.html" %}
+
+{% block script %}
+<!--<link rel="stylesheet" href="/static/css/drop-theme-basic.css">
+<link rel="stylesheet" href="/static/css/table-style.css" data-reactid="15">
+<link rel="stylesheet" href="/static/css/lbl_tooltip.css" data-reactid="15">-->
+
+<!--
+<script src="/static/js/tether.min.js"></script>
+<script src="/static/js/drop.js"></script>-->
+<!--<script src="/static/js/tooltip.min.js"></script>-->
+
+
+<!--
+
+    <script type="text/javascript" src="//use.typekit.net/jbn8qxr.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+    <link rel="stylesheet" href="http://github.hubspot.com/drop/dist/css/drop-theme-basic.css" />
+    <link rel="stylesheet" href="http://github.hubspot.com/drop/dist/css/drop-theme-arrows-bounce-dark.css" />
+    <link rel="stylesheet" href="http://github.hubspot.com/drop/dist/css/drop-theme-hubspot-popovers.css" />
+
+    <link rel="stylesheet" href="http://github.hubspot.com/drop/docs/welcome/examples/social-sharing/css/drop-example-theme-social-sharing.css" />
+
+
+    <link rel="stylesheet" href="http://github.hubspot.com/drop/docs/welcome/css/prism.css" />
+    <link rel="stylesheet" href="http://github.hubspot.com/drop/docs/welcome/css/welcome.css" />
+-->
+
+{% endblock %}
+
+{% block title %}{{TITLE}}{% endblock %}
+
+{% block nav_search_bar %}{% endblock %}
+
+{% block main_banner %}
+<!--<div class="jumbotron">-->
+
+
+<div class="ui top attached menu">
+  <div class="ui dropdown icon item">
+    <i class="wrench icon"></i>
+    <div class="menu">
+      <div class="item">
+        <i class="dropdown icon"></i>
+        <span class="text">New</span>
+        <div class="menu">
+          <div class="item">Document</div>
+          <div class="item">Image</div>
+        </div>
+      </div>
+      <div class="item">
+        Open...
+      </div>
+      <div class="item">
+        Save...
+      </div>
+      <div class="item">Edit Permissions</div>
+      <div class="divider"></div>
+      <div class="header">
+        Export
+      </div>
+      <div class="item">
+        Share...
+      </div>
+    </div>
+  </div>
+  <div class="right menu">
+    <div class="ui right aligned category search item">
+      <div class="ui transparent icon input">
+        <input class="prompt" type="text" placeholder="Search animals...">
+        <i class="search link icon"></i>
+      </div>
+      <div class="results"></div>
+    </div>
+  </div>
+</div>
+<div class="ui bottom attached segment">
+  <p></p>
+</div>
+
+
+<div class="ui top attached tabular menu">
+  <a class="item active">
+    Bio
+  </a>
+  <a class="item">
+    Photos
+  </a>
+  <div class="right menu">
+    <div class="item">
+      <div class="ui transparent icon input">
+        <input type="text" placeholder="Search users...">
+        <i class="search link icon"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ui bottom attached segment">
+  <p></p>
+</div>
+
+
+
+<div class="ui vertical menu">
+  <a class="active teal item">
+    Inbox
+    <div class="ui teal left pointing label">1</div>
+  </a>
+  <a class="item">
+    Spam
+    <div class="ui label">51</div>
+  </a>
+  <a class="item">
+    Updates
+    <div class="ui label">1</div>
+  </a>
+  <div class="item">
+    <div class="ui transparent icon input">
+      <input type="text" placeholder="Search mail...">
+      <i class="search icon"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="main_banner">
+
+  <div class="container theme-showcase" role="main">
+  <h1><font color='#FCBB00'>Brain Somatic Variant Database</font></h1>
+  <div class="main_description">{{DESCRIPTION}}</div>
+  <div >
+
+  <div class="input-group">
+
+    <input type="text" class="form-control" placeholder="Search for a gene, variant, region, or sample" id='searchterm'>
+    <div class="input-group-btn">
+        <button class="btn btn-default" type="button" id="gosearch"><i class="glyphicon glyphicon-search"></i></button>
+    </div>
+    <input type="hidden" id="searchurl" value="/main/query_manager/?q=">
+  </div>
+
+  </div><!-- /input-group -->
+  Examples -
+    <a href='/main/query_manager/?q=2:187368942-G-T'>2:187368942 G>T</a>,
+    <a href='/main/query_manager/?q=1:47080679-G-A'>1:47080679 G>A</a>,
+    <a href='/main/query_manager/?q=PDE4D'>PDE4D</a>
+
+
+  <!--<a href='/gene/view/?q=CA6'>CA6</a>
+  <a href='/gene/view/?q=MTOR'>MTOR</a>
+  <a href='/gene/view/?q=MTHFR'>MTHFR</a>
+  <a href='/gene/view/?q=KIF17'>KIF17</a>-->
+    <!--Transcript: ENST00000407236, Variant: 22:46615880-T-C, Multi-allelic variant: rs1800234, Region: 22:46615715-46615880-->
+
+    <!--Transcript: ENST00000407236, Variant: <a href='/main/query_manager/?q=1:144916676-C-T'>1:144916676-C-T</a>, Multi-allelic variant: rs1800234, Region: <a href='/main/query_manager/?q=22:46615715-46615880'>22:46615715-46615880</a>-->
+
+<!--     <button type="button" class="btn_go_project" id="go_project">
+      <i class="glyphicon glyphicon-chevron-right"></i>
+      <span class="title">Common Tissue Project</span> <span class="version">(data freeze: 11/01/2017)</span></button>
+ -->
+</div>
+</div>
+{% endblock %}
+
+{% block content %}
+<!--
+<table>
+<tr><td style="width:830px;vertical-align: top;text-align:left;">
+  -->
+<!-- <div class="warn">This website is in development.<br>Please contact us with comments.</div>   -->
+<!-- <p>&nbsp;</p> -->
+<!-- <div class="alert alert-danger" role="alert">This website is in development.<br>Please contact us with comments.</div> -->
+
+<a id='about'></a>
+<div class="jumbotron" style="background-color:#fff">
+    <div class="container">
+      <h1>About</h1>
+      <h3>The Brain Somatic Mosaicism Network</h3>
+      <p>
+          The Brain Somatic Mosaicism Network (BSMN), a National Institute of Mental Health (NIMH) funded network of 18 investigative teams representing 15 institutions, couples next generation genomic technologies with well-curated human tissue repositories to define the frequency and pattern of somatic mutations in both neurotypical individuals and those with neuropsychiatric disease. Collectively, the BSMN’s efforts are estimated to generate a community resource of greater than 10,000 DNA-sequencing data sets and will facilitate a cross-platform integrated analysis with other NIMH initiatives, including PsychENCODE and CommonMind.
+          <br><br>
+          For more information, please visit <a href="http://brainsomaticmosaicism.org" target='_blank'>brainsomaticmosaicism.org</a>. </p>
+      <p><a class="btn btn-primary btn-lg" href="http://brainsomaticmosaicism.org" role="button" target='_blank'>http://brainsomaticmosaicism.org</a></p>
+
+
+      <h3>The Brain Somatic Mosaicism Explorer</h3>
+      <p>The Brain Somatic Mosaicism Explorer is a web-based interface that provides multi-faceted visualizations of the data and findings generated by the BSMN. The site features data from the BSMN’s “common experiment” – where the network is determining concordance among disparate sequencing and bioinformatic approaches – as well as group-specific projects in disease areas including autism spectrum disorder, bipolar disorder, Tourette syndrome, and epilepsy.
+        <br>
+          <br>
+          For each BSMN project, including the common experiment and each disease area, the tool allows users to explore visualizations encapsulating key (i) project-level and (ii) variant-level information.
+          </p>
+  </div>
+</div>
+
+<a id='common_tissue_project'></a>
+<div class="jumbotron">
+    <div class="container">
+      <h1>Main features</h1>
+      <div style="float: right;right:0px;width:650px;"><img src='/static/img/main_capture_fig1.gif' width='650px'></div>
+      <div >
+        <div style="width:450px;height:400px;margin-top:150px;">
+          <h3>Project-level information</h3>
+          <br>
+          <p>
+          - Sample table <br>
+          - Interactive variant call table<br>
+          - Variant overlap plot<br>
+          - Variant call summary<br>
+          </p>
+        </div>
+      </div>
+      <div style="float: right;right:0px;width:650px;"><img src='/static/img/main_capture_fig2.gif' width='650px'></div>
+      <div >
+        <div style="width:450px;height:400px;margin-top:150px;">
+          <h3>Variant-level information</h3>
+          <br>
+          <p>
+          - High-level variant information<br>
+          - Population frequencies<br>
+          - Group that identified the variant<br>
+          - Allele fractions across samples for a given variant<br>
+          - IGV view across samples for a given variant<br>
+          - Search for variants<br>
+          </p>
+        </div>
+      </div>
+
+
+  </div>
+</div>
+
+
+<a id='featuredproject'></a>
+<div class="jumbotron" style="background-color:#fff">
+    <div class="container">
+      <h1>Featured Projects</h1>
+      <h3>The BSMN “Common Experiment”</h3>
+      <p>
+          The BSMN is determining concordance among disparate sequencing and bioinformatic approaches by performing a “common experiment” in which pulverized tissue from one neurotypical individual in the Lieber brain repository is distributed to all of the analysis groups for independent assessment of mosaicism.
+          <br><br>
+          </p>
+      <p><a class="btn btn-primary btn-lg" href="/project/common_tissue_project/" role="button" ><i class="glyphicon glyphicon-arrow-right"></i> Common Experiment Project</a></p>
+      <h3>Autism Spectrum Disorder Project</h3>
+      <p>The Park Lab has worked to characterize the genome-wide landscape of clonal somatic mutations in the brains of individuals diagnosed with Autism Spectrum Disorder as well as neurotypical subjects. The lab’s analysis leverages high-depth next-generation sequencing of tissues derived from a total of 75 post-mortem brains.
+        <br>
+          <br>
+          For each BSMN project, including the common experiment and each disease area, the tool allows users to explore visualizations encapsulating key (i) project-level and (ii) variant-level information.
+          </p>
+          <p><a class="btn btn-primary btn-lg" href="/project/asd/" role="button"><i class="glyphicon glyphicon-arrow-right"></i> Autism Spectrum Disorder Project</a></p>
+  </div>
+</div>
+
+<div class="jumbotron" style="background-color:#fff">
+  <p>&nbsp;</p>
+</div>
+
+<!--
+<h2>Project List</h2>
+<div class="project_list">
+<h3><a href="/project/common_tissue_project">Common Tissue Project (Data freeze II)</a></h3>
+<a class="main_no_indel" href="/project/common_tissue_project_variant_table">{{no_varset}} call sets</a>
+<a class="main_no_indel" href="/project/common_tissue_project_variant_table">{{no_snv}} SNVs (missense SNVs: {{no_nonsynonymous_SNV}} )</a>
+<br>
+
+<a href='/project/common_tissue_project/'><img alt="" src='/static/img/thumb6.png' class=thumb></a>
+<a href='/project/common_tissue_project_variant_table/'><img alt="" src='/static/img/thumb4.png' class=thumb></a>
+<a href='/project/common_tissue_project_upset/'><img alt="" src='/static/img/thumb5.png' class=thumb></a>
+</div> -->
+
+
+<!--
+<div class="about">
+  <div class="row">
+    <div class="col-sm-4">
+      <h2>Search ..</h2>
+      <img alt="" src='/static/img/thumb1.png' class=thumb>
+      <p>Search for variants in a sample.<br>
+
+      </p>
+    </div>
+    <div class="col-sm-4">
+      <h2>View ..</h2>
+      <img alt="" src='/static/img/thumb2.png' class=thumb>
+      <p>View read level data.</p>
+
+    </div>
+    <div class="col-sm-4">
+      <h2>Examine ..</h2>
+      <img alt="" src='/static/img/thumb3.png' class=thumb>
+      <p>Examine allele fractions at a position across samples.</p>
+
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="about">
+  <div class="row">
+    <div class="col-sm-4">
+      <h4>Search for variants in a sample</h4>
+      <p>..</p>
+    </div>
+    <div class="col-sm-4">
+      <h4>View read level data</h4>
+      <p>.. </p>
+
+    </div>
+    <div class="col-sm-4">
+      <h4>Examine allele fractions at a position across samples</h4>
+      <p>..</p>
+
+    </div>
+  </div>
+</div> -->
+
+<!-- <h2>About <font color='#FCBB00'>BSVD</font></h2> -->
+<!--<p>According to the World Health Organization as many as 450 million people worldwide suffer from psychiatric disorders, making them a substantial proportion of the global health burden. The resulting strain on these individuals and society highlights the need for new therapies to alleviate suffering.</p>
+
+<p>Family and twin studies have shown a strong heritability of psychiatric disorders, but findings from large-scale genome wide studies explain only a small proportion of that inheritance. A newly discovered feature of neuronal diversity, de novo somatic mutations, has emerged as a leading hypothesis to explain this “missing” or unexplained heritability. The <a href="https://www.nimh.nih.gov" target=_blank>National Institute of Mental Health (NIMH)</a> has funded the <b>Brain Somatic Mosaicism Network (BSMN)</b> program with the goal of accelerating the discovery of a range of somatic genomic variations across human brain cell and tissue types and elucidating its role in the development of mental illnesses. This effort will generate large data sets for the broader scientific community with the aim of identifying new therapeutic targets for neurological disease.</p>
+
+<p>The <b>BSMN</b> is a multi-site effort comprised of six project nodes that will use advances in DNA sequencing, single-cell genomics, computational biology, and genome engineering to determine the extent of somatic mosaicism in normal brains and neuropsychiatric disorders. These projects will generate large data sets for the broader scientific community and provide data integration with other NIMH initiatives.</p>
+-->
+<!--
+<p>The <b><font color='#FCBB00'>B</font>rain <font color='#FCBB00'>S</font>omatic <font color='#FCBB00'>M</font>osaicism <font color='#FCBB00'>N</font>etwork (<font color='#FCBB00'>BSMN</font>)</b> is made up of 18 principle investigators across 12 research sites and involves more than 60 members worldwide funded by <a href="https://www.nimh.nih.gov" target=_blank>National Institute of Mental Health (NIMH)</a>. The <font color='#FCBB00'>BSMN</font> project nodes use advances in DNA sequencing, single-cell genomics, computational biology, and genome engineering to determine the extent of normal brain mosaicism and to determine if aberrant brain mosaicism is associated with genetically complex neurological disorders. Collectively, the <font color='#FCBB00'>BSMN</font> aims to examine large numbers of neurons from neurotypic controls alongside matched individuals with schizophrenia, autism, epilepsy, bipolar disorder, and Tourette’s syndrome to test the general hypothesis that common brain somatic mutations can account for elusive genetic components of neurological disease. If true, the increased understanding of disease pathology may lead to new targets for drug development. Beyond investigating these specific disorders, the <font color='#FCBB00'>BSMN</font> teams will generate and share large datasets of primary neuronal and non-neuronal genomes from various brain regions in hundreds of individuals. Significant effort is being invested to produce an accessible community resource that is well integrated with other large-scale brain datasets.
+-->
+<!-- </p>
+</div>
+</td>
+<td style="vertical-align: top;text-align:left;">
+<div class="news">
+  <h2>News</h2>
+  <ul>
+    <li>Updated the common tissue project data : (data freeze: 11/01/2017) (11/30/2017)</li>
+  </ul>
+</div>
+</td>
+</tr>
+</table> -->
+
+<!--
+<table id="samplelist" data-toggle="table" data-click-to-select="true" data-striped="true">
+  <thead>
+  <tr>
+    <th data-field="state" data-checkbox="true"></th>
+    <th data-sortable="true">Class1</th>
+    <th data-sortable="true">Class2</th>
+    <th data-sortable="true">Class3</th>
+    <th data-sortable="true">Sample ID</th>
+    <th data-sortable="true">Individual ID</th>
+  </tr>
+  </thead>
+{% for sample in samples.sample_list %}
+  <tr>
+    <td></td>
+    <td>{{sample.cls1}}</td>
+    <td>{{sample.cls2}}</td>
+    <td>{{sample.cls3}}</td>
+    <td>{{sample.SID}}</td>
+    <td>{{sample.IID}}</td>
+  </tr>
+{% endfor %}
+</table>
+-->
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#go_project').on('click', function (e) {
+      window.location.href = "/project/common_tissue_project";
+    })
+
+  });
+</script>
+
+
+<!--<p><a href="#" class="btn btn-primary btn-lg" role="button">Download <?=$conf['ims_abbr']?> version 0.1 &raquo;</a></p>-->
+{% endblock %}

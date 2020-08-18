@@ -6,7 +6,7 @@ v0.2.x release series
 
 0.2.6 (2020.07.22):
 	- debug in saving JPG file.
-	- debug in coodinates axis location (middle)
+	- debug in coordinates axis location (middle)
 	- debug in base font size.
 	- update document.
 

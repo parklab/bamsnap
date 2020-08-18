@@ -18,7 +18,7 @@ To install **BamSnap**, open a shell and run:
 
 .. code:: console
 
-  $ pip install bamsnap
+  pip install bamsnap
 
 
 Install with code from github
@@ -26,7 +26,7 @@ Install with code from github
 
 .. code:: console
 
-  $ git clone https://github.com/parklab/bamsnap
-  $ cd bamsnap
-  $ python setup.py install
+  git clone https://github.com/parklab/bamsnap
+  cd bamsnap
+  python setup.py install
 
