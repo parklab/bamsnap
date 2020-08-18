@@ -1,5 +1,5 @@
 from PIL import ImageFont, Image, ImageDraw
-from .conf import COLOR, GENE_ANNOT_FILE
+from .conf import COLOR, GENE_ANNOT_FILE, REFER_SEQ_VERSION
 from .util import getTemplatePath, getDataPath, comma, gzopen, decodeb, convert_int_list, getrgb, get_scale
 import tabix
 
@@ -83,7 +83,7 @@ class GenePlot():
         self.epos = epos
         self.g_len = self.epos - self.spos + 1
         self.font = None
-        self.gene_annot_file = getDataPath('Homo_sapiens.'+refversion.replace("hg","GRCh")+'.99.bed.gz')
+        self.gene_annot_file = getDataPath(GENE_ANNOT_FILE.replace("#REFSEQVERSION#", REFER_SEQ_VERSION[refversion]))
         self.gene_annot_tb = tabix.open(self.gene_annot_file)
         self.gene_annot_header = []
         self.gene_annot = []
