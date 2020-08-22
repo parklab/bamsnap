@@ -92,3 +92,16 @@
 2020-07-22 16:24:41,075 : [INFO] Total running time: 0.5 sec
 2020-07-22 16:24:41,335 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_coordinates3.png : 0.24881 sec
 2020-07-22 16:24:41,338 : [INFO] Total running time: 0.3 sec
+2020-08-18 10:51:27,140 : [INFO] Total running time: 3.1 sec
+2020-08-18 10:51:27,662 : [INFO] Total running time: 0.5 sec
+2020-08-18 10:51:29,772 : [INFO] Total running time: 2.1 sec
+2020-08-18 10:51:30,278 : [INFO] Total running time: 0.5 sec
+2020-08-18 10:51:32,035 : [INFO] Total running time: 1.8 sec
+2020-08-18 10:51:34,150 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_baseplot_ex1.png : 2.10963 sec
+2020-08-18 10:51:34,154 : [INFO] Total running time: 2.1 sec
+2020-08-18 10:51:35,546 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_baseplot_ex2.png : 1.38558 sec
+2020-08-18 10:51:35,550 : [INFO] Total running time: 1.4 sec
+2020-08-18 10:51:37,297 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_baseplot_ex3.png : 1.74003 sec
+2020-08-18 10:51:37,301 : [INFO] Total running time: 1.7 sec
+2020-08-18 10:51:37,659 : [INFO] (proc 1) Saved ./out/NATRIO_chr10_117542948_coordinates3.png : 0.35113 sec
+2020-08-18 10:51:37,661 : [INFO] Total running time: 0.4 sec

@@ -350,6 +350,8 @@ class BamSnap():
 
             if plot1 == "bamplot":
                 for bidx, bam in enumerate(bamlist):
+                    if (bidx + 1) % 10 == 0:
+                        self.opt['log'].info("..processing " + bam.filename + " (" + str(bidx + 1) + ")")
                     ia_sub = self.get_bamplot_image(bam, pos1, image_w, xscale, refseq)
                     ia = self.append_image(ia, ia_sub)
 
@@ -366,7 +368,7 @@ class BamSnap():
         if self.opt['center_line']:
             drawA = ImageDraw.Draw(ia)
             x1 = ((self.opt['g_epos']-self.opt['g_spos'])/2)*self.scale_x
-            for h1 in range(0, image_h, 7):
+            for h1 in range(0, ia.height, 7):
                 drawA.line([(x1, h1), (x1, h1+2)], fill=COLOR['CENTER_LINE'], width=1)
 
         if not self.opt['no_target_line']:
@@ -412,7 +414,7 @@ class BamSnap():
     
     def start_process_drawplot(self, image_w, bamlist):
         for tno in range(self.opt['process']):
-            self.process[tno] = mp.Process(target=self.start_process_drawplot_bamlist, args=(image_w, bamlist,self.split_poslist[tno]), name='proc ' + str(tno+1))
+            self.process[tno] = mp.Process(target=self.start_process_drawplot_bamlist, args=(image_w, bamlist, self.split_poslist[tno]), name='proc ' + str(tno+1))
             self.process[tno].start()
 
     def start_process_drawplot_bamlist(self, image_w, bamlist, poslist):
