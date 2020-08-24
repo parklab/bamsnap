@@ -16,6 +16,7 @@ class DrawRead():
     x1 = 0
     x2 = 0
     y1 = 0
+    opt = {}
 
     def __init__(self, a):  # a:alignment
         #self.a = a
@@ -23,29 +24,27 @@ class DrawRead():
         self.id = ''
         self.is_proper_pair = a.is_proper_pair
         self.is_reverse = a.is_reverse
-
         self.base_qual = a.query_alignment_qualities  # two qual scores : a.query_alignment_qualities and a.query_qualities
         self.g_positions = self.base_plus_1(a.positions)
-
         self.g_spos = self.g_positions[0] 
         self.g_epos = self.g_positions[-1]
-
         self.readseq = a.query_alignment_sequence
-
-        
         self.cigar = a.cigartuples
         self.set_cigar()
-
         self.readseqpos = {}
         self.set_readseqpos()
-        # print(self.readseq)
-        # print(self.g_positions)
-        # print(self.readseqpos)
-        # print(self.ins_pos_map)
-
         self.g_len = self.g_epos - self.g_spos + 1
         self.set_color()
-        pass
+        self.reference_name = a.reference_name
+        self.mate_reference_name = a.next_reference_name
+        self.has_interchrom_mate = self.reference_name != self.mate_reference_name
+        # print(a.mate_is_unmapped, a.mate_is_reverse, a.next_reference_name)
+        # print(a.is_paired)
+        # print(a.reference_name, a.next_reference_name)
+        # print(a.mate_is_unmapped, a.mate_is_reverse)
+        # print(a.mate())
+        # if a.reference_name != a.next_reference_name:
+        #     print(a.reference_name, a.next_reference_name)
 
     def base_plus_1(self, poslist):
         for i in range(len(poslist)):
@@ -59,11 +58,9 @@ class DrawRead():
                 try:
                     self.ins_pos_map[self.g_positions[i]]
                     j += self.ins_pos_map[self.g_positions[i]]
-                    # print(self.g_positions[i], self.ins_pos_map[self.g_positions[i]], self.readseq[j])
                 except KeyError:
                     pass
             self.readseqpos[self.g_positions[i]] = self.readseq[j]
-            # print(self.g_positions[i], self.readseqpos[self.g_positions[i]], i, j)
             j += 1
 
     def set_cigar(self):
@@ -73,7 +70,6 @@ class DrawRead():
         gpos = self.g_spos - 1
         for cg in self.cigar:
             gpos += cg[1]
-            # print(gpos, cg, self.cigar, self.g_spos)
             if cg[0] == 2:
                 self.has_del = True
             if cg[0] == 1:
@@ -102,14 +98,31 @@ class DrawRead():
             t1 = 13
         return t1
 
-    def draw(self, dr, col1="C8C8C8"):
+    def get_readcolor_by_interchrom(self, default_color):
+        if self.has_interchrom_mate:
+            mate_chrom = self.mate_reference_name.replace('chr','')
+            try:
+                rst_color = self.opt['read_color_interchrom_chr' + mate_chrom]
+            except KeyError:
+                rst_color = self.opt['read_color_interchrom_other']
+        else:
+            rst_color = default_color
+        return rst_color
+
+    def get_readcolor_by_strand(self, default_color):
+        if self.is_reverse:
+            rst_color = self.opt['read_neg_color']
+        else:
+            rst_color = self.opt['read_pos_color']
+        return rst_color
+
+    def draw(self, dr, col1="C8C8C8", readcolorby=""):
         if not self.flag_draw:
             x1 = self.xscale.xmap[self.g_spos]['spos']
             x2 = self.xscale.xmap[self.g_epos]['epos']
             y1 = int(self.get_scaled_y(self.yidx))
 
             xy = []
-
             if self.read_thickness > 1:
                 raht = self.read_arrowhead_thickness(self.read_thickness)
                 if not self.is_reverse:
@@ -126,17 +139,21 @@ class DrawRead():
                     xy.append((x1, y1 + int(self.read_thickness / 2) ))
                     xy.append((x1 - raht, y1))
 
+                if readcolorby == "interchrom":
+                    col1 = self.get_readcolor_by_interchrom(col1)
+                elif readcolorby == "strand":
+                    col1 = self.get_readcolor_by_strand(col1)
+
                 if self.mapq == 0:
                     dr.polygon(xy, fill=getrgb(col1, 60), outline=self.outline_color)
                 else:
                     dr.polygon(xy, fill=getrgb(col1))
             else:
-                dr.line([(x1, y1), (x2, y1)], fill=col1, width=self.read_thickness)
+                dr.line([(x1, y1), (x2, y1)], fill=getrgb(col1), width=self.read_thickness)
 
-            self.draw_cigar(dr, y1)
             self.draw_variants(dr, y1)
+            self.draw_cigar(dr, y1)
             self.flag_draw = True
-
 
     def draw_cigar(self, dr, y1):
         if self.has_ins or self.has_del:
@@ -179,20 +196,19 @@ class DrawRead():
                     xidx += cg[1]
 
     def is_OK(self):
-        i = 0
-        no_variant = 0
-        flag = False
-        for gpos in self.g_positions:
-            # IF INS, change seq idx
-            try:
-                ins_base_len = self.ins_pos_map[gpos]
-                i += ins_base_len
-            except KeyError:
-                pass
-            
-            if self.refseq[gpos] != self.readseqpos[gpos]:
-                no_variant += 1
-            i += 1
+        # i = 0
+        # no_variant = 0
+        # flag = False
+        # for gpos in self.g_positions:
+        #     # IF INS, change seq idx
+        #     try:
+        #         ins_base_len = self.ins_pos_map[gpos]
+        #         i += ins_base_len
+        #     except KeyError:
+        #         pass
+        #     if self.refseq[gpos] != self.readseqpos[gpos]:
+        #         no_variant += 1
+        #     i += 1
         flag = True
         return flag
 
@@ -211,7 +227,6 @@ class DrawRead():
                 no_variant += 1
             i += 1
 
-        # if no_variant < 5:
         if True:
             i = 0
             # if self.has_ins:

@@ -12,6 +12,50 @@ bamsnap_prog = "src/bamsnap.py"
 # /home/mk446/bio/DATA/AshkenazimTrio/hg38/HG004.x60/HG004.GRCh38.60x.1_addrg_bqsr.bam \
 cmdlist = []
 cmdlist.append("""
+    -bam ./data/test_SV1.bam \
+    -title "SVA example (chr1:37,776,131)" \
+    -pos chr1:37776200 \
+    -out ./out/test_SV1-1.png \
+    -bamplot coverage read \
+    -margin 50 \
+    -no_target_line \
+    -grid 1 \
+    -save_image_only
+""")
+cmdlist.append("""
+    -bam ./data/test_SV1.bam \
+    -title "SVA example (chr1:37,776,131)" \
+    -pos chr1:37776131 \
+    -out ./out/test_SV1-2.png \
+    -bamplot coverage read \
+    -margin 500 \
+    -no_target_line \
+    -read_color_by interchrom \
+    -save_image_only
+""")
+cmdlist.append("""
+    -bam ./data/test_SV1_chr1_37775710.bam \
+    -title "SVA example (chr1:37775710)" \
+    -pos chr1:37775710 \
+    -out ./out/test_SV1-3.png \
+    -bamplot coverage read \
+    -margin 1000 \
+    -no_target_line \
+    -read_color_by interchrom \
+    -save_image_only
+""")
+cmdlist.append("""
+    -bam ./data/test_SV1_chr1_37775710.bam \
+    -title "SVA example (chr1:37775710)" \
+    -pos chr1:37775710 \
+    -out ./out/test_SV1-4.png \
+    -bamplot coverage read \
+    -margin 1000 \
+    -no_target_line \
+    -read_color_by strand \
+    -save_image_only
+""")
+cmdlist.append("""
     -bam ./data/NA12877.bam ./data/NA12878.bam ./data/NA12879.bam \
     -title "NA12877 (Father)" "NA12878 (Mother)" "NA12879 (Daughter)" \
     -vcf ./data/NATRIO_test_30.vcf \
@@ -108,11 +152,13 @@ def test_run():
         # for k in range(10):
         #     cmd = cmd.replace('  ',' ')
         # print(cmd)
-        cmd = bamsnap_prog + " " + cmd
+        cmd = bamsnap_prog + " " + cmd.strip()
         sys.argv = shlex.split(cmd)
+        print(' '.join(sys.argv))
         # print(cmd)
         # print(shlex.quote(sys.argv))
         bamsnap.cli()
+        # break
 
 
 if __name__ == "__main__":

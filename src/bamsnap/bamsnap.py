@@ -252,6 +252,7 @@ class BamSnap():
         rset.read_gap_h = self.opt['read_gap_height']
         rset.read_thickness = self.opt['read_thickness']
         rset.coverage_vaf = self.opt['coverage_vaf']
+        rset.opt = self.opt
         rset.xscale = xscale
         rset.calculate_readmap(is_strand_group=True)
 
@@ -271,6 +272,7 @@ class BamSnap():
 
             if plot1 == "coverage":
                 covplot = CoveragePlot(rset, xscale, self.opt['coverage_vaf'])
+                covplot.coverage_color = self.opt['coverage_color']
                 covplot.font = self.get_font(self.opt['coverage_fontsize'])
                 ia_sub = covplot.get_image(image_w, self.opt['coverage_height'], self.opt['coverage_bgcolor'])
                 im = self.append_image(im, ia_sub)
@@ -278,18 +280,21 @@ class BamSnap():
             if plot1 == "read":
                 if self.opt['read_group'] == "":
                     h_all = rset.get_estimated_height('all')
-                    ia_sub = rset.get_image(image_w, h_all, 'all', self.opt['read_color'], self.opt['read_bgcolor'])
+                    ia_sub = rset.get_image(
+                        image_w, h_all, 'all', self.opt['read_color'], self.opt['read_bgcolor'], self.opt['read_color_by'])
                     im = self.append_image(im, ia_sub)
 
                 elif self.opt['read_group'] == "strand":
                     # self.opt['read_bgcolor'] = "F0F000"
                     h_pos = rset.get_estimated_height('pos_strand') 
-                    ia_sub = rset.get_image(image_w, h_pos, 'pos_strand', self.opt['read_pos_color'], self.opt['read_bgcolor'])
+                    ia_sub = rset.get_image(image_w, h_pos, 'pos_strand',
+                                            self.opt['read_pos_color'], self.opt['read_bgcolor'], self.opt['read_color_by'])
                     im = self.append_image(im, ia_sub)
 
                     # self.opt['read_bgcolor'] = "00F0F0"
                     h_neg = rset.get_estimated_height('neg_strand') 
-                    ia_sub = rset.get_image(image_w, h_neg, 'neg_strand', self.opt['read_neg_color'], self.opt['read_bgcolor'])
+                    ia_sub = rset.get_image(image_w, h_neg, 'neg_strand',
+                                            self.opt['read_neg_color'], self.opt['read_bgcolor'], self.opt['read_color_by'])
                     im = self.append_image(im, ia_sub)
 
             if plot1 == "coordinates":
@@ -364,7 +369,13 @@ class BamSnap():
 
             if plot1 == "base":
                 ia = self.append_baseplot_image(ia, pos1, image_w, xscale, refseq)
-            
+
+        if self.opt['grid'] > 0:
+            drawA = ImageDraw.Draw(ia)
+            for posi in range(pos1['g_spos'], pos1['g_epos'] + 1, self.opt['grid']):
+                x1 = xscale.xmap[posi]['spos'] - 1
+                drawA.line([(x1, 0), (x1, ia.height)], fill=COLOR['GRID_COLOR'], width=1)
+
         if self.opt['center_line']:
             drawA = ImageDraw.Draw(ia)
             x1 = ((self.opt['g_epos']-self.opt['g_spos'])/2)*self.scale_x

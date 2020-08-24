@@ -63,6 +63,32 @@ Read alignment track
 -read_group             ['', strand] (default='') `read color <read_plot.html>`_
 -read_pos_color         (default=FFAC9C) `positive strand read color <read_plot.html>`_
 -read_neg_color         (default=A19CFF) `negative strand read color <read_plot.html>`_
+-read_color_by          ['', strand, intercom] (default='') `read color by <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr1     (default=64689b) `paired read color located in chromosome 1 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr2     (default=D6503A) `paired read color located in chromosome 2 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr3     (default=87AA62) `paired read color located in chromosome 3 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr4     (default=F2EB89) `paired read color located in chromosome 4 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr5     (default=597E98) `paired read color located in chromosome 5 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr6     (default=C5763E) `paired read color located in chromosome 6 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr7     (default=70BFE7) `paired read color located in chromosome 7 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr8     (default=91307F) `paired read color located in chromosome 8 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr9     (default=80DE6E) `paired read color located in chromosome 9 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr10    (default=DCA5B5) `paired read color located in chromosome 10 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr11    (default=A35A24) `paired read color located in chromosome 11 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr12    (default=978DA0) `paired read color located in chromosome 12 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr13    (default=D16525) `paired read color located in chromosome 13 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr14    (default=DCA167) `paired read color located in chromosome 14 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr15    (default=8C79B9) `paired read color located in chromosome 15 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr16    (default=E9BD71) `paired read color located in chromosome 16 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr17    (default=4B2669) `paired read color located in chromosome 17 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr18    (default=D7E4BF) `paired read color located in chromosome 18 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr19    (default=733B91) `paired read color located in chromosome 19 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr20    (default=BC2D7A) `paired read color located in chromosome 20 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr21    (default=EBD176) `paired read color located in chromosome 21 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chr22    (default=6E786F) `paired read color located in chromosome 22 <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chrX     (default=D5AA00) `paired read color located in chromosome X <read_plot.html#read-color-read-color-by>`_
+-read_color_interchrom_chrY     (default=A9D400) `paired read color located in chromosome Y <read_plot.html#read-color-read-color-by>`_
+
 
 Base track
 ----------

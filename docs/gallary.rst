@@ -63,3 +63,21 @@ Gallary
     -out ./out/NATRIO_chr10_117542948_coordinates1.png \
     -no_target_line \
     -coordinates_axisloc bottom
+
+**Color by inter-chromosomal rearrangements**
+
+.. image:: ../tests/out/test_SV1-3.png
+   :width: 100 %
+
+.. code:: console
+
+  $ bamsnap \
+    -bam ./data/test_SV1_chr1_37775710.bam \
+    -title "SVA example (chr1:37775710)" \
+    -pos chr1:37775710 \
+    -out ./out/test_SV1-3.png \
+    -bamplot coverage read \
+    -margin 1000 \
+    -no_target_line \
+    -read_color_by interchrom \
+    -save_image_only

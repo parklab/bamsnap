@@ -170,53 +170,6 @@ def get_options():
             parser.add_argument('-' + a1['param'], default=a1['default'], help=a1['help'], nargs=a1['nargs'], type=valuetype)
 
     parser.add_argument('-silence', dest='silence', action="store_true", default=False, help='don\'t print any log.')
-    # parser.add_argument('-debug', dest='debug', action="store_true", default=False, help='turn on the debugging mode')
-    # parser.add_argument('-bam', dest='bam', default=[], help='bam file', nargs="*")
-    # parser.add_argument('-bamlist', dest='bamlist', default=None, help='list file with bam file paths')
-    # parser.add_argument('-title', dest='title', default=[], help='title (name) of bam file(s)', nargs="*")
-    # parser.add_argument('-pos', dest='pos', default=[], nargs="*",
-    #                     help='genomic position (ex. 1:816687-818057, 12:7462545)')
-    # parser.add_argument('-vcf', dest='vcf', default=None,
-    #                     help='list file with genomic positions with VCF format')
-    # parser.add_argument('-bed', dest='bed', default=None,
-    #                     help='list file with genomic positions with BED format')
-    # parser.add_argument('-out', dest='out', default='', help='title of output file')
-    # parser.add_argument('-out_type', dest='out_type',
-    #                     choices=['png', 'jpg'], default='png', help='output file type')
-    # parser.add_argument('-conf', dest='conf', default="", help='configuration file')
-    # parser.add_argument('-ref', dest='ref', default="", help='Reference sequence fasta file (ex. hg19.fa)')
-    # parser.add_argument('-width', dest='width', default=1000, type=int, help='image size : width (unit:px)')
-    # parser.add_argument('-height', dest='height', default=None, help='image size : height (unit:px)')
-    # parser.add_argument('-read_thickness', dest='read_thickness', default=5, type=int, help='read width (unit:px)')
-    # parser.add_argument('-read_gap_h', dest='read_gap_h', default=2, type=int, help='read gap height (unit:px)')
-    # parser.add_argument('-read_gap_w', dest='read_gap_w', default=2, type=int, help='read gap width (unit:px)')
-    # parser.add_argument('-draw', dest='draw', default="coverage,base,heatmap,read",
-    #                     help='plot (default: -draw coverage,heatmap,read )')
-    # parser.add_argument('-margin', dest='margin', default=200, type=int, help='genomic margin size')
-    # parser.add_argument('-center_line', dest='center_line', default=False, action="store_true", help='draw center line')
-    # parser.add_argument('-no_target_line', dest='no_target_line', default=False, action="store_true", help='do not draw target line')
-
-    # coverage plot option
-    # parser.add_argument('-draw_coverage_plot', dest='draw_coverage_plot',action="store_true", default=False, help='draw coverage plot')
-    # parser.add_argument('-base_height', dest='base_height', default=40, type=int, help='base plot height')
-
-    # parser.add_argument('-coverage_height', dest='coverage_height', default=40, type=int, help='coverage plot height')
-    # parser.add_argument('-coverage_vaf', dest='coverage_vaf', default=10, type=float,
-    #                     help='coverage variant allele fraction threshold (unit:%%)')
-
-    # coverage heatmap height
-    # parser.add_argument('-draw_heatmap', dest='draw_heatmap', action="store_true", default=False, help='draw heatmap')
-    # parser.add_argument('-heatmap_height', dest='heatmap_height', default=5, type=int, help='coverage heatmap height')
-
-    # parser.add_argument('-no_label', dest='no_label', default=False, action="store_true", help='do not draw label.')
-
-    # parser.add_argument('-no_coordinate', dest='no_coordinate', default=False, action="store_true", help='do not draw coordinate.')
-    # parser.add_argument('-coordinate_height', dest='coordinate_height', default=20, type=int, help='coordinate height')
-
-    # parser.add_argument('-draw_read', dest='draw_read_plot',action="store_true", default=False, help='draw read plot')
-    # parser.add_argument('-no_geneplot', dest='no_geneplot', action="store_true", default=False, help='do not draw gene structure')
-    # parser.add_argument('-geneplot_height', dest='geneplot_height', default=50, type=int, help='gene plot height')
-    # parser.add_argument('-merged_image', dest='merged_image', default=False, action="store_true", help='draw a merged plot')
 
     if len(sys.argv) == 1 or (len(sys.argv) == 2 and sys.argv[1][0] != '-'):
         sys.argv.append('-h')

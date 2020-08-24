@@ -37,6 +37,7 @@ COLOR['LABEL'] = (0, 0, 0, 255)
 COLOR['GENE_POS'] = ImageColor.getrgb("#6961ff")
 # COLOR['GENE_NEG'] = ImageColor.getrgb("#e87489")
 COLOR['GENE_NEG'] = (232, 116, 137, 255)
+COLOR['GRID_COLOR'] = ImageColor.getrgb("#EEEEEE")
 
 
 # A: "rgb(  0, 200,   0)",

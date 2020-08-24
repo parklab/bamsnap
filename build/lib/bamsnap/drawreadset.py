@@ -7,12 +7,12 @@ from .util import getrgb, get_scale, add_dict_value, init_dict
 
 
 class CoveragePlot():
-    def __init__(self, readset, xscale, coverage_vaf=0.2):
+    def __init__(self, readset, xscale, coverage_vaf_threshold=0.2):
         self.readset = readset
         self.font = None
         self.font_size = 12
         self.im = None
-        self.coverage_vaf = coverage_vaf
+        self.coverage_vaf_threshold = coverage_vaf_threshold
         self.xscale = xscale
         self.coverage_color = "C8C8C8"
         self.axis_color = "000000"
@@ -29,7 +29,7 @@ class CoveragePlot():
     def get_vaf(self, base_composition, dp, posi, refseq):
         aflist = []
         for b1 in base_composition.keys():
-            if refseq[posi+1] != b1:
+            if refseq[posi] != b1:
                 aflist.append(base_composition[b1]/dp)
         return max(aflist)
 
@@ -51,28 +51,33 @@ class CoveragePlot():
             base_composition = covmap[posi][1]
             # x = int((posi - g_spos) * self.scale_x) + int(self.base_width/2)
             # x = int((posi - g_spos) * self.scale_x)
-
             if max_cov > 0:
                 y1 = h
                 y2 = round(h - (cov / max_cov * h), 0)
-                x1 = self.xscale.xmap[posi+1]['spos']
-                x2 = self.xscale.xmap[posi+1]['epos']
+                x1 = self.xscale.xmap[posi]['spos']
+                x2 = self.xscale.xmap[posi]['epos']
                 dr.rectangle([(x1, y1), (x2, y2)], fill=getrgb(self.coverage_color), outline=getrgb(self.coverage_color, 15), width=1)
+                # print(posi, cov, base_composition, len(base_composition.keys()), max_cov, refseq[posi])
                 if len(base_composition.keys()) > 1:
-                    if is_OK(base_composition, refseq[posi+1]):
+                    # print(posi, cov, base_composition, max_cov)
+                    # print(len(base_composition.keys()))
+                    if is_OK(base_composition, refseq[posi]):
                         alt_pos_list.append((cov, posi))
 
+        # print (alt_pos_list)
         for (cov, posi) in alt_pos_list:
             cov = covmap[posi][0]
             base_composition = covmap[posi][1]
             # x = int((posi - g_spos) * self.scale_x) + int(self.base_width/2)
-            x = self.xscale.xmap[posi+1]['cpos']
+            x = self.xscale.xmap[posi]['cpos']
             # x = int((posi - g_spos) * self.scale_x) 
             y1 = h
             y2 = round(h - (cov / max_cov * h), 0)
             y11 = y1
             vaf = self.get_vaf(base_composition, cov, posi, refseq)
-            if vaf >= self.coverage_vaf:
+            # print(vaf, base_composition, cov, posi, refseq)
+            # print(vaf, cov, posi, base_composition, refseq[posi])
+            if vaf >= self.coverage_vaf_threshold:
                 for base in base_composition.keys():
                     h2 = base_composition[base] / max_cov * h
                     y21 = y11-h2
@@ -156,10 +161,10 @@ class DrawReadSet():
     read_thickness = 5
     refseq = {}
     coverage_vaf = 10
+    opt = {}
     STRAND_GROUP_LIST = ['pos_strand', 'neg_strand']
 
     def __init__(self, bam, chrom, g_spos, g_epos, xscale, refseq="",  coverage_vaf=10):
-        # self.samAlign = bam.samAlign
         self.samAlign = pysam.AlignmentFile(bam.filename, "rb")
         self.chrom = chrom
         self.refseq = refseq
@@ -220,7 +225,11 @@ class DrawReadSet():
         return flag
 
     def get_rid(self, a):
-        return (a.query_name + "_" + str(a.positions[0]))
+        if len(a.positions) == 0:
+            rid = a.query_name + "_"
+        else:
+            rid = a.query_name + "_" + str(a.positions[0])
+        return rid
 
     # def check_and_draw_read(self, a, dr, panel_xy):
     #     rid = self.get_rid(a)
@@ -239,7 +248,75 @@ class DrawReadSet():
         base_composition[group] = add_dict_value(base_composition[group], base, 1)
         return base_composition
 
+    def add_covmap(self, group, read):
+        for gpos in read.g_positions:
+            base = read.readseqpos[gpos]
+
+            self.covmap = init_dict(self.covmap, group)
+            try:
+                prev_covmap = self.covmap[group][gpos]
+            except KeyError:
+                prev_covmap = (0, {self.refseq[gpos]: 0})
+            (cov, base_composition) = prev_covmap
+            base_composition = add_dict_value(base_composition, base, 1)
+            self.covmap[group][gpos] = (cov + 1, base_composition)
+
     def calculate_readmap(self, is_strand_group=False):
+        group_list = ['all']
+        if is_strand_group:
+            group_list.extend(self.STRAND_GROUP_LIST)
+
+        for group in group_list:
+            self.max_cov[group] = 0
+
+        for a in self.samAlign.fetch(self.chrom, self.g_spos-self.read_gap_w-500, self.g_epos+500):
+            if len(a.positions) > 0:
+                rid = self.get_rid(a)
+
+                if not self.is_exist_read(rid):
+                    r = DrawRead(a)
+                    r.refseq = self.refseq
+                    r.id = rid
+                    if r.is_OK():
+                        # r.yidx = self.get_yidx(r)
+                        r.read_gap_h = self.read_gap_h
+                        r.read_gap_w = self.read_gap_w
+                        r.panel_g_spos = self.g_spos
+                        r.opt = self.opt
+                        self.readset[rid] = r
+                else:
+                    r = self.readset[rid]
+
+                if r.is_OK():
+                    self.add_covmap('all', r)
+                
+                    if rid not in self.readlist['all']:
+                        self.readlist['all'].append(rid)
+
+                    if is_strand_group:
+                        if a.is_reverse:
+                            group = 'neg_strand'
+                        else:
+                            group = 'pos_strand'
+                        try:
+                            self.readlist[group]
+                        except KeyError:
+                            self.readlist[group] = []
+                        if rid not in self.readlist[group]:
+                            self.readlist[group].append(rid)
+                        self.add_covmap(group, r)
+        
+        for group in group_list:
+            try:
+                for rid in self.readlist[group]:
+                    yidx = self.get_yidx(self.readset[rid], group)
+                    if self.max_cov[group] < yidx:
+                        self.max_cov[group] = yidx
+            except KeyError:
+                self.max_cov[group] = 0
+        
+
+    def calculate_readmap0(self, is_strand_group=False):
         group_list = ['all']
         if is_strand_group:
             group_list.extend(self.STRAND_GROUP_LIST)
@@ -302,8 +379,6 @@ class DrawReadSet():
                 self.covmap = init_dict(self.covmap, group)
                 self.covmap[group][gpos] = (cov[group], base_composition[group])
             
-            
-        
         for group in group_list:
             try:
                 for rid in self.readlist[group]:
@@ -313,29 +388,26 @@ class DrawReadSet():
             except KeyError:
                 self.max_cov[group] = 0
         
-                
-
     def get_estimated_height(self, group='all'):
         h = self.max_cov[group] * (self.read_thickness + self.read_gap_h) + self.read_thickness
         return h
 
-
-    def get_image(self, w, h, group, readcolor="C8C8C8", bgcolor="FFFFFF"):
+    def get_image(self, w, h, group, readcolor="C8C8C8", bgcolor="FFFFFF", readcolorby=""):
         self.im = Image.new('RGBA', (w, h), getrgb(bgcolor))
         dr = ImageDraw.Draw(self.im)
-        self.draw_read(dr, group, readcolor)
+        self.draw_read(dr, group, readcolor, readcolorby)
         return self.im
 
+    def draw_read(self, dr, group, col1="C8C8C8", readcolorby=""):
 
-    def draw_read(self, dr, group, col1="C8C8C8"):
-        # for rid in self.readset.keys():
         if group in self.readlist.keys():
             for rid in self.readlist[group]:
                 r = self.readset[rid]
                 r.yidx = self.get_yidx(r, group)
                 r.xscale = self.xscale
                 r.read_thickness = self.read_thickness
-                r.draw(dr, col1)
+                r.draw(dr, col1, readcolorby)
+
     
 
     def is_OK(self, base_composition, ref):
