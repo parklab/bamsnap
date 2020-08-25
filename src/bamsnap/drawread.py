@@ -21,60 +21,105 @@ class DrawRead():
     def __init__(self, a):  # a:alignment
         #self.a = a
         self.mapq = a.mapq
-        self.id = ''
+        self.id = a.query_name
         self.is_proper_pair = a.is_proper_pair
         self.is_reverse = a.is_reverse
-        self.base_qual = a.query_alignment_qualities  # two qual scores : a.query_alignment_qualities and a.query_qualities
+
         self.g_positions = self.base_plus_1(a.positions)
         self.g_spos = self.g_positions[0] 
         self.g_epos = self.g_positions[-1]
         self.readseq = a.query_alignment_sequence
-        self.cigar = a.cigartuples
-        self.set_cigar()
-        self.readseqpos = {}
-        self.set_readseqpos()
-        self.g_len = self.g_epos - self.g_spos + 1
+        self.readseq_with_softclipped = a.query_sequence
+        
         self.set_color()
         self.reference_name = a.reference_name
         self.mate_reference_name = a.next_reference_name
         self.has_interchrom_mate = self.reference_name != self.mate_reference_name
-        # print(a.mate_is_unmapped, a.mate_is_reverse, a.next_reference_name)
-        # print(a.is_paired)
-        # print(a.reference_name, a.next_reference_name)
-        # print(a.mate_is_unmapped, a.mate_is_reverse)
-        # print(a.mate())
-        # if a.reference_name != a.next_reference_name:
-        #     print(a.reference_name, a.next_reference_name)
+
+        self.base_qual = a.query_qualities
+        self.refseq = a.get_reference_sequence()
+        self.g_spos = a.positions[0] + 1
+        self.g_epos = a.positions[-1] + 1
+        self.has_del = False
+        self.has_ins = False
+        self.has_softclipped = False
+        self.has_mismatch = False
+        self.cigar = a.cigartuples
+        self.readseq_with_softclipped = a.query_sequence
+
+        self.readseqinfo = {}
+        self.ins_list = []
+        self.del_list = []
+        self.mismatch_list = []
+        self.softclipped_list = []
+        self.set_read_variant()
+
+    def set_read_variant(self):
+        gpos = self.g_spos
+        self.g_spos_with_softclipped = self.g_spos
+        self.g_epos_with_softclipped = self.g_epos
+        prev_gpos = gpos
+        bidx = 0
+        ridx = 0
+
+        for cidx in range(len(self.cigar)):
+            cg = self.cigar[cidx]
+            gpos += cg[1]
+            if cg[0] == 2:
+                self.has_del = True
+                self.del_list.append((prev_gpos, gpos))
+                ridx += cg[1]
+            elif cg[0] == 1:
+                gpos -= cg[1]
+                self.has_ins = True
+                self.ins_list.append(gpos)
+                bidx += cg[1]
+            elif cg[0] == 4:  # soft clipped
+                self.has_softclipped = True
+                if cidx == 0:
+                    self.g_spos_with_softclipped = self.g_spos - cg[1]
+                    gpos = self.g_spos
+                    for gp in range(self.g_spos_with_softclipped, self.g_spos):
+                        self.softclipped_list.append(gp)
+                        base = self.readseq_with_softclipped[bidx]
+                        self.readseqinfo[gp] = (base, '', 'C', self.base_qual[bidx])
+                        bidx += 1
+                else:
+                    self.g_epos_with_softclipped = self.g_epos + cg[1]
+                    for gp in range(self.g_epos+1, self.g_epos_with_softclipped+1):
+                        self.softclipped_list.append(gp)
+                        base = self.readseq_with_softclipped[bidx]
+                        self.readseqinfo[gp] = (base, '', 'C', self.base_qual[bidx])
+                        bidx += 1
+            elif cg[0] == 5:
+                gpos -= cg[1]
+            else:
+                for gp in range(prev_gpos, gpos):
+                    base = self.readseq_with_softclipped[bidx]
+                    refbase = self.refseq[ridx].upper()
+                    if base != refbase:
+                        btype = 'S'
+                        self.mismatch_list.append(gp)
+                    else:
+                        btype = 'M'
+                    self.readseqinfo[gp] = (base, refbase, btype, self.base_qual[bidx])
+                    bidx += 1
+                    ridx += 1
+            prev_gpos = gpos
 
     def base_plus_1(self, poslist):
         for i in range(len(poslist)):
             poslist[i] = poslist[i] + 1
         return poslist
 
-    def set_readseqpos(self):
-        j = 0
-        for i in range(len(self.g_positions)):
-            if self.has_ins:
-                try:
-                    self.ins_pos_map[self.g_positions[i]]
-                    j += self.ins_pos_map[self.g_positions[i]]
-                except KeyError:
-                    pass
-            self.readseqpos[self.g_positions[i]] = self.readseq[j]
-            j += 1
-
-    def set_cigar(self):
-        self.has_del = False
-        self.has_ins = False
-        self.ins_pos_map = {}
-        gpos = self.g_spos - 1
-        for cg in self.cigar:
-            gpos += cg[1]
-            if cg[0] == 2:
-                self.has_del = True
-            if cg[0] == 1:
-                self.has_ins = True
-                self.ins_pos_map[gpos] = cg[1]
+    def get_genomic_spos_epos(self):
+        if self.opt['show_soft_clipped']:
+            g_spos = self.g_spos_with_softclipped
+            g_epos = self.g_epos_with_softclipped
+        else:
+            g_spos = self.g_spos
+            g_epos = self.g_epos
+        return (g_spos, g_epos)
 
     def set_color(self):
         self.outline_color = COLOR['READ']
@@ -118,137 +163,96 @@ class DrawRead():
 
     def draw(self, dr, col1="C8C8C8", readcolorby=""):
         if not self.flag_draw:
-            x1 = self.xscale.xmap[self.g_spos]['spos']
-            x2 = self.xscale.xmap[self.g_epos]['epos']
             y1 = int(self.get_scaled_y(self.yidx))
-
-            xy = []
-            if self.read_thickness > 1:
-                raht = self.read_arrowhead_thickness(self.read_thickness)
-                if not self.is_reverse:
-                    xy.append((x1, y1 - int(self.read_thickness / 2) ))
-                    xy.append((x2, y1 - int(self.read_thickness / 2) ))
-                    xy.append((x2 + raht, y1))
-                    xy.append((x2, y1 + int(self.read_thickness / 2) ))
-                    xy.append((x1, y1 + int(self.read_thickness / 2) ))
-                else:
-                    x1 
-                    xy.append((x1, y1 - int(self.read_thickness / 2) ))
-                    xy.append((x2, y1 - int(self.read_thickness / 2) ))
-                    xy.append((x2, y1 + int(self.read_thickness / 2) ))
-                    xy.append((x1, y1 + int(self.read_thickness / 2) ))
-                    xy.append((x1 - raht, y1))
-
-                if readcolorby == "interchrom":
-                    col1 = self.get_readcolor_by_interchrom(col1)
-                elif readcolorby == "strand":
-                    col1 = self.get_readcolor_by_strand(col1)
-
-                if self.mapq == 0:
-                    dr.polygon(xy, fill=getrgb(col1, 60), outline=self.outline_color)
-                else:
-                    dr.polygon(xy, fill=getrgb(col1))
-            else:
-                dr.line([(x1, y1), (x2, y1)], fill=getrgb(col1), width=self.read_thickness)
-
-            self.draw_variants(dr, y1)
-            self.draw_cigar(dr, y1)
+            self.draw_read_body(dr, y1, col1, readcolorby)
+            self.draw_mismatch(dr, y1)
+            if self.opt['show_soft_clipped'] and self.has_softclipped:
+                self.draw_softclipped(dr, y1)
+            if self.has_ins:
+                self.draw_ins(dr, y1)
+            if self.has_del:
+                self.draw_del(dr, y1)
             self.flag_draw = True
 
-    def draw_cigar(self, dr, y1):
-        if self.has_ins or self.has_del:
-            xidx = 0
-            for cg in self.cigar:
-                if cg[0] == 2:  # DEL
-                    xpos1 = self.g_spos + xidx
-                    xpos2 = self.g_spos + xidx + cg[1]
+    def draw_read_body(self, dr, y1, col1, readcolorby=""):
+        if self.opt['show_soft_clipped'] and self.has_softclipped:
+            x1 = self.xscale.xmap[self.g_spos_with_softclipped]['spos']
+            x2 = self.xscale.xmap[self.g_epos_with_softclipped]['epos']
+        else:
+            x1 = self.xscale.xmap[self.g_spos]['spos']
+            x2 = self.xscale.xmap[self.g_epos]['epos']
+    
+        xy = []
+        if self.read_thickness > 1:
+            raht = self.read_arrowhead_thickness(self.read_thickness)
+            if not self.is_reverse:
+                xy.append((x1, y1 - int(self.read_thickness / 2) ))
+                xy.append((x2, y1 - int(self.read_thickness / 2) ))
+                xy.append((x2 + raht, y1))
+                xy.append((x2, y1 + int(self.read_thickness / 2) ))
+                xy.append((x1, y1 + int(self.read_thickness / 2) ))
+            else:
+                xy.append((x1, y1 - int(self.read_thickness / 2) ))
+                xy.append((x2, y1 - int(self.read_thickness / 2) ))
+                xy.append((x2, y1 + int(self.read_thickness / 2) ))
+                xy.append((x1, y1 + int(self.read_thickness / 2) ))
+                xy.append((x1 - raht, y1))
 
-                    # if the read has insertion. 
-                    for p1 in self.ins_pos_map.keys():
-                        if p1 <= xpos1:
-                            xpos1 -= self.ins_pos_map[p1]
-                            xpos2 -= self.ins_pos_map[p1]
-                    x1 = self.xscale.xmap[xpos1]['spos']
-                    x2 = self.xscale.xmap[xpos2]['spos']
+            if readcolorby == "interchrom":
+                col1 = self.get_readcolor_by_interchrom(col1)
+            elif readcolorby == "strand":
+                col1 = self.get_readcolor_by_strand(col1)
 
-                    if self.read_thickness > 1:
-                        xy = []
-                        xy.append((x1, y1-self.read_thickness/2))
-                        xy.append((x2, y1-self.read_thickness/2))
-                        xy.append((x2, y1+self.read_thickness/2))
-                        xy.append((x1, y1+self.read_thickness/2))
-                        dr.polygon(xy, fill=COLOR['BG'], outline=COLOR['BG'])
-                        dr.line([(x1, y1), (x2, y1)], fill=COLOR['DEL'], width=self.del_width)
-                    else:
-                        dr.line([(x1, y1), (x2, y1)], fill=COLOR['DEL'], width=self.del_width)
-                if cg[0] == 1:  # INS
-                    x1 = self.xscale.xmap[self.g_spos + xidx]['spos']
+            if self.mapq == 0:
+                dr.polygon(xy, fill=getrgb(col1, 60), outline=self.outline_color)
+            else:
+                dr.polygon(xy, fill=getrgb(col1))
+        else:
+            dr.line([(x1, y1), (x2, y1)], fill=getrgb(col1), width=self.read_thickness)
 
-                    dr.line([(x1, y1-self.read_thickness/2), (x1, y1+self.read_thickness/2)],
-                            fill=COLOR['INS'], width=self.ins_width)
-                    dr.line([(x1-1, y1-self.read_thickness/2), (x1+2, y1-self.read_thickness/2)],
-                            fill=COLOR['INS'], width=self.ins_width)
-                    dr.line([(x1-1, y1+self.read_thickness/2), (x1+2, y1+self.read_thickness/2)],
-                            fill=COLOR['INS'], width=self.ins_width)
-                if cg[0] == 3:  # soft clip
-                    pass
-                if cg[0] < 3:
-                    xidx += cg[1]
+    def draw_mismatch(self, dr, y1):
+        for gpos in self.mismatch_list:
+            base_qual = self.readseqinfo[gpos][3]
+            color_tag = "w" if base_qual < 15 else ""
+            alt = self.readseqinfo[gpos][0]
+            x1 = self.xscale.xmap[gpos]['spos']
+            x2 = self.xscale.xmap[gpos]['epos']
+            if x1 == x2:
+                x2 = x1 + 1
+            dr.line([(x1, y1), (x2, y1)], fill=COLOR[color_tag+alt], width=self.read_thickness)
 
-    def is_OK(self):
-        # i = 0
-        # no_variant = 0
-        # flag = False
-        # for gpos in self.g_positions:
-        #     # IF INS, change seq idx
-        #     try:
-        #         ins_base_len = self.ins_pos_map[gpos]
-        #         i += ins_base_len
-        #     except KeyError:
-        #         pass
-        #     if self.refseq[gpos] != self.readseqpos[gpos]:
-        #         no_variant += 1
-        #     i += 1
-        flag = True
-        return flag
+    def draw_softclipped(self, dr, y1):
+        for gpos in self.softclipped_list:
+            base_qual = self.readseqinfo[gpos][3]
+            color_tag = "w" if base_qual < 15 else ""
+            alt = self.readseqinfo[gpos][0]
+            x1 = self.xscale.xmap[gpos]['spos']
+            x2 = self.xscale.xmap[gpos]['epos']
+            if x1 == x2:
+                x2 = x1 + 1
+            dr.line([(x1, y1), (x2, y1)], fill=COLOR[color_tag+alt], width=self.read_thickness)
 
-    def draw_variants(self, dr, y1):
-        i = 0
-        no_variant = 0
-        for gpos in self.g_positions:
-            # IF INS, change seq idx
-            try:
-                ins_base_len = self.ins_pos_map[gpos]
-                i += ins_base_len
-            except KeyError:
-                pass
+    def draw_ins(self, dr, y1):
+        for gpos in self.ins_list:
+            x1 = self.xscale.xmap[gpos]['spos']
+            dr.line([(x1, y1-self.read_thickness/2), (x1, y1+self.read_thickness/2)],
+                    fill=COLOR['INS'], width=self.ins_width)
+            dr.line([(x1-1, y1-self.read_thickness/2), (x1+2, y1-self.read_thickness/2)],
+                    fill=COLOR['INS'], width=self.ins_width)
+            dr.line([(x1-1, y1+self.read_thickness/2), (x1+2, y1+self.read_thickness/2)],
+                    fill=COLOR['INS'], width=self.ins_width)
 
-            if self.refseq[gpos] != self.readseq[i]:
-                no_variant += 1
-            i += 1
-
-        if True:
-            i = 0
-            # if self.has_ins:
-            #     print (self.cigar, self.g_positions, self.g_len, len(self.g_positions), self.ins_pos_map)
-            for gpos in self.g_positions:
-                # IF INS, change seq idx
-                try:
-                    ins_base_len = self.ins_pos_map[gpos]
-                    i += ins_base_len
-                except KeyError:
-                    pass
-
-                if self.refseq[gpos] != self.readseqpos[gpos]:
-                    # print(gpos, self.refseq[gpos], self.readseqpos[gpos])
-                    color_tag = ''
-                    if self.base_qual[i] < 15:
-                        color_tag = 'w'
-                    alt = self.readseqpos[gpos]
-                    x1 = self.xscale.xmap[gpos]['spos']
-                    x2 = self.xscale.xmap[gpos]['epos']
-                    if x1 == x2:
-                        x2 = x1 + 1
-                    dr.line([(x1, y1 ), (x2, y1 )], fill=COLOR[color_tag+alt], width=self.read_thickness)
-
-                i += 1
+    def draw_del(self, dr, y1):
+        for gpos in self.del_list:
+            x1 = self.xscale.xmap[gpos[0]]['spos']
+            x2 = self.xscale.xmap[gpos[1]]['spos']
+            if self.read_thickness > 1:
+                xy = []
+                xy.append((x1, y1-self.read_thickness/2))
+                xy.append((x2, y1-self.read_thickness/2))
+                xy.append((x2, y1+self.read_thickness/2))
+                xy.append((x1, y1+self.read_thickness/2))
+                dr.polygon(xy, fill=COLOR['BG'], outline=COLOR['BG'])
+                dr.line([(x1, y1), (x2, y1)], fill=COLOR['DEL'], width=self.del_width)
+            else:
+                dr.line([(x1, y1), (x2, y1)], fill=COLOR['DEL'], width=self.del_width)

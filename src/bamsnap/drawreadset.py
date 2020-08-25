@@ -39,7 +39,9 @@ class CoveragePlot():
             max_cov = self.readset.max_cov['all']
         except KeyError:
             covmap = {}
-            max_cov = {}
+            max_cov = 0
+        # max_cov = max(max_cov, 5)
+        
         g_spos = self.readset.g_spos
         g_epos = self.readset.g_epos
         refseq = self.readset.refseq
@@ -79,7 +81,6 @@ class CoveragePlot():
                     dr.line([(x, y11), (x, y21)], fill=COLOR[base], width=self.xscale.base_width)
                     y11 = y21
 
-        
         x1 = 0
         # dr.line([(x1, 0), (x1+3, 0)], fill=getrgb(self.axis_color), width=1)
         # dr.line([(x1, int(h/2)), (x1+3, int(h/2))], fill=getrgb(self.axis_color), width=1)
@@ -184,7 +185,8 @@ class DrawReadSet():
             yidx = self.yidxmap[group][r.id]
         except KeyError:
             yidxmap = {}
-            for gpos in range(r.g_spos-self.read_gap_w, r.g_epos+1+self.read_gap_w):
+            (g_spos, g_epos) = r.get_genomic_spos_epos()
+            for gpos in range(g_spos-self.read_gap_w, g_epos+1+self.read_gap_w):
                 try:
                     self.readmap[gpos][group]
                 except KeyError:
@@ -203,7 +205,7 @@ class DrawReadSet():
                     except KeyError:
                         yidx = i
                         break
-            for gpos in range(r.g_spos-self.read_gap_w, r.g_epos+1+self.read_gap_w):
+            for gpos in range(g_spos-self.read_gap_w, g_epos+1+self.read_gap_w):
                 self.readmap[gpos][group].append(yidx)
             try:
                 self.yidxmap[group][r.id] = yidx
@@ -245,7 +247,8 @@ class DrawReadSet():
 
     def add_covmap(self, group, read):
         for gpos in read.g_positions:
-            base = read.readseqpos[gpos]
+            # base = read.readseqpos[gpos]
+            base = read.readseqinfo[gpos][0]
             self.covmap = init_dict(self.covmap, group)
             try:
                 prev_covmap = self.covmap[group][gpos]
@@ -261,7 +264,7 @@ class DrawReadSet():
     def update_ref_seq_with_read(self, a):
         read_ref_seq = a.get_reference_sequence()
         read_ref_pos = a.get_reference_positions()
-        for pidx in range(len(a.get_reference_positions())):
+        for pidx in range(len(read_ref_pos)):
             gpos = read_ref_pos[pidx] + 1
             base = read_ref_seq[pidx]
             try:
@@ -285,34 +288,32 @@ class DrawReadSet():
                     r = DrawRead(a)
                     r.refseq = self.refseq
                     r.id = rid
-                    if r.is_OK():
-                        # r.yidx = self.get_yidx(r)
-                        r.read_gap_h = self.read_gap_h
-                        r.read_gap_w = self.read_gap_w
-                        r.panel_g_spos = self.g_spos
-                        r.opt = self.opt
-                        self.readset[rid] = r
+                    r.read_gap_h = self.read_gap_h
+                    r.read_gap_w = self.read_gap_w
+                    r.panel_g_spos = self.g_spos
+                    r.opt = self.opt
+                    self.readset[rid] = r
                 else:
                     r = self.readset[rid]
 
-                if r.is_OK():
-                    self.add_covmap('all', r)
-                
-                    if rid not in self.readlist['all']:
-                        self.readlist['all'].append(rid)
+            
+                self.add_covmap('all', r)
+            
+                if rid not in self.readlist['all']:
+                    self.readlist['all'].append(rid)
 
-                    if is_strand_group:
-                        if a.is_reverse:
-                            group = 'neg_strand'
-                        else:
-                            group = 'pos_strand'
-                        try:
-                            self.readlist[group]
-                        except KeyError:
-                            self.readlist[group] = []
-                        if rid not in self.readlist[group]:
-                            self.readlist[group].append(rid)
-                        self.add_covmap(group, r)
+                if is_strand_group:
+                    if a.is_reverse:
+                        group = 'neg_strand'
+                    else:
+                        group = 'pos_strand'
+                    try:
+                        self.readlist[group]
+                    except KeyError:
+                        self.readlist[group] = []
+                    if rid not in self.readlist[group]:
+                        self.readlist[group].append(rid)
+                    self.add_covmap(group, r)
         
         for group in group_list:
             try:
@@ -323,8 +324,8 @@ class DrawReadSet():
             except KeyError:
                 self.max_cov[group] = 0
         
-
-    def calculate_readmap0(self, is_strand_group=False):
+    # deprecated, calculate_readmap instead.
+    def calculate_readmap_pileup(self, is_strand_group=False):
         group_list = ['all']
         if is_strand_group:
             group_list.extend(self.STRAND_GROUP_LIST)

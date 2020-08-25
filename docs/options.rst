@@ -89,6 +89,8 @@ Read alignment track
 -read_color_interchrom_chrX     (default=D5AA00) `paired read color located in chromosome X <read_plot.html#read-color-read-color-by>`_
 -read_color_interchrom_chrY     (default=A9D400) `paired read color located in chromosome Y <read_plot.html#read-color-read-color-by>`_
 
+-show_soft_clipped       (default=False) `show soft clipped part <read_plot.html>`_
+
 
 Base track
 ----------

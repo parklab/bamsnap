@@ -3,7 +3,7 @@ Read alignment track (``-bamplot read``)
 
 
 Layout options
---------------
+^^^^^^^^^^^^^^
 
 .. image:: ./img/pic_read1.png
    :width: 70 %
@@ -179,4 +179,25 @@ The read colors can be changed with ``-read_color_interchrom_chr1``, ``-read_col
    * :other:`other chromosome: #555555 ⬅⬅⬅⬅`
 
 
+Show soft clipped part (``-show_soft_clipped``)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: ../tests/out/test_SV1-3_1.png
+   :width: 100 %
+
+.. code-block:: console
+   :linenos:
+   :emphasize-lines: 9
+
+   $ bamsnap \
+      -bam ./data/test_SV1_chr1_37775710.bam \
+      -title "SVA example (chr1:37775710)" \
+      -pos chr1:37775710 \
+      -out ./out/test_SV1-3_1.png \
+      -bamplot coverage read \
+      -margin 1000 \
+      -no_target_line \
+      -show_soft_clipped \
+      -read_color_by interchrom \
+      -save_image_only
 

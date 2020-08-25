@@ -3,6 +3,9 @@ Version History
 
 v0.2.x release series
 ---------------------
+0.2.8 (2020.08.25):
+	- add ``show_soft_clipped`` option to show soft clipped part of reads. (=> `manual <read_plot.html#read-color-read-color-by>`_ and `issue #4<https://github.com/parklab/bamsnap/issues/4>`_)
+
 0.2.7 (2020.08.24):
 	- add ``-read_color_by`` option for strand and inter-chromosomal rearrangement (=> `manual <read_plot.html#read-color-read-color-by>`_ )
 	- convert pileup-based to fetch-based for read retrieval in `drawreadset.py <https://github.com/parklab/bamsnap/blob/master/src/bamsnap/drawreadset.py>`_

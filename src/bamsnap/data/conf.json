@@ -1,7 +1,7 @@
 {
     "TITLE":"BAMSNAP",
-    "VERSION":"0.2.7",
-    "VERSION_DATE":"2020-08-24",
+    "VERSION":"0.2.8",
+    "VERSION_DATE":"2020-08-25",
     "PROG":"bamsnap",
     "options":[
         {"param":"bam", "default":[], "nargs":"*", "action": null, "choices":null, "type":null, "help":"bam file(s)"},
@@ -71,6 +71,11 @@
         {"param":"read_color_interchrom_chrX", "default":"D5AA00", "nargs":null, "action":null, "choices":null, "type":null, "help":"paired read color located in chromosome X"},
         {"param":"read_color_interchrom_chrY", "default":"A9D400", "nargs":null, "action":null, "choices":null, "type":null, "help":"paired read color located in chromosome Y"},
         {"param":"read_color_interchrom_other", "default":"555555", "nargs":null, "action":null, "choices":null, "type":null, "help":"paired read color located in other chromosome"},
+
+        {"param":"show_soft_clipped", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"show soft clipped part (default: false)"},
+        {"param":"show_hard_clipped", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"show hard clipped part (default: false)"},
+        {"param":"show_clipped", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"show soft and hard clipped part (default: false)"},
+        
         
         {"param":"center_line", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"draw center line"},
         {"param":"no_target_line", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"do not draw target line"},
