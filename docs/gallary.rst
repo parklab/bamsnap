@@ -1,4 +1,4 @@
-Gallary
+Gallery
 =======
 
 .. image:: https://raw.githubusercontent.com/parklab/bamsnap/master/tests/out/NATRIO_chr10_117542948.png

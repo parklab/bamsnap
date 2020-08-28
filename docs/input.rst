@@ -5,13 +5,13 @@ Input files
 Alignment file
 --------------
 
-**BamSnap** supports only sorted and indexed bam file. The bam index file (``.bam.bai`` or ``.bai``) is required in same location. 
+**BamSnap** requires sorted and indexed bam files. For each bam, the index file (``.bam.bai`` or ``.bai``) must be located in the same directory.
 
 
-BAM file (``-bam``)
+Input files (``-bam``)
 ^^^^^^^^^^^^^^^^^^^
 
-For a single bam file or multiple bam files, you can add bam file paths with ``-bam`` argument.
+Input files to be used can be specified using the ``-bam`` argument. It is possible to specify a single file or list multiple files.
 
 .. code:: console
 
@@ -22,25 +22,27 @@ For a single bam file or multiple bam files, you can add bam file paths with ``-
 Title of bam file(s) (``-title``)
 :::::::::::::::::::::::::::::::::
 
-If you want to add another label for each bam plot, you can add titles with ``-title`` argument.
+A label can be assigned to each of the bam files using the ``-title`` argument. The label will be used as title for the corresponding plot.
 
 .. code:: console
 
     $ bamsnap -bam ./data/NA12879.bam -title NA12879
     $ bamsnap -bam ./data/NA12879.bam -title "NA12879  (Daughter)"
     $ bamsnap -bam ./data/NA12878.bam ./data/NA12877.bam ./data/NA12879.bam \
-      -title "NA12877 (Father)" "NA12878 (Mother)" "NA12879 (Daughter)" 
+      -title "NA12877 (Father)" "NA12878 (Mother)" "NA12879 (Daughter)"
 
 .. image:: img/pic_title1.png
    :width: 300 px
 
 
-If you don't add ``-title``, the title can be bam file name automatically. 
+If no label is specified, the file name will be used as title by default.
+
 
 .. image:: img/pic_title2.png
    :width: 300 px
 
-If you don't want to add label, you can use ``-no_title`` option.
+
+To completely remove the title use the ``-no_title`` option.
 
 
 .. code:: console
@@ -52,7 +54,7 @@ If you don't want to add label, you can use ``-no_title`` option.
    :width: 300 px
 
 .. note::
-   By default, the font size of title is 18. You can change the font size with ``-title_fontsize`` (e.g. ``-title_fontsize 10``).
+   By default, the title font size is 18. It is possible to change the font size with ``-title_fontsize`` (e.g. ``-title_fontsize 10``).
 
 
 BAM list file (``-bamlist``)
@@ -62,17 +64,15 @@ BAM list file (``-bamlist``)
 
     $ bamsnap -bamlist ./data/NATRIO_bamlist.txt
 
-
-BAM list file includes two columns of bam file path and its title. The columns are separated by tab.
+It is possible to provide a single file listing all the input bam files to be used. The expected format is a tabular (tab-separated) file. The first column is mandatory and must contain the paths to files, the second column is optional and allows to associate labels to files.
 
 .. code:: bash
 
-  # example of bamlist file
-  ./data/NA12878.bam  NA12878 (F)
-  ./data/NA12877.bam  NA12877 (M)
-  ./data/NA12879.bam  NA12879 (D)
+  # example of bamlist file with lables
+  ./data/NA12878.bam    NA12878 (F)
+  ./data/NA12877.bam    NA12877 (M)
+  ./data/NA12879.bam    NA12879 (D)
 
-Or, you can use just one columns (bam file path) without its title. In this case, title can be bam file name.
 
 .. code:: bash
 
@@ -87,7 +87,7 @@ Genomic position
 Genomic position (``-pos``)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can add one or more genomic position(or region) with ``-pos`` option. 
+Genomic positions to plot can be specified with the ``-pos`` option. It is possible to specify a single position or to list multiple regions.
 
 .. code:: console
 
@@ -95,12 +95,13 @@ You can add one or more genomic position(or region) with ``-pos`` option.
     $ bamsnap -bam ./data/NA12878.bam -pos chr1:7364529 chr3:7364529 chr1:7364529
     $ bamsnap -bam ./data/NA12878.bam -pos chr1:7364509-7364559
 
-If bam file doesn't use 'chr' string in chromosome (ex. 1:7364529), you should not use 'chr' string in the ``-pos`` option. 
+.. note::
+  Chromosome names must match between the positions that are specified and the bam files. For example, 'chr' prefix should be omitted from regions if the bam files don't use 'chr' prefix in chromosome names (ex. 1:7364529).
 
 VCF file (``-vcf``)
 ^^^^^^^^^^^^^^^^^^^
 
-Bamsnap can read ``.vcf`` (raw file) and ``.vcf.gz`` (gzip or bgzip compressed vcf file).
+The program can read ``.vcf`` (raw) and ``.vcf.gz`` (gzip or bgzip compressed vcf) files.
 
 .. code:: console
 
@@ -124,15 +125,11 @@ BED file (``-bed``)
 Reference sequence file
 -----------------------
 
-Users should define sequence reference version or sequence reference fasta file. If users don't define reference fasta file (``-ref``), **BamSnap** can get the corresponding sequence from UCSC genome browser database (hg38). Currently, the default version of reference(``-refversion``) is ``hg38``. If you want to use hg19 version, you can use ``-refversion hg19``.
-
-
-.. note:: 
-  If you don't define ``-ref``, **BamSnap** can access UCSC genome browser database and get the corresponding sequence in every genomic positions. If you want to use **BamSnap** with multiple variants (positions or regions), we recommend that use ``-ref`` with a reference fasta file in local path. 
-
+User can provide a fasta file to be used as reference using the ``-ref`` option. Alternatively, it is possible to specify a reference version to be used with ``-refversion``. The program will automatically obtain the corresponding sequence from UCSC database. The current default version for ``-refversion`` is ``hg38``. ``-refversion hg19`` force the use of ``hg19`` release.
 
 FASTA file (``-ref``)
 ^^^^^^^^^^^^^^^^^^^^^
+
 .. code:: console
 
     $ bamsnap \
@@ -140,6 +137,6 @@ FASTA file (``-ref``)
       -ref ./fasta/GRCh38_full_analysis_set_plus_decoy_hla.fa
 
 
-.. note:: 
-  When you add fasta file, **BamSnap** checks its index file (.fai). If the index file is not exist, **BamSnap** generates the index file automatically (this step would take a few minutes). 
-  If the index file is older than the fasta file and you want to rebuild this index file, you can use ``-ref_index_rebuild`` option.
+.. note::
+  If a fasta file is specified, the program checks for its index file (.fai). If the index file does not exist it will be automatically created.
+  If the index file exists but is older than the fasta file, the program can rebuild the index using the ``-ref_index_rebuild`` option.

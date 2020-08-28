@@ -21,10 +21,7 @@ Layout options
 Read group (``-read_group``)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**BamSnap** supports to group by read strand with ``-read_group strand``. In this case, ``-read_pos_color`` and ``-read_neg_color`` can be used for changing the grouped read color.
-
-* ``-read_pos_color`` (default='FFAC9C') : positive strand read color
-* ``-read_neg_color`` (default='A19CFF') : negative strand read color
+It is possible to plot the reads grouped by strand using the ``-read_group strand`` option.
 
 .. code-block:: console
    :linenos:
@@ -46,7 +43,7 @@ Read group (``-read_group``)
 Read color (``-read_color_by``)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-BamSnap provides color sets for read strand and inter-chromosomal rearrangements.
+The program provides color sets for strand and chromosomes.
 
 Color by strand (``-read_color_by strand``)
 *******************************************
@@ -69,8 +66,10 @@ Color by strand (``-read_color_by strand``)
       -read_color_by strand \
       -save_image_only
 
-The read strand colors can be changed with ``-read_pos_color`` and ``-read_neg_color``.
+The reads color by strand can be defined using ``-read_pos_color`` and ``-read_neg_color`` options.
 
+* ``-read_pos_color`` (default='FFAC9C') : positive strand read color
+* ``-read_neg_color`` (default='A19CFF') : negative strand read color
 
 Color by inter-chromosomal rearrangements (``-read_color_by interchrom``)
 *************************************************************************
@@ -93,7 +92,7 @@ Color by inter-chromosomal rearrangements (``-read_color_by interchrom``)
       -read_color_by interchrom \
       -save_image_only
 
-The read colors can be changed with ``-read_color_interchrom_chr1``, ``-read_color_interchrom_chr2``, .., and ``-read_color_interchrom_chrY``.
+The reads color by chromosome can be defined using ``-read_color_interchrom_chr1``, ``-read_color_interchrom_chr2``, .., and ``-read_color_interchrom_chrY`` options.
 
 .. role:: chr1
 .. role:: chr2
@@ -123,7 +122,7 @@ The read colors can be changed with ``-read_color_interchrom_chr1``, ``-read_col
 
 .. raw:: html
 
-    <style> 
+    <style>
     .chr1 {color:#64689b}
     .chr2 {color:#D6503A}
     .chr3 {color:#87AA62}
@@ -200,4 +199,3 @@ Show soft clipped part (``-show_soft_clipped``)
       -show_soft_clipped \
       -read_color_by interchrom \
       -save_image_only
-

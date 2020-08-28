@@ -14,19 +14,18 @@ Prerequisites
 Install with pypi
 -----------------
 
-To install **BamSnap**, open a shell and run:
+To install **BamSnap** with pip run:
 
 .. code:: console
 
   $ pip install bamsnap
 
 
-Install with code from github
------------------------------
+Install from source
+-------------------
 
 .. code:: console
 
   $ git clone https://github.com/parklab/bamsnap
   $ cd bamsnap
   $ python setup.py install
-

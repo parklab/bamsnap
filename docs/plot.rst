@@ -8,7 +8,7 @@ Plot options
 Plot composition (``-draw``, ``-bamplot``)
 ------------------------------------------
 
-To compose a plot, you can add track list with ``-draw``. The default list is ``coordinates bamplot base gene``. By default, the bamplot also has ``coverage base read`` tracks. 
+It is possible to add track list to a plot using the ``-draw`` option. The default tracks list is ``coordinates bamplot base gene``. ``bamplot`` contains ``coverage base read`` tracks.
 
 * ``-draw`` : track list (default: -draw coordinates bamplot base gene)
 * ``-bamplot`` : plot (default: -bamplot coverage base read)
@@ -28,8 +28,3 @@ Plot layout options
 * ``-plot_margin_right`` : right margin size of plot
 * ``-separator_height`` : separator's height
 * ``-border`` : draw border in plot
-
-
-
-
-
