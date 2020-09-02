@@ -17,7 +17,7 @@ Layout options
 Base track types
 ----------------
 
-Base track has three types which are determed automatically based on the width that a base can occupy.
+The base track has three formats which are automatically defined based on the width-span of the base.
 
 .. image:: ../tests/out/NATRIO_chr10_117542948_baseplot_ex1.png
    :width: 100 %

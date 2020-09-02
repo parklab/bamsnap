@@ -10,18 +10,18 @@ Optional arguments
 Input files
 -----------
 
--bam                  `bam file(s) <input.html#bam-file-bam>`_
--bamlist              `list file with bam file paths <input.html#bam-list-file-bamlist>`_
--title                `title (name) of bam file(s) <input.html#title-of-bam-file-s-title>`_
--no_title             `do not draw label (title) (default: false) <input.html#title-of-bam-file-s-title>`_
+-bam                  `bam file(s) to use <input.html#bam-file-bam>`_
+-bamlist              `file listing bam files to use <input.html#bam-list-file-bamlist>`_
+-title                `label(s) to be used as title for bam file(s) <input.html#title-of-bam-file-s-title>`_
+-no_title             (default: false) `do not draw title <input.html#title-of-bam-file-s-title>`_
 -title_fontsize       (default=18) `font size of title <input.html#title-of-bam-file-s-title>`_
--pos                  `genomic position <input.html#single-position-pos>`_
--vcf                  `list file with genomic positions with VCF format <input.html#vcf-file-vcf>`_
--bed                  `list file with genomic positions with BED format <input.html#bed-file-bed>`_
--ref                  `Reference sequence fasta file <input.html#fasta-file-ref>`_
--ref_index_rebuild    `if you want to rebuild fasta index file (.fai), when it is older than the fasta file. (default=false) <input.html#fasta-file-ref>`_
--refversion           [hg38, hg19] (default=hg38) `Reference version <input.html#reference-sequence-file>`_
--conf                 configuration file
+-pos                  `genomic position(s) to plot <input.html#single-position-pos>`_
+-vcf                  `file listing genomic positions to plot in VCF format <input.html#vcf-file-vcf>`_
+-bed                  `file listing genomic positions to plot in BED format <input.html#bed-file-bed>`_
+-ref                  `reference sequence as fasta file <input.html#fasta-file-ref>`_
+-ref_index_rebuild    (default=false) `rebuild fasta index file (.fai) <input.html#fasta-file-ref>`_
+-refversion           [hg38, hg19] (default=hg38) `reference version <input.html#reference-sequence-file>`_
+-conf                 `configuration file`_
 
 Output file
 -----------
@@ -47,7 +47,6 @@ Plot layout
 -plot_margin_right      (default=0) `right margin size of plot <plot.html#plot-layout-options>`_
 -border                 (default=false) `draw border in plot <plot.html#plot-layout-options>`_
 -separator_height       (default=30) `separator's height <plot.html#plot-layout-options>`_
-
 
 Read alignment track
 --------------------
@@ -91,7 +90,6 @@ Read alignment track
 
 -show_soft_clipped       (default=False) `show soft clipped part <read_plot.html>`_
 
-
 Base track
 ----------
 
@@ -114,7 +112,7 @@ Heatmap track
 
 -heatmap_height          (default=5) `coverage heatmap height <heatmap.html>`_
 -heatmap_bgcolor         (default=FFFFFF) `coverage heatmap track background color <heatmap.html>`_
-  
+
 Gene track
 ----------
 
@@ -131,9 +129,3 @@ Coordinates track
 -coordinates_axisloc      [top, bottom, middle] (default=bottom) `coordinates axis location <coordinates_plot.html>`_
 -coordinates_bgcolor      (default=FFFFFF) `coordinates background color <coordinates_plot.html>`_
 -coordinates_labelcolor   (default=000000) `coordinates label color <coordinates_plot.html>`_
-
-
-
-  
-  
-  
