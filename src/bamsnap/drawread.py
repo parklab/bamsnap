@@ -144,7 +144,7 @@ class DrawRead():
         return t1
 
     def get_readcolor_by_interchrom(self, default_color):
-        if self.has_interchrom_mate:
+        if self.has_interchrom_mate and self.mate_reference_name != None:
             mate_chrom = self.mate_reference_name.replace('chr','')
             try:
                 rst_color = self.opt['read_color_interchrom_chr' + mate_chrom]

@@ -9,4 +9,3 @@ build/lib/bamsnap/*
 dist/
 _build/
 test.sh
-pack.sh

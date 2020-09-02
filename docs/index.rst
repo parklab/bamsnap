@@ -56,7 +56,7 @@ Contents
    :maxdepth: 4
 
    installation.rst
-   gallary.rst
+   gallery.rst
    options.rst
    input.rst
    output.rst
