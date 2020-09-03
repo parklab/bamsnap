@@ -1,7 +1,7 @@
 {
     "TITLE":"BAMSNAP",
-    "VERSION":"0.2.8",
-    "VERSION_DATE":"2020-08-25",
+    "VERSION":"0.2.9",
+    "VERSION_DATE":"2020-09-03",
     "PROG":"bamsnap",
     "options":[
         {"param":"bam", "default":[], "nargs":"*", "action": null, "choices":null, "type":null, "help":"bam file(s)"},
@@ -44,6 +44,10 @@
         {"param":"read_color", "default":"C8C8C8", "nargs":null, "action":null, "choices":null, "type":null, "help":"read color"},
         {"param":"read_pos_color", "default":"FFAC9C", "nargs":null, "action":null, "choices":null, "type":null, "help":"positive strand read color"},
         {"param":"read_neg_color", "default":"A19CFF", "nargs":null, "action":null, "choices":null, "type":null, "help":"negative strand read color"},
+        {"param":"read_color_deletion", "default":"FF0000", "nargs":null, "action":null, "choices":null, "type":null, "help":"read color of deletion"},
+        {"param":"read_color_inversion", "default":"485BA9", "nargs":null, "action":null, "choices":null, "type":null, "help":"read color of inversion"},
+        {"param":"insert_size_del_threshold", "default":1000, "nargs":null, "action":null, "choices":null, "type":"int", "help":"insert size threshold for deletion (default: 1000)"},
+        {"param":"insert_size_ins_threshold", "default":50, "nargs":null, "action":null, "choices":null, "type":"int", "help":"insert size threshold for insertion (default: 50)"},
         {"param":"read_group", "default":"", "nargs":null, "action":null, "choices":["strand"], "type":null, "help":"read group"},
         {"param":"read_color_by", "default":"", "nargs":null, "action":null, "choices":["strand", "interchrom"], "type":null, "help":"read color by"},
         {"param":"read_color_interchrom_chr1", "default":"64689b", "nargs":null, "action":null, "choices":null, "type":null, "help":"paired read color located in chromosome 1"},

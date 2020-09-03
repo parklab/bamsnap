@@ -12,6 +12,9 @@ class DrawRead():
     read_gap_h = 2
     del_width = 2
     ins_width = 2
+    is_deletion = False
+    is_insertion = False
+    is_inversion = False
     refseq = {}
     x1 = 0
     x2 = 0
@@ -19,7 +22,7 @@ class DrawRead():
     opt = {}
 
     def __init__(self, a):  # a:alignment
-        #self.a = a
+        self.a = a
         self.mapq = a.mapq
         self.id = a.query_name
         self.is_proper_pair = a.is_proper_pair
@@ -31,11 +34,6 @@ class DrawRead():
         self.readseq = a.query_alignment_sequence
         self.readseq_with_softclipped = a.query_sequence
         
-        self.set_color()
-        self.reference_name = a.reference_name
-        self.mate_reference_name = a.next_reference_name
-        self.has_interchrom_mate = self.reference_name != self.mate_reference_name
-
         self.base_qual = a.query_qualities
         self.refseq = a.get_reference_sequence()
         self.g_spos = a.positions[0] + 1
@@ -47,12 +45,39 @@ class DrawRead():
         self.cigar = a.cigartuples
         self.readseq_with_softclipped = a.query_sequence
 
+        self.set_color()
+        self.reference_name = a.reference_name
+        self.mate_reference_name = a.next_reference_name
+        self.mate_reference_start = a.next_reference_start
+        self.mate_is_reverse = a.mate_is_reverse
+        self.has_interchrom_mate = self.reference_name != self.mate_reference_name
+        self.insert_size = a.tlen
+        
+
         self.readseqinfo = {}
         self.ins_list = []
         self.del_list = []
         self.mismatch_list = []
         self.softclipped_list = []
         self.set_read_variant()
+    
+    def set_SV(self):
+        if abs(self.insert_size) > 0:
+            if abs(self.insert_size) >= self.opt['insert_size_del_threshold']:
+                # print(self.insert_size, self.g_spos, self.g_epos, self.is_reverse,
+                #       self.mate_reference_start, self.mate_is_reverse, self.id, self.a.tlen)
+                self.is_deletion = True
+            if abs(self.insert_size) <= self.opt['insert_size_ins_threshold']:
+                # self.is_insertion = True
+                pass
+            if (not self.is_reverse and self.g_spos > self.mate_reference_start) or (self.is_reverse and self.g_spos < self.mate_reference_start):
+                # self.is_inversion = True
+                # print(self.insert_size, self.g_spos, self.g_epos, self.is_reverse,
+                #     self.mate_reference_start, self.mate_is_reverse, self.id, self.a.tlen)
+                pass
+            
+
+
 
     def set_read_variant(self):
         gpos = self.g_spos
@@ -163,6 +188,9 @@ class DrawRead():
 
     def draw(self, dr, col1="C8C8C8", readcolorby=""):
         if not self.flag_draw:
+            if not self.has_interchrom_mate:
+                self.set_SV()
+            
             y1 = int(self.get_scaled_y(self.yidx))
             self.draw_read_body(dr, y1, col1, readcolorby)
             self.draw_mismatch(dr, y1)
@@ -198,10 +226,16 @@ class DrawRead():
                 xy.append((x1, y1 + int(self.read_thickness / 2) ))
                 xy.append((x1 - raht, y1))
 
+            if self.is_deletion:
+                col1 = self.opt['read_color_deletion']
+            if self.is_inversion:
+                col1 = self.opt['read_color_inversion']
+
             if readcolorby == "interchrom":
                 col1 = self.get_readcolor_by_interchrom(col1)
             elif readcolorby == "strand":
                 col1 = self.get_readcolor_by_strand(col1)
+            
 
             if self.mapq == 0:
                 dr.polygon(xy, fill=getrgb(col1, 60), outline=self.outline_color)

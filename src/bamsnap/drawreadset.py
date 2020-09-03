@@ -157,7 +157,9 @@ class DrawReadSet():
     read_thickness = 5
     refseq = {}
     coverage_vaf = 10
+    ridx = 0
     opt = {}
+
     STRAND_GROUP_LIST = ['pos_strand', 'neg_strand']
 
     def __init__(self, bam, chrom, g_spos, g_epos, xscale, refseq="",  coverage_vaf=10):
@@ -222,10 +224,12 @@ class DrawReadSet():
         return flag
 
     def get_rid(self, a):
-        if len(a.positions) == 0:
-            rid = a.query_name + "_"
-        else:
-            rid = a.query_name + "_" + str(a.positions[0])
+        # if len(a.positions) == 0:
+        #     rid = a.query_name + "_"
+        # else:
+        #     rid = a.query_name + "_" + str(a.positions[0])
+        self.ridx += 1
+        rid = self.ridx
         return rid
 
     # def check_and_draw_read(self, a, dr, panel_xy):
@@ -323,80 +327,7 @@ class DrawReadSet():
                         self.max_cov[group] = yidx
             except KeyError:
                 self.max_cov[group] = 0
-        
-    # deprecated, calculate_readmap instead.
-    def calculate_readmap_pileup(self, is_strand_group=False):
-        group_list = ['all']
-        if is_strand_group:
-            group_list.extend(self.STRAND_GROUP_LIST)
 
-        for group in group_list:
-            self.max_cov[group] = 0
-        
-        for x in self.samAlign.pileup(self.chrom, self.g_spos-self.read_gap_w, self.g_epos):
-            gpos = x.reference_pos
-            cov = {}
-            base_composition = {}
-            for group in group_list:
-                cov[group] = 0
-                base_composition[group] = {}
-
-            for pr in x.pileups:
-                a = pr.alignment
-                rid = self.get_rid(a)
-                
-                if not self.is_exist_read(rid):
-                    r = DrawRead(a)
-                    r.refseq = self.refseq
-                    r.id = rid
-                    if r.is_OK():
-                        # r.yidx = self.get_yidx(r)
-                        r.read_gap_h = self.read_gap_h
-                        r.read_gap_w = self.read_gap_w
-                        r.panel_g_spos = self.g_spos
-                        self.readset[rid] = r
-                else:
-                    r = self.readset[rid]
-                
-                if r.is_OK():
-                    if pr.query_position != None:
-                        cov = add_dict_value(cov, 'all', 1)
-                        base = a.query_sequence[pr.query_position]
-                        base_composition = self.add_base_composition(base_composition, 'all', base, gpos)
-                        
-                    if rid not in self.readlist['all']:
-                        self.readlist['all'].append(rid)
-
-                    if is_strand_group:
-                        if a.is_reverse:
-                            group = 'neg_strand'
-                        else:
-                            group = 'pos_strand'
-
-                        try:
-                            self.readlist[group]
-                        except KeyError:
-                            self.readlist[group] = []
-
-                        if rid not in self.readlist[group]:
-                            self.readlist[group].append(rid)
-
-                        cov = add_dict_value(cov, group, 1)
-                        base_composition = self.add_base_composition(base_composition, group, base, gpos)
-            
-            for group in group_list:
-                self.covmap = init_dict(self.covmap, group)
-                self.covmap[group][gpos] = (cov[group], base_composition[group])
-            
-        for group in group_list:
-            try:
-                for rid in self.readlist[group]:
-                    yidx = self.get_yidx(self.readset[rid], group)
-                    if self.max_cov[group] < yidx:
-                        self.max_cov[group] = yidx
-            except KeyError:
-                self.max_cov[group] = 0
-        
     def get_estimated_height(self, group='all'):
         h = self.max_cov[group] * (self.read_thickness + self.read_gap_h) + self.read_thickness
         return h

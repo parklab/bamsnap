@@ -385,7 +385,7 @@ class BamSnap():
         if not self.opt['no_target_line']:
             drawA = ImageDraw.Draw(ia)
             x1 = xscale.xmap[pos1['t_spos']]['spos'] - 1
-            x2 = xscale.xmap[pos1['t_spos']]['epos'] + 1
+            x2 = xscale.xmap[pos1['t_epos']]['epos'] + 1
             for h1 in range(0, ia.height, 7):
                 drawA.line([(x1, h1), (x1, h1+2)], fill=COLOR['CENTER_LINE'], width=1)
                 drawA.line([(x2, h1), (x2, h1+2)], fill=COLOR['CENTER_LINE'], width=1)

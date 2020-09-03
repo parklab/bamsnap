@@ -18,14 +18,15 @@ BamSnap
    :target: https://bamsnap.readthedocs.io/en/latest/
    :alt: Documentation of BamSnap
 
-**BamSnap** is a high-performance visualization tool for aligned BAM file. **BamSnap** is a command line program written in python. All commands involve typing ``bamsnap`` at the command prompt (e.g. DOS window or Unix termninal) followed by a number of options to specify the data files / parameters to be used. 
+**BamSnap** is a visualization tool for aligned BAM files that allows to generate high-quality snapshots of read level data in high-throughput, processing up to thousands of files.
+**BamSnap** is a command-line software based on python.
 
 .. image:: ../tests/out/NATRIO_chr10_117542948.png
    :width: 100 %
 
-Running BamSnap
+Setting up BamSnap
 ---------------
-**BamSnap** is a command-line program. Open up a command prompt or terminal window and take all bam snapshots by typing commands as described below. 
+In a command prompt or terminal window, run the following commands to install and test the software.
 
 
 .. code:: console
@@ -34,7 +35,7 @@ Running BamSnap
   $ bamsnap -bam test.bam -pos chr1:7364529 -out test.bam.png
 
 
-You can find more examples and commands in `gallary <gallary.html>`_. Use ``-h`` for options to be used with ``bamsnap``. 
+More examples and commands are available in `gallery <gallary.html>`_. Use ``-h`` to list the options available for ``bamsnap``.
 
 
 .. code:: console
@@ -42,7 +43,7 @@ You can find more examples and commands in `gallary <gallary.html>`_. Use ``-h``
   $ bamsnap -h
 
 
-BamSnap is open-source and can be found on `github <https://github.com/parklab/bamsnap>`_.
+Source code is available on `github <https://github.com/parklab/bamsnap>`_.
 
 
 
@@ -55,7 +56,7 @@ Contents
    :maxdepth: 4
 
    installation.rst
-   gallary.rst
+   gallery.rst
    options.rst
    input.rst
    output.rst

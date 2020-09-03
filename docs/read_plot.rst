@@ -119,6 +119,7 @@ The reads color by chromosome can be defined using ``-read_color_interchrom_chr1
 .. role:: chr23
 .. role:: chr24
 .. role:: other
+.. role:: readcoldel
 
 .. raw:: html
 
@@ -148,6 +149,7 @@ The reads color by chromosome can be defined using ``-read_color_interchrom_chr1
     .chr23 {color:#D5AA00}
     .chr24 {color:#A9D400}
     .other {color:#555555}
+    .readcoldel {color:#FF0000}
     </style>
 
 * Default color codes
@@ -199,3 +201,27 @@ Show soft clipped part (``-show_soft_clipped``)
       -show_soft_clipped \
       -read_color_by interchrom \
       -save_image_only
+
+
+Deletion
+^^^^^^^^
+
+.. image:: ../tests/out/test_DEL_1.png
+   :width: 100 %
+
+.. code-block:: console
+   :linenos:
+
+   $ bamsnap \
+      -bam ./data/test_DEL_4_180097876_180097877.bam \
+      -pos 4:180097878-180098507 \
+      -margin 1000 \
+      -title deletion \
+      -out ./out/test_DEL_1.png \
+      -refversion hg19 \
+      -show_soft_clipped \
+      -read_color_by interchrom \
+      -save_image_only
+
+The insert size threshold between read mates to detect deletions is set by ``-insert_size_del_threshold`` (default is 1000). 
+The color of reads for deletion is :readcoldel:`#FF0000` by default. You can change the color using ``-read_color_deletion`` option.

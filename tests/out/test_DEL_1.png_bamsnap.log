@@ -1,0 +1,151 @@
+2020-09-02 15:33:07,128 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 0.64057 sec
+2020-09-02 15:33:07,130 : [INFO] Total running time: 0.6 sec
+2020-09-02 15:33:25,849 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 0.8812 sec
+2020-09-02 15:33:25,853 : [INFO] Total running time: 0.9 sec
+2020-09-02 15:34:23,830 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.01414 sec
+2020-09-02 15:34:23,835 : [INFO] Total running time: 1.0 sec
+2020-09-02 15:35:04,856 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.13703 sec
+2020-09-02 15:35:04,862 : [INFO] Total running time: 1.1 sec
+2020-09-02 15:35:16,025 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.19445 sec
+2020-09-02 15:35:16,031 : [INFO] Total running time: 1.2 sec
+2020-09-02 15:35:42,854 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.35688 sec
+2020-09-02 15:35:42,860 : [INFO] Total running time: 1.4 sec
+2020-09-02 15:36:05,197 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.35546 sec
+2020-09-02 15:36:05,203 : [INFO] Total running time: 1.4 sec
+2020-09-02 15:36:21,140 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.39189 sec
+2020-09-02 15:36:21,145 : [INFO] Total running time: 1.4 sec
+2020-09-02 15:44:15,952 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.39623 sec
+2020-09-02 15:44:15,958 : [INFO] Total running time: 1.4 sec
+2020-09-02 15:45:03,192 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.41705 sec
+2020-09-02 15:45:03,198 : [INFO] Total running time: 1.4 sec
+2020-09-02 15:45:15,661 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.42274 sec
+2020-09-02 15:45:15,667 : [INFO] Total running time: 1.4 sec
+2020-09-02 15:50:20,819 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.36782 sec
+2020-09-02 15:50:20,826 : [INFO] Total running time: 1.4 sec
+2020-09-02 15:50:50,466 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.33908 sec
+2020-09-02 15:50:50,472 : [INFO] Total running time: 1.3 sec
+2020-09-02 15:51:18,451 : [INFO] Total running time: 0.3 sec
+2020-09-02 15:51:45,845 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.38423 sec
+2020-09-02 15:51:45,851 : [INFO] Total running time: 1.4 sec
+2020-09-02 15:53:27,713 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.36292 sec
+2020-09-02 15:53:27,719 : [INFO] Total running time: 1.4 sec
+2020-09-02 16:14:07,393 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.39881 sec
+2020-09-02 16:14:07,399 : [INFO] Total running time: 1.4 sec
+2020-09-02 16:14:20,054 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.41934 sec
+2020-09-02 16:14:20,061 : [INFO] Total running time: 1.4 sec
+2020-09-02 16:14:39,599 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.38819 sec
+2020-09-02 16:14:39,606 : [INFO] Total running time: 1.4 sec
+2020-09-02 16:15:02,821 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.40764 sec
+2020-09-02 16:15:02,827 : [INFO] Total running time: 1.4 sec
+2020-09-02 16:19:50,068 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.35558 sec
+2020-09-02 16:19:50,075 : [INFO] Total running time: 1.4 sec
+2020-09-02 16:30:27,999 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.39455 sec
+2020-09-02 16:30:28,006 : [INFO] Total running time: 1.4 sec
+2020-09-02 16:32:46,886 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.37152 sec
+2020-09-02 16:32:46,892 : [INFO] Total running time: 1.4 sec
+2020-09-02 16:36:41,160 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.40526 sec
+2020-09-02 16:36:41,166 : [INFO] Total running time: 1.4 sec
+2020-09-02 16:42:48,822 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.47152 sec
+2020-09-02 16:42:48,828 : [INFO] Total running time: 1.5 sec
+2020-09-02 16:50:12,879 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.43624 sec
+2020-09-02 16:50:12,886 : [INFO] Total running time: 1.4 sec
+2020-09-02 16:50:50,508 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.41183 sec
+2020-09-02 16:50:50,515 : [INFO] Total running time: 1.4 sec
+2020-09-02 16:55:02,790 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.38908 sec
+2020-09-02 16:55:02,797 : [INFO] Total running time: 1.4 sec
+2020-09-02 16:55:25,157 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.40195 sec
+2020-09-02 16:55:25,163 : [INFO] Total running time: 1.4 sec
+2020-09-02 16:58:17,775 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.34726 sec
+2020-09-02 16:58:17,781 : [INFO] Total running time: 1.4 sec
+2020-09-02 16:58:30,318 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.38147 sec
+2020-09-02 16:58:30,325 : [INFO] Total running time: 1.4 sec
+2020-09-02 16:58:53,883 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.38599 sec
+2020-09-02 16:58:53,890 : [INFO] Total running time: 1.4 sec
+2020-09-02 16:59:11,938 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.38572 sec
+2020-09-02 16:59:11,945 : [INFO] Total running time: 1.4 sec
+2020-09-02 17:00:11,269 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.38284 sec
+2020-09-02 17:00:11,275 : [INFO] Total running time: 1.4 sec
+2020-09-02 17:00:35,930 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.41588 sec
+2020-09-02 17:00:35,936 : [INFO] Total running time: 1.4 sec
+2020-09-02 17:00:41,236 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.3813 sec
+2020-09-02 17:00:41,243 : [INFO] Total running time: 1.4 sec
+2020-09-02 17:03:11,975 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.42139 sec
+2020-09-02 17:03:11,982 : [INFO] Total running time: 1.4 sec
+2020-09-02 17:07:32,232 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.36352 sec
+2020-09-02 17:07:32,238 : [INFO] Total running time: 1.4 sec
+2020-09-02 17:08:27,761 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.37234 sec
+2020-09-02 17:08:27,767 : [INFO] Total running time: 1.4 sec
+2020-09-02 17:08:36,510 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.37535 sec
+2020-09-02 17:08:36,516 : [INFO] Total running time: 1.4 sec
+2020-09-02 17:19:04,380 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.39491 sec
+2020-09-02 17:19:04,386 : [INFO] Total running time: 1.4 sec
+2020-09-02 18:34:39,217 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.47447 sec
+2020-09-02 18:34:39,244 : [INFO] Total running time: 1.5 sec
+2020-09-02 18:35:09,225 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 2.47301 sec
+2020-09-02 18:35:09,232 : [INFO] Total running time: 2.5 sec
+2020-09-02 18:37:02,180 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.35345 sec
+2020-09-02 18:37:02,187 : [INFO] Total running time: 1.4 sec
+2020-09-02 18:37:19,203 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.37273 sec
+2020-09-02 18:37:19,220 : [INFO] Total running time: 1.4 sec
+2020-09-02 18:37:47,620 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.38878 sec
+2020-09-02 18:37:47,627 : [INFO] Total running time: 1.4 sec
+2020-09-02 18:42:42,337 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.37799 sec
+2020-09-02 18:42:42,343 : [INFO] Total running time: 1.4 sec
+2020-09-02 18:42:54,078 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.37901 sec
+2020-09-02 18:42:54,085 : [INFO] Total running time: 1.4 sec
+2020-09-02 18:49:50,498 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.38354 sec
+2020-09-02 18:49:50,505 : [INFO] Total running time: 1.4 sec
+2020-09-02 18:50:07,118 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.42768 sec
+2020-09-02 18:50:07,125 : [INFO] Total running time: 1.4 sec
+2020-09-02 18:50:55,558 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.37688 sec
+2020-09-02 18:50:55,564 : [INFO] Total running time: 1.4 sec
+2020-09-02 18:51:13,678 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.37422 sec
+2020-09-02 18:51:13,685 : [INFO] Total running time: 1.4 sec
+2020-09-02 18:53:34,181 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.37556 sec
+2020-09-02 18:53:34,198 : [INFO] Total running time: 1.4 sec
+2020-09-02 19:00:59,633 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.34696 sec
+2020-09-02 19:00:59,640 : [INFO] Total running time: 1.4 sec
+2020-09-02 19:02:08,528 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.40376 sec
+2020-09-02 19:02:08,535 : [INFO] Total running time: 1.4 sec
+2020-09-02 19:03:38,448 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.36192 sec
+2020-09-02 19:03:38,454 : [INFO] Total running time: 1.4 sec
+2020-09-02 19:04:25,790 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.41181 sec
+2020-09-02 19:04:25,797 : [INFO] Total running time: 1.4 sec
+2020-09-02 19:04:47,166 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 2.08275 sec
+2020-09-02 19:04:47,173 : [INFO] Total running time: 2.1 sec
+2020-09-02 19:05:06,744 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.39239 sec
+2020-09-02 19:05:06,750 : [INFO] Total running time: 1.4 sec
+2020-09-02 19:05:33,785 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.3949 sec
+2020-09-02 19:05:33,791 : [INFO] Total running time: 1.4 sec
+2020-09-02 19:07:21,069 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.37197 sec
+2020-09-02 19:07:21,076 : [INFO] Total running time: 1.4 sec
+2020-09-02 19:10:42,281 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.40711 sec
+2020-09-02 19:10:42,303 : [INFO] Total running time: 1.4 sec
+2020-09-02 19:11:04,227 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.39195 sec
+2020-09-02 19:11:04,233 : [INFO] Total running time: 1.4 sec
+2020-09-02 20:50:19,065 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.40958 sec
+2020-09-02 20:50:19,085 : [INFO] Total running time: 1.4 sec
+2020-09-02 20:55:41,097 : [INFO] Total running time: 1.1 sec
+2020-09-02 20:56:31,991 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.41679 sec
+2020-09-02 20:56:31,997 : [INFO] Total running time: 1.4 sec
+2020-09-02 20:59:56,958 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.424 sec
+2020-09-02 20:59:56,964 : [INFO] Total running time: 1.4 sec
+2020-09-02 21:00:18,129 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.43767 sec
+2020-09-02 21:00:18,137 : [INFO] Total running time: 1.4 sec
+2020-09-02 21:22:41,335 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.40787 sec
+2020-09-02 21:22:41,341 : [INFO] Total running time: 1.4 sec
+2020-09-02 21:26:06,789 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.39197 sec
+2020-09-02 21:26:06,795 : [INFO] Total running time: 1.4 sec
+2020-09-03 18:05:41,933 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.94414 sec
+2020-09-03 18:05:41,948 : [INFO] Total running time: 2.0 sec
+2020-09-03 18:06:11,113 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.42392 sec
+2020-09-03 18:06:11,118 : [INFO] Total running time: 1.4 sec
+2020-09-03 18:10:11,868 : [INFO] Total running time: 0.4 sec
+2020-09-03 18:10:33,665 : [INFO] Total running time: 0.4 sec
+2020-09-03 18:11:34,875 : [INFO] Total running time: 0.4 sec
+2020-09-03 18:21:59,358 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.56681 sec
+2020-09-03 18:21:59,364 : [INFO] Total running time: 1.6 sec
+2020-09-03 18:32:25,666 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.44432 sec
+2020-09-03 18:32:25,671 : [INFO] Total running time: 1.5 sec
+2020-09-03 18:32:47,645 : [INFO] (proc 1) Saved ./out/test_DEL_1.png : 1.55731 sec
+2020-09-03 18:32:47,652 : [INFO] Total running time: 1.6 sec

@@ -3,6 +3,10 @@ Version History
 
 v0.2.x release series
 ---------------------
+0.2.9 (2020.09.03):
+	- add ``insert_size_del_threshold`` for deletion, ``insert_size_ins_threshold`` for insertsion
+	- add ``read_color_deletion`` for deletion, ``read_color_insersion`` for insertion
+
 0.2.8 (2020.08.25):
 	- add ``show_soft_clipped`` option to show soft clipped part of reads. (=> `manual <read_plot.html#read-color-read-color-by>`_ and `issue #4<https://github.com/parklab/bamsnap/issues/4>`_)
 

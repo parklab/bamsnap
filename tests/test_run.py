@@ -1,12 +1,12 @@
 import sys
 import shlex
 
-# sys.path.append('..')
-# from src import bamsnap
-# bamsnap_prog = "src/bamsnap.py"
+sys.path.append('..')
+from src import bamsnap
+bamsnap_prog = "src/bamsnap.py"
 
-import bamsnap
-bamsnap_prog = "bamsnap"
+# import bamsnap
+# bamsnap_prog = "bamsnap"
 
 
 # -ref /Users/pcaso/db/DATA/PUB/reference/GRCh38d1/GRCh38_full_analysis_set_plus_decoy_hla.fa \
@@ -230,15 +230,42 @@ cmdlist.append("""
     -coordinates_axisloc middle
 """) # coordinates track example 3
 
+cmdlist.append("""
+    -bam ./data/test_INVERSION_4_180098865_hg19.bam\
+    -pos 4:180098865 \
+    -margin 300 \
+    -title inversion \
+    -bamplot coverage read \
+    -out ./out/test_INV_1.png \
+    -refversion hg19 \
+    -read_color_by interchrom \
+    -show_soft_clipped \
+    -save_image_only
+""")  # inversion example 1
+
+cmdlist.append("""
+    -bam ./data/test_DEL_4_180097876_180097877.bam \
+    -pos 4:180097878-180098507 \
+    -margin 1000 \
+    -title deletion \
+    -out ./out/test_DEL_1.png \
+    -refversion hg19 \
+    -show_soft_clipped \
+    -read_color_by interchrom \
+    -save_image_only
+""")  # coordinates track example 3
+
 
 def test_run():
     for cmd in cmdlist:
+        cmd = cmdlist[-1]
         cmd = bamsnap_prog + " " + cmd.strip()
         sys.argv = shlex.split(cmd)
         print(' '.join(sys.argv))
         # print(cmd)
         # print(shlex.quote(sys.argv))
         bamsnap.cli()
+        break
 
 
 if __name__ == "__main__":

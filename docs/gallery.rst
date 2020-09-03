@@ -81,3 +81,22 @@ Gallery
     -no_target_line \
     -read_color_by interchrom \
     -save_image_only
+
+**Deletion**
+
+.. image:: ../tests/out/test_DEL_1.png
+   :width: 100 %
+
+.. code-block:: console
+   :linenos:
+
+   $ bamsnap \
+      -bam ./data/test_DEL_4_180097876_180097877.bam \
+      -pos 4:180097878-180098507 \
+      -margin 1000 \
+      -title deletion \
+      -out ./out/test_DEL_1.png \
+      -refversion hg19 \
+      -show_soft_clipped \
+      -read_color_by interchrom \
+      -save_image_only
