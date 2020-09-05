@@ -1,12 +1,12 @@
 import sys
 import shlex
 
-sys.path.append('..')
-from src import bamsnap
-bamsnap_prog = "src/bamsnap.py"
+# sys.path.append('..')
+# from src import bamsnap
+# bamsnap_prog = "src/bamsnap.py"
 
-# import bamsnap
-# bamsnap_prog = "bamsnap"
+import bamsnap
+bamsnap_prog = "bamsnap"
 
 
 # -ref /Users/pcaso/db/DATA/PUB/reference/GRCh38d1/GRCh38_full_analysis_set_plus_decoy_hla.fa \
@@ -265,7 +265,7 @@ def test_run():
         # print(cmd)
         # print(shlex.quote(sys.argv))
         bamsnap.cli()
-        break
+        # break
 
 
 if __name__ == "__main__":
