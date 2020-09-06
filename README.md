@@ -49,7 +49,7 @@ For more details, see BamSnap [**Documentation**](http://bamsnap.readthedocs.io/
 
 ## Examples Use Case
 
-* [**1000 Genome Data**](http://100.26.138.46:8000/)
+* [**1000 Genome Data**](http://100.26.138.46:8000/): 1000 genomic loci in 2504 individuals
 * [**BamSnap Plot Gallery**](https://bamsnap.readthedocs.io/en/latest/gallery.html)
 
 
