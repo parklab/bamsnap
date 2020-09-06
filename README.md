@@ -27,6 +27,8 @@ For more details, see BamSnap [**Documentation**](http://bamsnap.readthedocs.io/
 ```bash
 pip install bamsnap
 ```
+* [pypi site for bamsnap](https://pypi.org/project/bamsnap/)
+
 ### Install with github
 
 ```
@@ -45,6 +47,10 @@ $ bamsnap -bam test.bam -pos 1:7364529 -out test.png
 For more details, see BamSnap [**Documentation**](http://bamsnap.readthedocs.io/en/latest).
 
 
+## Examples Use Case
+
+* [**1000 Genome Data**](http://100.26.138.46:8000/)
+* [**BamSnap Plot Gallery**](https://bamsnap.readthedocs.io/en/latest/gallery.html)
 
 
 

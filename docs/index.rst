@@ -35,7 +35,7 @@ In a command prompt or terminal window, run the following commands to install an
   $ bamsnap -bam test.bam -pos chr1:7364529 -out test.bam.png
 
 
-More examples and commands are available in `gallery <gallary.html>`_. Use ``-h`` to list the options available for ``bamsnap``.
+More examples and commands are available in `gallery <gallery.html>`_. Use ``-h`` to list the options available for ``bamsnap``.
 
 
 .. code:: console
