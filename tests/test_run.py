@@ -276,7 +276,7 @@ def test_run():
         # print(cmd)
         # print(shlex.quote(sys.argv))
         bamsnap.cli()
-        
+        # break
 
 
 if __name__ == "__main__":
