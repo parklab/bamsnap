@@ -21,7 +21,7 @@ class DrawRead():
     y1 = 0
     opt = {}
 
-    def __init__(self, a):  # a:alignment
+    def __init__(self, a, refseq=""):  # a:alignment
         self.a = a
         self.mapq = a.mapq
         self.id = a.query_name
@@ -35,7 +35,11 @@ class DrawRead():
         self.readseq_with_softclipped = a.query_sequence
         
         self.base_qual = a.query_qualities
-        self.refseq = a.get_reference_sequence()
+        self.refseq = refseq
+        # try:
+        #     self.refseq = a.get_reference_sequence()
+        # except ValueError:
+        #     self.refseq = {}
         self.g_spos = a.positions[0] + 1
         self.g_epos = a.positions[-1] + 1
         self.has_del = False
@@ -76,8 +80,6 @@ class DrawRead():
                 #     self.mate_reference_start, self.mate_is_reverse, self.id, self.a.tlen)
                 pass
             
-
-
 
     def set_read_variant(self):
         gpos = self.g_spos
@@ -121,7 +123,7 @@ class DrawRead():
             else:
                 for gp in range(prev_gpos, gpos):
                     base = self.readseq_with_softclipped[bidx]
-                    refbase = self.refseq[ridx].upper()
+                    refbase = self.refseq[gp].upper()
                     if base != refbase:
                         btype = 'S'
                         self.mismatch_list.append(gp)

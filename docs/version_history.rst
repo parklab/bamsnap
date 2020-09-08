@@ -3,6 +3,9 @@ Version History
 
 v0.2.x release series
 ---------------------
+0.2.10 (2020.09.08):
+	- debug ValueError when MD tag of read is missing (`issue #5<https://github.com/parklab/bamsnap/issues/5>`_)
+
 0.2.9 (2020.09.03):
 	- add ``insert_size_del_threshold`` for deletion, ``insert_size_ins_threshold`` for insertsion
 	- add ``read_color_deletion`` for deletion, ``read_color_insersion`` for insertion

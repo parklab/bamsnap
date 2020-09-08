@@ -266,15 +266,24 @@ class DrawReadSet():
             self.covmap[group][gpos] = (cov + 1, base_composition)
     
     def update_ref_seq_with_read(self, a):
-        read_ref_seq = a.get_reference_sequence()
         read_ref_pos = a.get_reference_positions()
+        try:
+            read_ref_seq = a.get_reference_sequence()
+        except ValueError: # when MD tag is missing.
+            read_ref_seq = {}
+
         for pidx in range(len(read_ref_pos)):
             gpos = read_ref_pos[pidx] + 1
-            base = read_ref_seq[pidx]
+
+            try:
+                base = read_ref_seq[pidx]
+            except KeyError: # when MD tag is missing
+                base = "N"
             try:
                 self.refseq[gpos]
             except KeyError:
                 self.refseq[gpos] = base.upper()
+        
 
     def calculate_readmap(self, is_strand_group=False):
         group_list = ['all']
@@ -289,8 +298,7 @@ class DrawReadSet():
                 rid = self.get_rid(a)
                 self.update_ref_seq_with_read(a)
                 if not self.is_exist_read(rid):
-                    r = DrawRead(a)
-                    r.refseq = self.refseq
+                    r = DrawRead(a, self.refseq)
                     r.id = rid
                     r.read_gap_h = self.read_gap_h
                     r.read_gap_w = self.read_gap_w

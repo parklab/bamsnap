@@ -256,16 +256,27 @@ cmdlist.append("""
 """)  # coordinates track example 3
 
 
+cmdlist.append("""
+    -bam ./data/test_noMDtag_1_102345_103355.bam \
+    -pos 1:102545 \
+    -margin 1000 \
+    -title noMDtag \
+    -out ./out/test_noMDtag_1.png \
+    -refversion hg19 \
+    -show_soft_clipped \
+    -save_image_only
+""")  # coordinates track example 3
+
 def test_run():
     for cmd in cmdlist:
-        cmd = cmdlist[-1]
+        # cmd = cmdlist[-1]
         cmd = bamsnap_prog + " " + cmd.strip()
         sys.argv = shlex.split(cmd)
         print(' '.join(sys.argv))
         # print(cmd)
         # print(shlex.quote(sys.argv))
         bamsnap.cli()
-        # break
+        
 
 
 if __name__ == "__main__":

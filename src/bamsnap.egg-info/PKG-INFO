@@ -1,13 +1,13 @@
 Metadata-Version: 2.1
 Name: bamsnap
-Version: 0.2.9
+Version: 0.2.10
 Summary: A converter from .bam to .png for specific genomic region.
 Home-page: https://github.com/danielmsk/bamsnap
 Author: Daniel Minseok Kwon
 Author-email: daniel.minseok.kwon@gmail.com
 License: MIT
 Download-URL: https://github.com/danielmsk/bamsnap/archive/0.1.tar.gz
-Description: # <img src="https://bampdx.com/wp-content/uploads/2015/12/BAMPDX-logo.png" height=28px width=45px>&nbsp;BAMsnap
+Description: # BamSnap
         <!--[![Build Status](https://travis-ci.org/bamsnap/bamsnap.svg?branch=develop)](https://travis-ci.org/bamsnap/bamsnap) 
         [![Code Health](https://landscape.io/github/bamsnap/bamsnap/develop/landscape.svg?style=flat)](https://landscape.io/github/bamsnap/bamsnap/develop) 
         [![Coverage Status](https://img.shields.io/codecov/c/github/bamsnap/bamsnap/develop.svg)](https://codecov.io/github/bamsnap/bamsnap?branch=develop)-->
@@ -36,6 +36,8 @@ Description: # <img src="https://bampdx.com/wp-content/uploads/2015/12/BAMPDX-lo
         ```bash
         pip install bamsnap
         ```
+        * [pypi site for bamsnap](https://pypi.org/project/bamsnap/)
+        
         ### Install with github
         
         ```
@@ -54,6 +56,10 @@ Description: # <img src="https://bampdx.com/wp-content/uploads/2015/12/BAMPDX-lo
         For more details, see BamSnap [**Documentation**](http://bamsnap.readthedocs.io/en/latest).
         
         
+        ## Example Use Case
+        
+        * [**1000 Genome Data**](http://100.26.138.46:8000/): 1000 genomic loci in 2504 individuals
+        * [**BamSnap Plot Gallery**](https://bamsnap.readthedocs.io/en/latest/gallery.html)
         
         
         
