@@ -3,7 +3,7 @@
 [![Code Health](https://landscape.io/github/bamsnap/bamsnap/develop/landscape.svg?style=flat)](https://landscape.io/github/bamsnap/bamsnap/develop) 
 [![Coverage Status](https://img.shields.io/codecov/c/github/bamsnap/bamsnap/develop.svg)](https://codecov.io/github/bamsnap/bamsnap?branch=develop)-->
 
-BAMSNAP is high-performed command-based visualization tool for the aligned BAM file.
+BamSnap: a lightweight command-based visualization tool for sequencing reads in BAM files
 
 <!--<img src="https://raw.githubusercontent.com/parklab/bamsnap/master/data/ex1/snapfiles/snap_test11.bam_1_715347-715348.png" height=128px width=405px>-->
 
@@ -49,7 +49,7 @@ For more details, see BamSnap [**Documentation**](http://bamsnap.readthedocs.io/
 
 ## Example Use Case
 
-* [**1000 Genome Data**](http://100.26.138.46:8000/): 1000 genomic loci in 2504 individuals
+* [**1000 Genome Data**](https://bamsnap-1kg.s3.amazonaws.com/index.html): 1000 genomic loci in 2504 individuals
 * [**BamSnap Plot Gallery**](https://bamsnap.readthedocs.io/en/latest/gallery.html)
 
 

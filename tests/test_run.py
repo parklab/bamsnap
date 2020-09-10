@@ -1,19 +1,14 @@
 import sys
 import shlex
 
-# sys.path.append('..')
-# from src import bamsnap
-# bamsnap_prog = "src/bamsnap.py"
+sys.path.append('..')
+from src import bamsnap
+bamsnap_prog = "src/bamsnap.py"
 
-import bamsnap
-bamsnap_prog = "bamsnap"
+# import bamsnap
+# bamsnap_prog = "bamsnap"
 
 
-# -ref /Users/pcaso/db/DATA/PUB/reference/GRCh38d1/GRCh38_full_analysis_set_plus_decoy_hla.fa \
-# -ref /home/mk446/park/SOFTWARE/REFERENCE/GRCh38d1/GRCh38_full_analysis_set_plus_decoy_hla.fa
-# -bam /home/mk446/bio/DATA/AshkenazimTrio/hg38/HG002.x60/HG002.GRCh38.60x.1_addrg_bqsr.bam \
-# /home/mk446/bio/DATA/AshkenazimTrio/hg38/HG003.x60/HG003.GRCh38.60x.1_addrg_bqsr.bam \
-# /home/mk446/bio/DATA/AshkenazimTrio/hg38/HG004.x60/HG004.GRCh38.60x.1_addrg_bqsr.bam \
 cmdlist = []
 cmdlist.append("""
     -bam ./data/test_SV1_softclipped_1.bam \
@@ -259,7 +254,7 @@ cmdlist.append("""
 cmdlist.append("""
     -bam ./data/test_noMDtag_1_102345_103355.bam \
     -pos 1:102545 \
-    -margin 1000 \
+    -margin 20 \
     -title noMDtag \
     -out ./out/test_noMDtag_1.png \
     -refversion hg19 \
@@ -267,16 +262,28 @@ cmdlist.append("""
     -save_image_only
 """)  # coordinates track example 3
 
+
+cmdlist.append("""
+    -bam ./data/NA12877.bam ./data/NA12878.bam ./data/NA12879.bam \
+    -title "NA12877 (Father)" "NA12878 (Mother)" "NA12879 (Daughter)" \
+    -vcf ./data/NATRIO_test_3.vcf \
+    -out ./out/NATRIO_test_3 \
+    -margin 20 \
+    -save_image_only
+""")
+
+
+
 def test_run():
     for cmd in cmdlist:
-        # cmd = cmdlist[-1]
+        cmd = cmdlist[-1]
         cmd = bamsnap_prog + " " + cmd.strip()
         sys.argv = shlex.split(cmd)
         print(' '.join(sys.argv))
         # print(cmd)
         # print(shlex.quote(sys.argv))
         bamsnap.cli()
-        # break
+        break
 
 
 if __name__ == "__main__":
