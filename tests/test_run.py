@@ -267,7 +267,7 @@ cmdlist.append("""
     -bam ./data/test_DEL_chr12_47977510_F.bam ./data/test_DEL_chr12_47977510_M.bam ./data/test_DEL_chr12_47977510_P.bam \
     -vcf ./data/test_DEL_chr12_47977510.vcf \
     -margin 20 \
-    -title "F" "M" "P" \
+    -title "Father" "Mother" "Child" \
     -out ./out/test_DEL_chr12_1.png \
     -show_soft_clipped \
     -read_color_by interchrom \
@@ -279,7 +279,7 @@ cmdlist.append("""
     -bam ./data/test_DEL_chr12_47977510_F.bam ./data/test_DEL_chr12_47977510_M.bam ./data/test_DEL_chr12_47977510_P.bam \
     -vcf ./data/test_DEL_chr12_47977510.vcf \
     -margin 1000 \
-    -title "F" "M" "P" \
+    -title "Father" "Mother" "Child" \
     -out ./out/test_DEL_chr12_2.png \
     -show_soft_clipped \
     -read_color_by interchrom \
@@ -291,7 +291,7 @@ cmdlist.append("""
     -bam ./data/test_DEL_chr12_47977510_F.bam ./data/test_DEL_chr12_47977510_M.bam ./data/test_DEL_chr12_47977510_P.bam \
     -vcf ./data/test_DEL_chr12_47977510.vcf \
     -margin 5000 \
-    -title "F" "M" "P" \
+    -title "Father" "Mother" "Child" \
     -out ./out/test_DEL_chr12_3.png \
     -show_soft_clipped \
     -read_color_by interchrom \

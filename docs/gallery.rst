@@ -100,3 +100,21 @@ Gallery
       -show_soft_clipped \
       -read_color_by interchrom \
       -save_image_only
+
+
+.. image:: ../tests/out/test_DEL_chr12_2.png
+   :width: 100 %
+
+.. code-block:: console
+   :linenos:
+
+   $ bamsnap \
+      -bam ./data/test_DEL_chr12_47977510_F.bam ./data/test_DEL_chr12_47977510_M.bam ./data/test_DEL_chr12_47977510_P.bam \
+      -vcf ./data/test_DEL_chr12_47977510.vcf \
+      -margin 1000 \
+      -title "Father" "Mother" "Child" \
+      -out ./out/test_DEL_chr12_2.png \
+      -show_soft_clipped \
+      -read_color_by interchrom \
+      -read_group strand \
+      -save_image_only

@@ -9,5 +9,6 @@ build/*
 build/lib/bamsnap/*
 dist/
 _build/
+tests/*.log
 tests/out/*.log
 test.sh
