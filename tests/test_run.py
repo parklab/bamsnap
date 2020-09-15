@@ -1,12 +1,12 @@
 import sys
 import shlex
 
-sys.path.append('..')
-from src import bamsnap
-bamsnap_prog = "src/bamsnap.py"
+# sys.path.append('..')
+# from src import bamsnap
+# bamsnap_prog = "src/bamsnap.py"
 
-# import bamsnap
-# bamsnap_prog = "bamsnap"
+import bamsnap
+bamsnap_prog = "bamsnap"
 
 
 cmdlist = []
@@ -250,6 +250,19 @@ cmdlist.append("""
     -save_image_only
 """)  # coordinates track example 3
 
+#180097878-180098507
+cmdlist.append("""
+    -bam ./data/test_DEL_4_180097876_180097877.bam \
+    -vcf ./data/test_DEL_4.vcf \
+    -margin 1000 \
+    -title deletion \
+    -out ./out/test_DEL_2.png \
+    -refversion hg19 \
+    -show_soft_clipped \
+    -read_color_by interchrom \
+    -save_image_only
+""")  # coordinates track example 3
+
 
 cmdlist.append("""
     -bam ./data/test_noMDtag_1_102345_103355.bam \
@@ -276,14 +289,14 @@ cmdlist.append("""
 
 def test_run():
     for cmd in cmdlist:
-        cmd = cmdlist[-1]
+        # cmd = cmdlist[-1]
         cmd = bamsnap_prog + " " + cmd.strip()
         sys.argv = shlex.split(cmd)
         print(' '.join(sys.argv))
         # print(cmd)
         # print(shlex.quote(sys.argv))
         bamsnap.cli()
-        break
+        # break
 
 
 if __name__ == "__main__":

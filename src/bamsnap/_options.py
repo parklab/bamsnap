@@ -89,11 +89,24 @@ def set_pos_list(opt):
             if line[0] != '#':
                 arr = line.split('\t')
                 arr[-1] = arr[-1].strip()
+                ref = arr[3].strip()
+                alt = arr[4].strip()
                 p1 = {}
                 p1['chrom'] = arr[0].strip()
                 p1['t_pos'] = int(arr[1])
-                p1['t_spos'] = int(arr[1])
-                p1['t_epos'] = int(arr[1]) + 1
+                if len(ref) == 1 and len(alt) == 1:
+                    p1['t_spos'] = int(arr[1])
+                    p1['t_epos'] = int(arr[1]) + 1
+                elif len(ref) > len(alt):
+                    p1['t_spos'] = int(arr[1])
+                    p1['t_epos'] = int(arr[1]) + len(ref) + 1
+                elif len(ref) < len(alt):
+                    p1['t_spos'] = int(arr[1])
+                    p1['t_epos'] = int(arr[1]) + len(alt) + 1
+                else:
+                    p1['t_spos'] = int(arr[1])
+                    p1['t_epos'] = int(arr[1]) + len(alt) + 1
+                    
                 p1['g_spos'] = p1['t_spos'] - int(opt['margin'])
                 p1['g_epos'] = p1['t_epos'] + int(opt['margin'])
                 poslist.append(p1)
