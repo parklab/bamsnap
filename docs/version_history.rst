@@ -3,6 +3,9 @@ Version History
 
 v0.2.x release series
 ---------------------
+0.2.13 (2020.09.13):
+	- adjust target line for deletion in VCF
+
 0.2.12 (2020.09.15):
 	- adjust target line for deletion in VCF
 

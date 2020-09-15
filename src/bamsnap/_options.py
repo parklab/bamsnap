@@ -98,15 +98,15 @@ def set_pos_list(opt):
                     p1['t_spos'] = int(arr[1])
                     p1['t_epos'] = int(arr[1]) + 1
                 elif len(ref) > len(alt):
-                    p1['t_spos'] = int(arr[1])
-                    p1['t_epos'] = int(arr[1]) + len(ref) + 1
+                    p1['t_spos'] = int(arr[1]) + 1
+                    p1['t_epos'] = int(arr[1]) + len(ref) 
                 elif len(ref) < len(alt):
-                    p1['t_spos'] = int(arr[1])
-                    p1['t_epos'] = int(arr[1]) + len(alt) + 1
+                    p1['t_spos'] = int(arr[1]) + 1
+                    p1['t_epos'] = int(arr[1]) + len(alt) 
                 else:
-                    p1['t_spos'] = int(arr[1])
-                    p1['t_epos'] = int(arr[1]) + len(alt) + 1
-                    
+                    p1['t_spos'] = int(arr[1]) + 1
+                    p1['t_epos'] = int(arr[1]) + len(alt)
+
                 p1['g_spos'] = p1['t_spos'] - int(opt['margin'])
                 p1['g_epos'] = p1['t_epos'] + int(opt['margin'])
                 poslist.append(p1)

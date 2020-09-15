@@ -250,7 +250,7 @@ cmdlist.append("""
     -save_image_only
 """)  # coordinates track example 3
 
-#180097878-180098507
+
 cmdlist.append("""
     -bam ./data/test_DEL_4_180097876_180097877.bam \
     -vcf ./data/test_DEL_4.vcf \
@@ -263,6 +263,41 @@ cmdlist.append("""
     -save_image_only
 """)  # coordinates track example 3
 
+cmdlist.append("""
+    -bam ./data/test_DEL_chr12_47977510_F.bam ./data/test_DEL_chr12_47977510_M.bam ./data/test_DEL_chr12_47977510_P.bam \
+    -vcf ./data/test_DEL_chr12_47977510.vcf \
+    -margin 20 \
+    -title "F" "M" "P" \
+    -out ./out/test_DEL_chr12_1.png \
+    -show_soft_clipped \
+    -read_color_by interchrom \
+    -read_group strand \
+    -save_image_only
+""")  
+
+cmdlist.append("""
+    -bam ./data/test_DEL_chr12_47977510_F.bam ./data/test_DEL_chr12_47977510_M.bam ./data/test_DEL_chr12_47977510_P.bam \
+    -vcf ./data/test_DEL_chr12_47977510.vcf \
+    -margin 1000 \
+    -title "F" "M" "P" \
+    -out ./out/test_DEL_chr12_2.png \
+    -show_soft_clipped \
+    -read_color_by interchrom \
+    -read_group strand \
+    -save_image_only
+""")  
+
+cmdlist.append("""
+    -bam ./data/test_DEL_chr12_47977510_F.bam ./data/test_DEL_chr12_47977510_M.bam ./data/test_DEL_chr12_47977510_P.bam \
+    -vcf ./data/test_DEL_chr12_47977510.vcf \
+    -margin 5000 \
+    -title "F" "M" "P" \
+    -out ./out/test_DEL_chr12_3.png \
+    -show_soft_clipped \
+    -read_color_by interchrom \
+    -read_group strand \
+    -save_image_only
+""")
 
 cmdlist.append("""
     -bam ./data/test_noMDtag_1_102345_103355.bam \
@@ -284,7 +319,6 @@ cmdlist.append("""
     -margin 20 \
     -save_image_only
 """)
-
 
 
 def test_run():
