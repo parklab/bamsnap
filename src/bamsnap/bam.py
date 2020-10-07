@@ -9,3 +9,11 @@ class BAM():
 
     def __str__(self):
         return self.title
+
+    def getSamfileFlags(self):
+        if self.filename.endswith('.bam'):
+            return 'rb'
+        elif self.filename.endswith('.cram'):
+            return 'rc'
+        else:
+            return 'r'

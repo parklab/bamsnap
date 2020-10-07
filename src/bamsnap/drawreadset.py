@@ -163,7 +163,7 @@ class DrawReadSet():
     STRAND_GROUP_LIST = ['pos_strand', 'neg_strand']
 
     def __init__(self, bam, chrom, g_spos, g_epos, xscale, refseq="",  coverage_vaf=10):
-        self.samAlign = pysam.AlignmentFile(bam.filename, "rb")
+        self.samAlign = pysam.AlignmentFile(bam.filename, bam.getSamfileFlags())
         self.chrom = chrom
         self.refseq = refseq
         self.g_spos = g_spos
