@@ -78,16 +78,25 @@ class BamSnap():
                 if len(line) > 0 and line[0] != '#':
                     arr = line.split('\t')
                     if len(arr) == 2:
-                        self.bamlist.append(BAM(arr[0], arr[1]))
+                        bamObj = BAM(arr[0], arr[1])
+                        if 'ref' in self.opt:
+                            bamObj.setReference(self.opt['ref'])
+                        self.bamlist.append(bamObj)
                     else:
-                        self.bamlist.append(BAM(arr[0]))
+                        bamObj = BAM(arr[0])
+                        if 'ref' in self.opt:
+                            bamObj.setReference(self.opt['ref'])
+                        self.bamlist.append(bamObj)
         elif 'bam' in ks and len(self.opt['bam']) > 0:
             for idx, bamfile in enumerate(self.opt['bam']):
                 try:
                     title = self.opt['title'][idx]
                 except IndexError:
                     title = ""
-                self.bamlist.append(BAM(bamfile, title))
+                bamObj = BAM(bamfile, title)
+                if 'ref' in self.opt:
+                    bamObj.setReference(self.opt['ref'])
+                self.bamlist.append(bamObj)
 
     def get_refseq(self, pos1):
         refseq = {}
