@@ -20,7 +20,7 @@ extras_require = {
 }
 
 setup(name='bamsnap',
-      version='0.2.13',
+      version='0.2.14',
       url='https://github.com/danielmsk/bamsnap',
       license='MIT',
       author='Daniel Minseok Kwon',

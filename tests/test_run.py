@@ -10,6 +10,8 @@ bamsnap_prog = "bamsnap"
 
 
 cmdlist = []
+
+
 cmdlist.append("""
     -bam ./data/test_SV1_softclipped_1.bam \
     -title "Clipped read" \
@@ -238,6 +240,7 @@ cmdlist.append("""
     -save_image_only
 """)  # inversion example 1
 
+
 cmdlist.append("""
     -bam ./data/test_DEL_4_180097876_180097877.bam \
     -pos 4:180097878-180098507 \
@@ -319,6 +322,36 @@ cmdlist.append("""
     -margin 20 \
     -save_image_only
 """)
+
+cmdlist.append("""
+    -bam ./data/NA12877.bam ./data/NA12878.bam ./data/NA12879.bam \
+    -title "NA12877 (Father)" "NA12878 (Mother)" "NA12879 (Daughter)" \
+    -vcf ./data/NATRIO_test_3.vcf \
+    -out ./out/NATRIO_test_3 \
+    -margin 20 \
+    -save_image_only
+""")
+
+cmdlist.append("""
+    -bam ./data/test_miss_ref_chr1_944300.bam \
+    -pos chr1:944315 \
+    -title "test" \
+    -out ./out/test_miss_ref_chr1_944300.png \
+    -margin 50 \
+    -save_image_only
+""")
+
+cmdlist.append("""
+    -bam ./data/test_miss_ref_chr1_944300_2.bam \
+    -pos chr1:944315 \
+    -title "test" \
+    -out ./out/test_miss_ref_chr1_944300_2.png \
+    -margin 50 \
+    -save_image_only
+""")
+
+
+
 
 
 def test_run():

@@ -18,17 +18,23 @@ class BamSnap():
 
     def __init__(self, opt):
         self.opt = opt
-        self.font = {}
         self.bamlist = []
-        self.outfnamelist = []
         self.has_opt_error = False
-        self.is_single_image_out = False
-        self.drawplot = self.opt['draw']
-        self.bamplot = self.opt['bamplot']
-        self.process = {}
         self.split_poslist = self.get_split_poslist(self.opt['poslist'], self.opt['process'])
-        self.set_ref_fasta()
+        self.process = {}
+        self.is_single_image_out = False
         self.set_is_single_image_out()
+
+    def set_is_single_image_out(self):
+        flag = False
+        if len(self.opt['poslist']) == 1:
+            if not self.opt['separated_bam']:
+                flag = True
+            else:
+                fnameuppper = self.opt['out'].upper()
+                if fnameuppper.endswith('.PNG') or fnameuppper.endswith('.JPG'):
+                    flag = True
+        self.is_single_image_out = flag
 
     def get_split_poslist(self, poslist, no_process):
         split_poslist = {}
@@ -42,33 +48,6 @@ class BamSnap():
             if icore >= no_process:
                 icore = 0
         return split_poslist
-
-    def set_ref_fasta(self):
-        self.fasta = None
-        if is_exist(self.opt['ref']):
-            self.fasta = Fasta(self.opt['ref'], rebuild=False)
-
-    def get_font(self, font_size, font_type='regular'):
-        try:
-            font = self.font[font_size]
-        except KeyError:
-            if font_type == 'bold':
-                font = ImageFont.truetype(getTemplatePath('VeraMono-Bold.ttf'), font_size)
-            else:
-                font = ImageFont.truetype(getTemplatePath('VeraMono.ttf'), font_size)
-            self.font[font_size] = font
-        return font
-
-    def set_is_single_image_out(self):
-        flag = False
-        if len(self.opt['poslist']) == 1:
-            if not self.opt['separated_bam']:
-                flag = True
-            else:
-                fnameuppper = self.opt['out'].upper()
-                if fnameuppper.endswith('.PNG') or fnameuppper.endswith('.JPG'):
-                    flag = True
-        self.is_single_image_out = flag
 
     def load_bamlist(self):
         ks = self.opt.keys()
@@ -87,75 +66,80 @@ class BamSnap():
                     title = self.opt['title'][idx]
                 except IndexError:
                     title = ""
-                self.bamlist.append(BAM(bamfile, title))
+                self.bamlist.append(BAM(bamfile, title)) 
+    
+    def start_process_drawplot(self, image_w, bamlist):
+        for tno in range(self.opt['process']):
+            self.process[tno] = mp.Process(target=run_process_drawplot_bamlist, args=(image_w, bamlist, self.split_poslist[tno], self.opt, self.is_single_image_out), name='proc ' + str(tno+1))
+            self.process[tno].start()
+        
+    def run(self):
+        t0 = time.time()
+        timemap = {'set_refseq': 0}
+        self.load_bamlist()
 
-    def get_refseq(self, pos1):
-        refseq = {}
-        if self.opt['ref'] == "":
-            refseq = self.get_refseq_from_ucsc(pos1)
-        else:
-            refseq = self.get_refseq_from_localfasta(pos1)
-        return refseq
+        if not self.has_opt_error and len(self.opt['poslist']) > 0:
+            image_w = self.opt['width'] - self.opt['plot_margin_left'] - self.opt['plot_margin_right']
 
-    # def set_refseq_from_ncbiapi(self):
-    #     url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide"
-    #     url += "&id=NC_000001&seq_start=97533596&seq_stop=97533606&rettype=fasta&retmode=text"
-    #     cont = get_url(url)
-    #     seq = ""
-    #     for line in cont.strip().split('\n'):
-    #         if line[0] != '>':
-    #             seq += line.strip()
-    #     print ('seq:',seq)
-    #     i = 0
-    #     for gpos in range(self.opt['g_spos']-1000,self.opt['g_epos']+1000+1):
-    #         self.refseq[gpos] = seq[i]
-    #         i += 1
+            if self.opt['separated_bam']:
+                for bidx, bam in enumerate(self.bamlist):
+                    self.start_process_drawplot(image_w, [bam])
+                    
+            else:
+                self.start_process_drawplot(image_w, self.bamlist)
+                
 
-    def get_refseq_from_ucsc(self, pos1):
-        spos = pos1['g_spos']-self.opt['margin'] - 500
-        epos = pos1['g_epos']+self.opt['margin'] + 1 + 500
-        # seqver = "hg38"
-        seqver = self.opt['refversion']
-        if not pos1['chrom'].startswith('chr'):
-            chrom = 'chr' + pos1['chrom']
-        else:
-            chrom = pos1['chrom']
-        url = "http://genome.ucsc.edu/cgi-bin/das/" + seqver + \
-            "/dna?segment=" + chrom + ":" + str(spos) + "," + str(epos)
-        # url = "http://genome.ucsc.edu/cgi-bin/das/" + seqver + \
-        #     "/dna?segment=chr"+pos1['chrom']+":"+str(spos+1)+","+str(epos+1)
-        cont = get_url(url)
-        seq = ""
-        for line in cont.strip().split('\n'):
-            if line[0] != '<':
-                seq += line.strip().upper()
-        i = 0
-        refseq = {}
-        for gpos in range(spos, epos):
-            refseq[gpos] = seq[i]
-            i += 1
-        return refseq
+        t2 = time.time()
+        if not self.is_single_image_out:
+            if not self.opt['save_image_only']:
+                self.save_html()
+            if self.opt['zipout']:
+                self.generate_zipfile()
 
-    def get_refseq_from_localfasta(self, pos1):
-        spos = pos1['g_spos']-self.opt['margin'] - 500
-        epos = pos1['g_epos']+self.opt['margin']+1 + 500
-        seq = self.get_refseq_from_fasta(pos1['chrom'], spos, epos, self.opt['ref_index_rebuild'])
-        i = 0
-        refseq = {}
-        for gpos in range(spos, epos):
-            refseq[gpos+1] = seq[i]
-            i += 1
-        return refseq
+        self.opt['log'].debug('Total running time for getting reference sequence (set_refseq): ' +
+                              str(round(timemap['set_refseq'], 3))+' sec')
+        self.opt['log'].info('Total running time: ' + str(round(t2-t0, 1))+' sec')
 
-    def get_refseq_from_fasta(self, chrom, spos, epos, rebuild_index=False):
-        f = self.fasta
-        fastachrommap = {}
-        for c1 in list(f.keys()):
-            arr = c1.split(' ')
-            tchrom = arr[0]
-            fastachrommap[tchrom] = c1
-        refseq = f[fastachrommap[chrom]][spos:epos+1]
-        return str(refseq)
+
+def run_process_drawplot_bamlist(image_w, bamlist, poslist, opt, is_single_image_out):
+    rseq = ReferenceSequence(opt)
+    bsplot = BamSnapPlot(opt)
+    bsplot.set_is_single_image_out(is_single_image_out)
+    for pos1 in poslist:
+        t11 = time.time()
+        refseq = rseq.get_refseq(pos1)
+        xscale = Xscale(pos1['g_spos'], pos1['g_epos'], image_w)
+        imagefname = bsplot.drawplot_bamlist(pos1, image_w, bamlist, xscale, refseq)
+        t12 = time.time()
+        opt['log'].info("(" + mp.current_process().name + ") Saved " + imagefname + " : " + str(round(t12-t11, 5)) + " sec")
+
+
+class BamSnapPlot():
+    def __init__(self, opt):
+        self.opt = opt
+        self.font = {}
+        self.outfnamelist = []
+        self.drawplot = self.opt['draw']
+        self.bamplot = self.opt['bamplot']
+        self.is_single_image_out = False
+
+    def set_is_single_image_out(self, is_single_image_out):
+        self.is_single_image_out = is_single_image_out
+
+    def init_image(self, image_w, bgcolor="FFFFFF"):
+        ia = Image.new('RGB', (image_w, 0), getrgb(bgcolor))
+        return ia
+
+    def get_font(self, font_size, font_type='regular'):
+        try:
+            font = self.font[font_size]
+        except KeyError:
+            if font_type == 'bold':
+                font = ImageFont.truetype(getTemplatePath('VeraMono-Bold.ttf'), font_size)
+            else:
+                font = ImageFont.truetype(getTemplatePath('VeraMono.ttf'), font_size)
+            self.font[font_size] = font
+        return font
 
     def add_margin_to_image(self, ia, margin_left=0, margin_top=0, margin_right=0, margin_bottom=0):
         if max(margin_left, margin_top, margin_right, margin_bottom) > 0:
@@ -195,7 +179,7 @@ class BamSnap():
         else:
             ia.save(outfname, "PNG", quality=1, optimize=True)
 
-        # self.opt['log'].info("(" + mp.current_process().name + ") Saved " + outfname)
+        self.opt['log'].info("(" + mp.current_process().name + ") Saved " + outfname)
         self.outfnamelist.append({'t': imgtitle, 'img': outfname.split('/')[-1]})
         return outfname
 
@@ -241,10 +225,6 @@ class BamSnap():
         h1 = int(h/2)
         dr.line([(0, h1), (w, h1)], fill=getrgb('000000'), width=1)
         return im
-
-    def init_image(self, image_w, bgcolor="FFFFFF"):
-        ia = Image.new('RGB', (image_w, 0), getrgb(bgcolor))
-        return ia
 
     def get_bamplot_image(self, bam, pos1, image_w, xscale, refseq):
         rset = DrawReadSet(bam, pos1['chrom'], pos1['g_spos'], pos1['g_epos'], xscale, refseq)
@@ -345,6 +325,18 @@ class BamSnap():
         ia = self.append_image(ia, ia_sub)
         return ia
 
+    
+    
+    def generate_zipfile(self):
+        outzip = self.opt['out'] + '.zip'
+        zo = ZipFile(outzip, 'w')
+        for folderName, subfolders, filenames in os.walk(self.opt['out']):
+            for filename in filenames:
+                filePath = os.path.join(folderName, filename)
+                zo.write(filePath, filePath)
+        zo.close()
+        self.opt['log'].info("(" + mp.current_process().name + ") Saved " + outzip)
+    
     def drawplot_bamlist(self, pos1, image_w, bamlist, xscale, refseq):
         ia = self.init_image(image_w, self.opt['bgcolor'])
         drawA = None
@@ -412,55 +404,80 @@ class BamSnap():
         ia = self.add_margin_to_image(ia, self.opt['plot_margin_left'], self.opt['plot_margin_top'], self.opt['plot_margin_right'], self.opt['plot_margin_bottom'])
         imagefname = self.save_image(ia, bamlist[0], pos1)
         return imagefname
+
+
+
+class ReferenceSequence():
+    def __init__(self, opt):
+        self.opt = opt
+        self.fasta = None
+        if is_exist(self.opt['ref']):
+            self.fasta = Fasta(self.opt['ref'], rebuild=False)
+
+    def get_refseq(self, pos1):
+        refseq = {}
+        if self.opt['ref'] == "":
+            refseq = self.get_refseq_from_ucsc(pos1)
+        else:
+            refseq = self.get_refseq_from_localfasta(pos1)
+        return refseq
+
+    # def set_refseq_from_ncbiapi(self):
+    #     url = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide"
+    #     url += "&id=NC_000001&seq_start=97533596&seq_stop=97533606&rettype=fasta&retmode=text"
+    #     cont = get_url(url)
+    #     seq = ""
+    #     for line in cont.strip().split('\n'):
+    #         if line[0] != '>':
+    #             seq += line.strip()
+    #     print ('seq:',seq)
+    #     i = 0
+    #     for gpos in range(self.opt['g_spos']-1000,self.opt['g_epos']+1000+1):
+    #         self.refseq[gpos] = seq[i]
+    #         i += 1
     
-    def generate_zipfile(self):
-        outzip = self.opt['out'] + '.zip'
-        zo = ZipFile(outzip, 'w')
-        for folderName, subfolders, filenames in os.walk(self.opt['out']):
-            for filename in filenames:
-                filePath = os.path.join(folderName, filename)
-                zo.write(filePath, filePath)
-        zo.close()
-        self.opt['log'].info("(" + mp.current_process().name + ") Saved " + outzip)
-    
-    def start_process_drawplot(self, image_w, bamlist):
-        for tno in range(self.opt['process']):
-            self.process[tno] = mp.Process(target=self.start_process_drawplot_bamlist, args=(image_w, bamlist, self.split_poslist[tno]), name='proc ' + str(tno+1))
-            self.process[tno].start()
+    def get_refseq_from_ucsc(self, pos1):
+        spos = pos1['g_spos']-self.opt['margin'] - 500
+        epos = pos1['g_epos']+self.opt['margin'] + 1 + 500
+        # seqver = "hg38"
+        seqver = self.opt['refversion']
+        if not pos1['chrom'].startswith('chr'):
+            chrom = 'chr' + pos1['chrom']
+        else:
+            chrom = pos1['chrom']
+        url = "http://genome.ucsc.edu/cgi-bin/das/" + seqver + \
+            "/dna?segment=" + chrom + ":" + str(spos) + "," + str(epos)
+        # url = "http://genome.ucsc.edu/cgi-bin/das/" + seqver + \
+        #     "/dna?segment=chr"+pos1['chrom']+":"+str(spos+1)+","+str(epos+1)
+        cont = get_url(url)
+        seq = ""
+        for line in cont.strip().split('\n'):
+            if line[0] != '<':
+                seq += line.strip().upper()
+        i = 0
+        refseq = {}
+        for gpos in range(spos, epos):
+            refseq[gpos] = seq[i]
+            i += 1
+        return refseq
 
-    def start_process_drawplot_bamlist(self, image_w, bamlist, poslist):
-        for pos1 in poslist:
-            t11 = time.time()
-            refseq = self.get_refseq(pos1)
-            xscale = Xscale(pos1['g_spos'], pos1['g_epos'], image_w)
-            imagefname = self.drawplot_bamlist(pos1, image_w, bamlist, xscale, refseq)
-            t12 = time.time()
-            self.opt['log'].info("(" + mp.current_process().name + ") Saved " + imagefname + " : " + str(round(t12-t11, 5)) + " sec")
+    def get_refseq_from_localfasta(self, pos1):
+        spos = pos1['g_spos']-self.opt['margin'] - 500
+        epos = pos1['g_epos']+self.opt['margin'] + 1 + 500
+        seq = self.get_refseq_from_fasta(pos1['chrom'], spos, epos, self.opt['ref_index_rebuild'])
+        i = 0
+        refseq = {}
+        for gpos in range(spos, epos):
+            refseq[gpos+1] = seq[i]
+            i += 1
+        return refseq
 
-    def run(self):
-        t0 = time.time()
-        timemap = {'set_refseq': 0}
-        self.load_bamlist()
-
-        if not self.has_opt_error and len(self.opt['poslist']) > 0:
-            image_w = self.opt['width'] - self.opt['plot_margin_left'] - self.opt['plot_margin_right']
-
-            if self.opt['separated_bam']:
-                for bidx, bam in enumerate(self.bamlist):
-                    self.start_process_drawplot(image_w, [bam])
-            else:
-                self.start_process_drawplot(image_w, self.bamlist)
-
-            for tno in range(self.opt['process']):
-                self.process[tno].join()
-
-        t2 = time.time()
-        if not self.is_single_image_out:
-            if not self.opt['save_image_only']:
-                self.save_html()
-            if self.opt['zipout']:
-                self.generate_zipfile()
-
-        self.opt['log'].debug('Total running time for getting reference sequence (set_refseq): ' +
-                              str(round(timemap['set_refseq'], 3))+' sec')
-        self.opt['log'].info('Total running time: ' + str(round(t2-t0, 1))+' sec')
+    def get_refseq_from_fasta(self, chrom, spos, epos, rebuild_index=False):
+        f = self.fasta
+        fastachrommap = {}
+        for c1 in list(f.keys()):
+            arr = c1.split(' ')
+            tchrom = arr[0]
+            fastachrommap[tchrom] = c1
+        refseq = f[fastachrommap[chrom]][spos:epos+1]
+        return str(refseq)
