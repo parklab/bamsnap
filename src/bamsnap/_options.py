@@ -171,7 +171,7 @@ def get_options():
     confjson = util.load_json(util.getDataPath('conf.json'))
 
     parser = argparse.ArgumentParser(usage='%(prog)s <sub-command> [options]',
-                                     description='%(prog)s ver' + confjson['VERSION'] + " (" + confjson['VERSION_DATE'] + ")" + ': convert bam to image')
+                                     description='%(prog)s ver' + confjson['VERSION'] + " (" + confjson['VERSION_DATE'] + ")" + ': convert bam (or cram) to image')
     parser.add_argument('-v', '--version', action='version',
                         version='%(prog)s ver' + confjson['VERSION'] + " (" + confjson['VERSION_DATE'] + ")")
 

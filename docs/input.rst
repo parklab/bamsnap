@@ -11,12 +11,14 @@ Alignment file
 Input files (``-bam``)
 ^^^^^^^^^^^^^^^^^^^
 
-Input files to be used can be specified using the ``-bam`` argument. It is possible to specify a single file or list multiple files.
+Input files to be used can be specified using the ``-bam`` argument. It is possible to specify a single file or list multiple files. Also, a cram file can be assigned with ``-bam`` argument.
 
 .. code:: console
 
     $ bamsnap -bam ./data/NA12878.bam
     $ bamsnap -bam ./data/NA12878.bam ./data/NA12877.bam ./data/NA12879.bam
+    $ bamsnap -bam ./data/NA12878.cram
+    $ bamsnap -bam ./data/NA12878.cram ./data/NA12877.bam ./data/NA12879.bam
 
 
 Title of bam file(s) (``-title``)
@@ -65,12 +67,13 @@ BAM list file (``-bamlist``)
     $ bamsnap -bamlist ./data/NATRIO_bamlist.txt
 
 It is possible to provide a single file listing all the input bam files to be used. The expected format is a tabular (tab-separated) file. The first column is mandatory and must contain the paths to files, the second column is optional and allows to associate labels to files.
+It also supports `.bam` and `.cram` file.
 
 .. code:: bash
 
   # example of bamlist file with lables
   ./data/NA12878.bam    NA12878 (F)
-  ./data/NA12877.bam    NA12877 (M)
+  ./data/NA12877.cram   NA12877 (M)
   ./data/NA12879.bam    NA12879 (D)
 
 
@@ -78,7 +81,7 @@ It is possible to provide a single file listing all the input bam files to be us
 
   # example of bamlist file
   ./data/NA12878.bam
-  ./data/NA12877.bam
+  ./data/NA12877.cram
   ./data/NA12879.bam
 
 Genomic position

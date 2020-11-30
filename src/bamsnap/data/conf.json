@@ -1,12 +1,12 @@
 {
     "TITLE":"BAMSNAP",
-    "VERSION":"0.2.13",
-    "VERSION_DATE":"2020-09-15",
+    "VERSION":"0.2.14",
+    "VERSION_DATE":"2020-11-30",
     "PROG":"bamsnap",
     "options":[
-        {"param":"bam", "default":[], "nargs":"*", "action": null, "choices":null, "type":null, "help":"bam file(s)"},
-        {"param":"bamlist", "default":null, "nargs":null, "action":null, "choices":null, "type":null, "help":"list file with bam file paths"},
-        {"param":"title", "default":[], "nargs":"*", "action":null, "choices":null, "type":null, "help":"title (name) of bam file(s)"},
+        {"param":"bam", "default":[], "nargs":"*", "action": null, "choices":null, "type":null, "help":"bam or cram file(s)"},
+        {"param":"bamlist", "default":null, "nargs":null, "action":null, "choices":null, "type":null, "help":"list file with bam (or cram) file paths"},
+        {"param":"title", "default":[], "nargs":"*", "action":null, "choices":null, "type":null, "help":"title (name) of bam (or cram) file(s)"},
         {"param":"no_title", "default":false, "nargs":null, "action":"store_true", "choices":null, "type":null, "help":"do not draw label."},
         {"param":"title_fontsize", "default":18, "nargs":null, "action":null, "choices":null, "type":"int", "help":"font size of title"},
         {"param":"pos", "default":[], "nargs":"*", "action":null, "choices":null, "type":null, "help":"genomic position (ex. 1:816687-818057, 12:7462545)"},

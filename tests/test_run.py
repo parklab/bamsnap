@@ -11,7 +11,6 @@ bamsnap_prog = "bamsnap"
 
 cmdlist = []
 
-
 cmdlist.append("""
     -bam ./data/test_SV1_softclipped_1.bam \
     -title "Clipped read" \
@@ -342,15 +341,13 @@ cmdlist.append("""
 """)
 
 cmdlist.append("""
-    -bam ./data/test_miss_ref_chr1_944300_2.bam \
+    -bam ./data/test_miss_ref_chr1_944300_2.cram \
     -pos chr1:944315 \
     -title "test" \
-    -out ./out/test_miss_ref_chr1_944300_2.png \
+    -out ./out/test_miss_ref_chr1_944300_2_cram.png \
     -margin 50 \
     -save_image_only
 """)
-
-
 
 
 
