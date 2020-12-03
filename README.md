@@ -12,6 +12,7 @@ For more details, see BamSnap [**Documentation**](http://bamsnap.readthedocs.io/
 [<img src="https://img.shields.io/pypi/v/bamsnap.svg">](https://pypi.org/project/bamsnap/)
 [<img src="https://img.shields.io/pypi/dm/bamsnap.svg">](https://pypi.org/project/bamsnap/)
 [<img src="https://readthedocs.org/projects/bamsnap/badge/?version=latest">](https://bamsnap.readthedocs.io/)
+[<img src="https://img.shields.io/docker/pulls/danielmsk/bamsnap.svg">](https://hub.docker.com/r/danielmsk/bamsnap)
 
 ## Installation
 
@@ -45,6 +46,16 @@ $ bamsnap -bam test.bam -pos 1:7364529 -out test.png
 ```
 
 For more details, see BamSnap [**Documentation**](http://bamsnap.readthedocs.io/en/latest).
+
+### Usage with docker
+```bash
+$ docker pull danielmsk/bamsnap
+$ docker run --rm -it -v /local_directory_path:/directory_path_in_image danielmsk/bamsnap bamsnap \
+    -bam /directory_path_in_image/test.bam \
+    -pos 1:7364529 \
+    -out /directory_path_in_image/test.png
+```
+
 
 
 ## Example Use Case

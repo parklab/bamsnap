@@ -18,6 +18,10 @@ BamSnap
    :target: https://bamsnap.readthedocs.io/en/latest/
    :alt: Documentation of BamSnap
 
+.. image:: https://img.shields.io/docker/pulls/danielmsk/bamsnap.svg
+   :target: https://hub.docker.com/r/danielmsk/bamsnap
+   :alt: Docker image
+
 **BamSnap** is a visualization tool for aligned BAM files that allows to generate high-quality snapshots of read level data in high-throughput, processing up to thousands of files.
 **BamSnap** is a command-line software based on python.
 
