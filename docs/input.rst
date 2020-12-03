@@ -5,11 +5,11 @@ Input files
 Alignment file
 --------------
 
-**BamSnap** requires sorted and indexed bam files. For each bam, the index file (``.bam.bai`` or ``.bai``) must be located in the same directory.
+**BamSnap** requires sorted and indexed bam or cram files. For each alignment file, the index file (`.bam.bai`, `.bai`, `.cram.crai`, or `.crai`) should be located in the same directory.
 
 
-Input files (``-bam``)
-^^^^^^^^^^^^^^^^^^^
+Input files (``-bam`` for BAM or CRAM format)
+^^^^^^^^^^^^^^^^^^^^^^
 
 Input files to be used can be specified using the ``-bam`` argument. It is possible to specify a single file or list multiple files. Also, a cram file can be assigned with ``-bam`` argument.
 
@@ -20,9 +20,11 @@ Input files to be used can be specified using the ``-bam`` argument. It is possi
     $ bamsnap -bam ./data/NA12878.cram
     $ bamsnap -bam ./data/NA12878.cram ./data/NA12877.bam ./data/NA12879.bam
 
+.. note::
+   BamSnap supports both the indexed BAM and the indexed CRAM format for the alignment files.
 
-Title of bam file(s) (``-title``)
-:::::::::::::::::::::::::::::::::
+Title of alignment file(s) (``-title``)
+:::::::::::::::::::::::::::::::::::::::
 
 A label can be assigned to each of the bam files using the ``-title`` argument. The label will be used as title for the corresponding plot.
 
