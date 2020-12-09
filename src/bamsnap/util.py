@@ -42,7 +42,10 @@ def convert_int_list(strlist):
     intlist = []
     for s1 in strlist:
         if s1 != '':
-            intlist.append(int(s1))
+            try:
+                intlist.append(int(s1))
+            except ValueError:
+                pass
     return intlist
 
 def comma(value):
@@ -81,7 +84,6 @@ def fileSave(path, cont, opt, gzip_flag="n"):
         f = open(path, opt)
         f.write(cont)
         f.close
-
 
 
 def fileOpen(path):

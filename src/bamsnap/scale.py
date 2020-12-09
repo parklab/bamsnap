@@ -20,7 +20,6 @@ class Xscale():
             d['spos'] = int(round((g_pos - self.spos) * self.scale_x))
             d['epos'] = int(round((g_pos - self.spos + 1) * self.scale_x)) - 1
             d['cpos'] = int(round((d['spos'] + d['epos']) / 2))
-            # print(g_pos, d['spos'], d['cpos'] , d['epos'])
             self.xmap[g_pos] = d
 
     def get_x(self, g_pos):
