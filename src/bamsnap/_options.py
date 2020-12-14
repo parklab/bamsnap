@@ -99,16 +99,24 @@ def set_pos_list(opt):
                     p1['t_epos'] = int(arr[1]) + 1
                 elif len(ref) > len(alt):
                     p1['t_spos'] = int(arr[1]) + 1
-                    p1['t_epos'] = int(arr[1]) + len(ref) 
+                    p1['t_epos'] = int(arr[1]) + len(ref)
                 elif len(ref) < len(alt):
                     p1['t_spos'] = int(arr[1]) + 1
-                    p1['t_epos'] = int(arr[1]) + len(alt) 
+                    p1['t_epos'] = int(arr[1]) + len(alt)
                 else:
                     p1['t_spos'] = int(arr[1]) + 1
                     p1['t_epos'] = int(arr[1]) + len(alt)
 
                 p1['g_spos'] = p1['t_spos'] - int(opt['margin'])
                 p1['g_epos'] = p1['t_epos'] + int(opt['margin'])
+
+                if len(arr) >= 3:
+                    p1['id'] = arr[2].strip()
+                if len(arr) >= 4:
+                    p1['ref'] = arr[3].strip()
+                if len(arr) >= 5:
+                    p1['alt'] = arr[4].strip()
+
                 poslist.append(p1)
     if ('bed' in ks and opt['bed'] is not None):
         for line in util.gzopen(opt['bed']):
@@ -158,6 +166,7 @@ def check_option(opt):
     if has_opt_error:
         return
 
+
 def convert_valuetype(typestr):
     rsttype = None
     if typestr is not None:
@@ -166,6 +175,7 @@ def convert_valuetype(typestr):
         if typestr == "float":
             rsttype = float
     return rsttype
+
 
 def get_options():
     confjson = util.load_json(util.getDataPath('conf.json'))
@@ -180,7 +190,8 @@ def get_options():
         if a1['action'] is not None:
             parser.add_argument('-' + a1['param'], default=a1['default'], help=a1['help'], action=a1['action'])
         else:
-            parser.add_argument('-' + a1['param'], default=a1['default'], help=a1['help'], nargs=a1['nargs'], type=valuetype)
+            parser.add_argument('-' + a1['param'], default=a1['default'],
+                                help=a1['help'], nargs=a1['nargs'], type=valuetype)
 
     parser.add_argument('-silence', dest='silence', action="store_true", default=False, help='don\'t print any log.')
 

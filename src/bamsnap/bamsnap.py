@@ -76,86 +76,99 @@ class BamSnap():
                 if 'ref' in self.opt:
                     bamObj.setReference(self.opt['ref'])
                 self.bamlist.append(bamObj)
-    
+
     def start_process_drawplot(self, image_w, bamlist):
         for tno in range(self.opt['process']):
-            self.process[tno] = mp.Process(target=run_process_drawplot_bamlist, args=(image_w, bamlist, self.split_poslist[tno], self.opt, self.is_single_image_out), name='proc ' + str(tno+1))
+            self.process[tno] = mp.Process(target=run_process_drawplot_bamlist, args=(
+                image_w, bamlist, self.split_poslist[tno], self.opt, self.is_single_image_out), name='proc ' + str(tno+1))
             self.process[tno].start()
 
     def save_html(self):
-        
-        check_dir(os.path.join(self.opt['out'], 'css', 'aa') )
-        check_dir(os.path.join(self.opt['out'], 'js', 'aa') )
-        check_dir(os.path.join(self.opt['out'], 'sample_list', 'aa') )
-        check_dir(os.path.join(self.opt['out'], 'variant_list', 'aa') )
-        renderTemplate('bootstrap.min.css', os.path.join(self.opt['out'], 'css','bootstrap.min.css') , {})
-        renderTemplate('bootstrap.min.css.map', os.path.join(self.opt['out'], 'css','bootstrap.min.css.map') , {})
-        renderTemplate('bootstrap.bundle.min.js', os.path.join(self.opt['out'], 'css','bootstrap.bundle.min.js') , {})
-        renderTemplate('bootstrap.bundle.min.js.map', os.path.join(self.opt['out'], 'css','bootstrap.bundle.min.js.map') , {})
-        renderTemplate('bamsnap_index.html', os.path.join(self.opt['out'], 'bamsnap_index.html') , {})
-        
+
+        check_dir(os.path.join(self.opt['out'], 'css', 'aa'))
+        check_dir(os.path.join(self.opt['out'], 'js', 'aa'))
+        check_dir(os.path.join(self.opt['out'], 'sample_list', 'aa'))
+        check_dir(os.path.join(self.opt['out'], 'variant_list', 'aa'))
+        renderTemplate('bootstrap.min.css', os.path.join(self.opt['out'], 'css', 'bootstrap.min.css'), {})
+        renderTemplate('bootstrap.min.css.map', os.path.join(self.opt['out'], 'css', 'bootstrap.min.css.map'), {})
+        renderTemplate('bootstrap.bundle.min.js', os.path.join(self.opt['out'], 'css', 'bootstrap.bundle.min.js'), {})
+        renderTemplate('bootstrap.bundle.min.js.map', os.path.join(
+            self.opt['out'], 'css', 'bootstrap.bundle.min.js.map'), {})
+        renderTemplate('bamsnap_index.html', os.path.join(self.opt['out'], 'index.html'), {})
+
+        self.save_sample_list()
+        self.save_variant_list()
+        self.opt['log'].info('Saved '+os.path.join(self.opt['out'], 'index.html'))
+
+    def save_sample_list(self):
         d = {}
+
         # d['COLHEADER'] = "<th>SID</th><th>Het</th><th>Hom</th><th>All</th>"
         d['COLHEADER'] = "<th>SID</th>"
         h = ""
         for bam in self.bamlist:
             htmlfile = './sample_list/' + bam.title2 + '.html'
 
-            d2 = {'SID':bam.title}
+            d2 = {'SID': bam.title}
             all_tab = ""
             img_list = ""
             for pos1 in self.opt['poslist']:
-                link = pos1['chrom'] + '_' + str(pos1['t_pos'])
                 vid = pos1['chrom'] + ':' + str(pos1['t_pos'])
-                all_tab += '<li class="nav-item"><a class="nav-link cl" mid="' + link + '" href="#' + link + '"><span data-feather="file-text"></span>'+pos1['chrom']+':'+str(pos1['t_pos'])+'</a></li>'
+                vid2 = pos1['chrom'] + '_' + str(pos1['t_pos'])
+                all_tab += '<li class="nav-item"><a class="nav-link cl" mid="' + vid2 + '" href="#' + vid2 + \
+                    '"><span data-feather="file-text"></span>'+pos1['chrom']+':'+str(pos1['t_pos'])+'</a></li>'
                 # h3 += '<a name="'+t1+'"></a><div class="ic" id="s20_63231_T_G"><div class="text-block"><span class="it">'+t1+'</span><span class="badge badge-secondary gt">GT 0|0</span><span class="badge badge-secondary gt">DP 3</span></div><img src="./HG01468/20:63231.png" alt="'+t1+'" style="width:100%;"></div>'
-                img_list += '<a name="'+vid+'"></a><div class="ic" id="s'+vid+'"><div class="text-block"><span class="it">'+vid+'</span></div><img src="../bamsnap_images/'+bam.title.replace(' ','_')+'_'+vid+'.png" alt="'+vid+'" style="width:100%;"></div>'
+                img_list += '<a name="'+vid2+'"></a><div class="ic" id="s'+vid2+'"><div class="text-block"><span class="it">'+vid + \
+                    '</span></div><img src="../bamsnap_images/' + \
+                    bam.title.replace(' ', '_')+'_'+vid+'.png" alt="'+vid+'" style="width:100%;"></div>'
             d2['ALL'] = all_tab
             d2['IMGLIST'] = img_list
             d2['ALL_TOTAL'] = str(len(self.opt['poslist']))
-            renderTemplate('sample_temp.html', os.path.join(self.opt['out'], 'sample_list', bam.title2 + '.html') , d2)
-            
+            renderTemplate('sample_temp.html', os.path.join(self.opt['out'], 'sample_list', bam.title2 + '.html'), d2)
 
             h += '<tr class=cl>'
             h += '<td><a href="' + htmlfile + '" target="body">' + bam.title + '</a></td>'
             # h += '<td><a href="' + htmlfile + '" target="body">' + str(pos1['t_pos']) + '</a></td>'
             h += '</tr>'
         d['SAMPLE_LIST'] = h
-        renderTemplate('sample_list.html', os.path.join(self.opt['out'], 'sample_list.html') , d)
+        renderTemplate('sample_list.html', os.path.join(self.opt['out'], 'sample_list.html'), d)
 
-        d = {}
-        # d['COLHEADER'] = "<th>CHROM</th><th>POS</th><th>ID</th><th>REF</th><th>ALT</th>"
-        d['COLHEADER'] = "<th>CHROM</th><th>POS</th>"
+    def save_variant_list(self):
+
         h = ""
         for pos1 in self.opt['poslist']:
             htmlfile = './variant_list/' + pos1['chrom'] + '_' + str(pos1['t_pos']) + '.html'
             vid = pos1['chrom'] + ':' + str(pos1['t_pos'])
-            d2 = {'VID':vid}
+            d2 = {'VID': vid}
 
             all_tab = ""
             img_list = ""
             for bam in self.bamlist:
                 sid = bam.title
-                sid2 = bam.title.replace(' ','_')
+                sid2 = bam.title.replace(' ', '_')
                 # all_tab += '<li class="nav-item"><a class="nav-link cl" mid="'+sid+'" href="#'+sid+'"><span data-feather="file-text"></span>'+sid+' 0|1 53</a></li>'
-                all_tab += '<li class="nav-item"><a class="nav-link cl" mid="'+sid+'" href="#'+sid+'"><span data-feather="file-text"></span>'+sid+'</a></li>'
+                all_tab += '<li class="nav-item"><a class="nav-link cl" mid="'+sid + '" href="#'+sid+'">'
+                all_tab += '<span data-feather="file-text"></span>'+sid+'</a></li>'
                 # img_list += '<a name="'+sid+'"></a><div class="ic" id="s'+sid+'"><div class="text-block"><span class="it">'+sid+'</span><span class="badge badge-warning gt">GT 0|1</span><span class="badge badge-warning gt">DP 53</span></div><img src="../bamsnap_images/'+sid2+'_'+vid+'.png" alt="'+sid+'" style="width:100%;"></div>'
-                img_list += '<a name="'+sid+'"></a><div class="ic" id="s'+sid+'"><div class="text-block"><span class="it">'+sid+'</span></div><img src="../bamsnap_images/'+sid2+'_'+vid+'.png" alt="'+sid+'" style="width:100%;"></div>'
+                img_list += '<a name="'+sid+'"></a><div class="ic" id="s'+sid+'"><div class="text-block"><span class="it">' + \
+                    sid+'</span></div><img src="../bamsnap_images/'+sid2+'_'+vid+'.png" alt="'+sid+'" style="width:100%;"></div>'
 
             d2['ALL'] = all_tab
             d2['IMGLIST'] = img_list
             d2['ALL_TOTAL'] = str(len(self.bamlist))
-            renderTemplate('variant_temp.html', os.path.join(self.opt['out'], 'variant_list', pos1['chrom'] + '_' + str(pos1['t_pos']) + '.html') , d2)
+            renderTemplate('variant_temp.html', os.path.join(
+                self.opt['out'], 'variant_list', pos1['chrom'] + '_' + str(pos1['t_pos']) + '.html'), d2)
 
             h += '<tr class=cl>'
             h += '<td><a href="' + htmlfile + '" target="body">' + pos1['chrom'] + '</a></td>'
             h += '<td><a href="' + htmlfile + '" target="body">' + str(pos1['t_pos']) + '</a></td>'
             h += '</tr>'
-        
-        d['VARIANT_LIST'] = h
-        renderTemplate('variant_list.html', os.path.join(self.opt['out'], 'variant_list.html') , d)
 
-        self.opt['log'].info('Saved '+os.path.join(self.opt['out'], 'bamsnap_index.html'))
+        d = {}
+        # d['COLHEADER'] = "<th>CHROM</th><th>POS</th><th>ID</th><th>REF</th><th>ALT</th>"
+        d['COLHEADER'] = "<th>CHROM</th><th>POS</th>"
+        d['VARIANT_LIST'] = h
+        renderTemplate('variant_list.html', os.path.join(self.opt['out'], 'variant_list.html'), d)
 
     def get_outfnamelist(self):
         outfnamelist = []
@@ -168,7 +181,7 @@ class BamSnap():
                 metainfo = get_out_file_metainfo(self.bamlist, pos1, self.opt, self.is_single_image_out)
                 outfnamelist.append(metainfo)
         return outfnamelist
-    
+
     def generate_zipfile(self):
         outzip = self.opt['out'] + '.zip'
         zo = ZipFile(outzip, 'w')
@@ -178,7 +191,7 @@ class BamSnap():
                 zo.write(filePath, filePath)
         zo.close()
         self.opt['log'].info("(" + mp.current_process().name + ") Saved " + outzip)
-        
+
     def run(self):
         t0 = time.time()
         timemap = {'set_refseq': 0}
@@ -192,7 +205,6 @@ class BamSnap():
                     self.start_process_drawplot(image_w, [bam])
             else:
                 self.start_process_drawplot(image_w, self.bamlist)
-                
 
         t2 = time.time()
         if not self.is_single_image_out:
@@ -202,7 +214,7 @@ class BamSnap():
                 self.generate_zipfile()
 
         self.opt['log'].debug('Total running time for getting reference sequence (set_refseq): ' +
-                            str(round(timemap['set_refseq'], 3))+' sec')
+                              str(round(timemap['set_refseq'], 3))+' sec')
         self.opt['log'].info('Total running time: ' + str(round(t2-t0, 1))+' sec')
 
 
@@ -216,10 +228,12 @@ def run_process_drawplot_bamlist(image_w, bamlist, poslist, opt, is_single_image
         xscale = Xscale(pos1['g_spos'], pos1['g_epos'], image_w)
         imagefname = bsplot.drawplot_bamlist(pos1, image_w, bamlist, xscale, refseq)
         t12 = time.time()
-        opt['log'].info("(" + mp.current_process().name + ") Saved " + imagefname + " : " + str(round(t12-t11, 5)) + " sec")
+        opt['log'].info("(" + mp.current_process().name + ") Saved " +
+                        imagefname + " : " + str(round(t12-t11, 5)) + " sec")
+
 
 def get_out_file_metainfo(bam, pos1, opt, is_single_image_out):
-    meta = {'imgtitle':"", 'outfname':""}
+    meta = {'imgtitle': "", 'outfname': ""}
     imgtitle = ""
     if is_single_image_out:
         outfname = opt['out']
@@ -234,7 +248,7 @@ def get_out_file_metainfo(bam, pos1, opt, is_single_image_out):
             path = os.path.join(opt['out'], opt['image_dir_name'])
 
         bamtitle = bam.title.replace(' ', '_').replace('#', '_')
-        
+
         if opt['separated_bam']:
             imgtitle = bamtitle + '_'
 
@@ -242,12 +256,13 @@ def get_out_file_metainfo(bam, pos1, opt, is_single_image_out):
             imgtitle += pos1['chrom'] + ':' + str(pos1['t_pos'])
         else:
             imgtitle += pos1['chrom'] + ':' + str(pos1['t_spos']) + '-' + str(pos1['t_epos'])
-        
+
         outfname = os.path.join(path, imgtitle) + '.' + opt['imagetype']
-    
+
     meta['imgtitle'] = imgtitle
     meta['outfname'] = outfname
     return meta
+
 
 class BamSnapPlot():
     def __init__(self, opt):
@@ -277,7 +292,8 @@ class BamSnapPlot():
 
     def add_margin_to_image(self, ia, margin_left=0, margin_top=0, margin_right=0, margin_bottom=0):
         if max(margin_left, margin_top, margin_right, margin_bottom) > 0:
-            ia = ImageOps.expand(ia, (margin_left, margin_top, margin_right, margin_bottom), fill=getrgb(self.opt['bgcolor']))
+            ia = ImageOps.expand(ia, (margin_left, margin_top, margin_right,
+                                      margin_bottom), fill=getrgb(self.opt['bgcolor']))
         return ia
 
     def save_image(self, ia, bam, pos1):
@@ -306,7 +322,8 @@ class BamSnapPlot():
             dr.line([(0, h1), (w, h1)], fill=getrgb('000000'), width=1)
 
         # dr.rectangle([(margin, margin - 1 ),(margin * 3 + fontsize[0], margin + fontsize[1] + 1)], fill=(255,255,255,255), outline=(120,120,120,255))
-        dr.rectangle([(margin, margin - 1 ),(margin * 3 + fontsize[0], margin + fontsize[1] + 1)], fill=(255,255,255,255), outline=(255,255,255,255))
+        dr.rectangle([(margin, margin - 1), (margin * 3 + fontsize[0], margin + fontsize[1] + 1)],
+                     fill=(255, 255, 255, 255), outline=(255, 255, 255, 255))
         dr.text((margin * 2, margin), title, font=font, fill=COLOR['LABEL'])
         return im, h
 
@@ -363,13 +380,13 @@ class BamSnapPlot():
 
                 elif self.opt['read_group'] == "strand":
                     # self.opt['read_bgcolor'] = "F0F000"
-                    h_pos = rset.get_estimated_height('pos_strand') 
+                    h_pos = rset.get_estimated_height('pos_strand')
                     ia_sub = rset.get_image(image_w, h_pos, 'pos_strand',
                                             self.opt['read_pos_color'], self.opt['read_bgcolor'], self.opt['read_color_by'])
                     im = self.append_image(im, ia_sub)
 
                     # self.opt['read_bgcolor'] = "00F0F0"
-                    h_neg = rset.get_estimated_height('neg_strand') 
+                    h_neg = rset.get_estimated_height('neg_strand')
                     ia_sub = rset.get_image(image_w, h_neg, 'neg_strand',
                                             self.opt['read_neg_color'], self.opt['read_bgcolor'], self.opt['read_color_by'])
                     im = self.append_image(im, ia_sub)
@@ -387,17 +404,19 @@ class BamSnapPlot():
             padding_bottom = 15
             margin_top = 25
             margin_bottom = 10
-            im = self.add_margin_to_image(im, 0,margin_top,0,margin_bottom+padding_bottom)
+            im = self.add_margin_to_image(im, 0, margin_top, 0, margin_bottom+padding_bottom)
 
             dr = ImageDraw.Draw(im)
             dr.line([(0, border_top + margin_top), (0, im.height-1-margin_bottom)], fill=getrgb('000000'), width=1)
-            dr.line([(im.width-1, border_top + margin_top), (im.width-1, im.height-1-margin_bottom)], fill=getrgb('000000'), width=1)
+            dr.line([(im.width-1, border_top + margin_top), (im.width-1,
+                                                             im.height-1-margin_bottom)], fill=getrgb('000000'), width=1)
             dr.line([(0, im.height-1-margin_bottom), (im.width-1, im.height-1-margin_bottom)], fill=getrgb('000000'), width=1)
 
         return im
 
     def append_coordinates_image(self, ia, pos1, image_w, xscale):
-        coord = COORDINATES(pos1['chrom'], pos1['g_spos'], pos1['g_epos'], xscale, image_w, self.opt['coordinates_height'], self.opt['debug'])
+        coord = COORDINATES(pos1['chrom'], pos1['g_spos'], pos1['g_epos'], xscale,
+                            image_w, self.opt['coordinates_height'], self.opt['debug'])
         coord.font = self.get_font(self.opt['coordinates_fontsize'])
         coord.axisloc = self.opt['coordinates_axisloc']
         coord.bgcolor = self.opt['coordinates_bgcolor']
@@ -407,7 +426,8 @@ class BamSnapPlot():
         return ia
 
     def append_geneplot_image(self, ia, pos1, image_w, xscale):
-        geneplot = GenePlot(pos1['chrom'], pos1['g_spos'], pos1['g_epos'], xscale, image_w, self.opt['refversion'], show_transcript=True)
+        geneplot = GenePlot(pos1['chrom'], pos1['g_spos'], pos1['g_epos'], xscale,
+                            image_w, self.opt['refversion'], show_transcript=True)
         geneplot.font = self.get_font(self.opt['gene_fontsize'])
         geneplot.gene_pos_color = self.opt['gene_pos_color']
         geneplot.gene_neg_color = self.opt['gene_neg_color']
@@ -422,8 +442,6 @@ class BamSnapPlot():
         ia = self.append_image(ia, ia_sub)
         return ia
 
-    
-    
     # def generate_zipfile(self):
     #     outzip = self.opt['out'] + '.zip'
     #     zo = ZipFile(outzip, 'w')
@@ -433,7 +451,7 @@ class BamSnapPlot():
     #             zo.write(filePath, filePath)
     #     zo.close()
     #     self.opt['log'].info("(" + mp.current_process().name + ") Saved " + outzip)
-    
+
     def drawplot_bamlist(self, pos1, image_w, bamlist, xscale, refseq):
         ia = self.init_image(image_w, self.opt['bgcolor'])
         drawA = None
@@ -482,8 +500,8 @@ class BamSnapPlot():
             if self.opt['debug']:
                 for xi in range(pos1['g_spos'], pos1['g_epos']+1):
                     x1 = xscale.xmap[xi]['spos']
-                    drawA.line([(x1, 20), (x1, ia.height)], fill=(0,0,0,255), width=1)
-                drawA.line([(int(image_w/2), 0), (int(image_w/2), ia.height)], fill=(255,0,0,255), width=1)
+                    drawA.line([(x1, 20), (x1, ia.height)], fill=(0, 0, 0, 255), width=1)
+                drawA.line([(int(image_w/2), 0), (int(image_w/2), ia.height)], fill=(255, 0, 0, 255), width=1)
 
         if 'highlight' in self.opt.keys():
             drawA = ImageDraw.Draw(ia)
@@ -498,10 +516,10 @@ class BamSnapPlot():
                     drawA.line([(x1, h1), (x1, h1+2)], fill=COLOR['CENTER_LINE'], width=1)
                     drawA.line([(x2, h1), (x2, h1+2)], fill=COLOR['CENTER_LINE'], width=1)
 
-        ia = self.add_margin_to_image(ia, self.opt['plot_margin_left'], self.opt['plot_margin_top'], self.opt['plot_margin_right'], self.opt['plot_margin_bottom'])
+        ia = self.add_margin_to_image(ia, self.opt['plot_margin_left'], self.opt['plot_margin_top'],
+                                      self.opt['plot_margin_right'], self.opt['plot_margin_bottom'])
         imagefname = self.save_image(ia, bamlist[0], pos1)
         return imagefname
-
 
 
 class ReferenceSequence():
@@ -532,7 +550,7 @@ class ReferenceSequence():
     #     for gpos in range(self.opt['g_spos']-1000,self.opt['g_epos']+1000+1):
     #         self.refseq[gpos] = seq[i]
     #         i += 1
-    
+
     def get_refseq_from_ucsc(self, pos1):
         spos = pos1['g_spos']-self.opt['margin'] - 500
         epos = pos1['g_epos']+self.opt['margin'] + 1 + 500

@@ -1,15 +1,19 @@
+
+
+
 import sys
 import shlex
 
 # sys.path.append('..')
-# from src import bamsnap
 # bamsnap_prog = "src/bamsnap.py"
+# from src import bamsnap
 
 import bamsnap
 bamsnap_prog = "bamsnap"
 
 
 cmdlist = []
+
 
 cmdlist.append("""
     -bam ./data/test_SV1_softclipped_1.bam \
@@ -359,7 +363,6 @@ cmdlist.append("""
     -separated_bam \
     -margin 20
 """)
-
 
 
 def test_run():
