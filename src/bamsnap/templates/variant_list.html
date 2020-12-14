@@ -1,0 +1,176 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>BamSnap variant list</title>
+    <link href="https://getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<style style="text/css">
+  .table-hover th{ 
+    padding:2px;
+    font-size: 0.7rem;
+    text-align: center;
+    background-color: rgba(214, 234, 248, .85);
+  }
+  .table-hover td{ 
+    padding:2px;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  .selected {
+    background-color: #EEEAF8;
+  }
+
+  #list-active {
+   color: #F7DC6F;
+   /*border-bottom: 1px solid #F7F9FA;*/
+   text-decoration: underline;
+
+  }
+
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+
+
+  .container {
+    max-width: 960px;
+  }
+
+  /*
+   * Custom translucent site header
+   */
+
+  .site-header {
+    background-color: rgba(0, 0, 0, .85);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+  }
+  .site-header a {
+    color: #999;
+    transition: ease-in-out color .15s;
+  }
+  .site-header a:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  /*
+   * Dummy devices (replace them with your own or something else entirely!)
+   */
+
+  .product-device {
+    position: absolute;
+    right: 10%;
+    bottom: -30%;
+    width: 300px;
+    height: 540px;
+    background-color: #333;
+    border-radius: 21px;
+    -webkit-transform: rotate(30deg);
+    transform: rotate(30deg);
+  }
+
+  .product-device::before {
+    position: absolute;
+    top: 10%;
+    right: 10px;
+    bottom: 10%;
+    left: 10px;
+    content: "";
+    background-color: rgba(255, 255, 255, .1);
+    border-radius: 5px;
+  }
+
+  .product-device-2 {
+    top: -25%;
+    right: auto;
+    bottom: 0;
+    left: 5%;
+    background-color: #e5e5e5;
+  }
+
+
+  /*
+   * Extra utilities
+   */
+
+  .flex-equal > * {
+    -ms-flex: 1;
+    flex: 1;
+  }
+  @media (min-width: 768px) {
+    .flex-md-equal > * {
+      -ms-flex: 1;
+      flex: 1;
+    }
+  }
+
+  .overflow-hidden { overflow: hidden; }
+</style>
+</head>
+<body>
+  <nav class="site-header sticky-top py-1">
+    <div class="container d-flex flex-md-row justify-content-between">
+      <a class="py-2" href="https://github.com/parklab/bamsnap" target="_blank">BamSnap</a>
+      <a class="py-2" id="list-active" href="variant_list.html">Variants</a>
+      <a class="py-2" id="list-inactive" href="sample_list.html">Samples</a>
+    </div>
+  </nav>
+
+  <table class="table table-hover" width="100%" id="myTable">
+    <tr>##COLHEADER##</tr>
+    ##VARIANT_LIST##
+  </table>
+
+  <footer class="container py-5">
+    <div class="row">
+      <div class="col-12 col-md">
+        <hr>
+        <h5>BAMSNAP</h5>
+        <small class="d-block mb-3 text-muted">&copy; 2020</small>
+      </div>
+      <!--
+      <div class="col-6 col-md">
+        <h5>Features</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="#">Cool stuff</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Resources</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="#">Resource</a></li>
+        </ul>
+      </div>
+      -->
+    </div>
+  </footer>
+<script>
+  $('#myTable').on('click', '.cl', function(event) {
+    // $(this).addClass('selected').siblings().removeClass('selected');
+    $(this).addClass('selected');
+    var value=$(this).find('td:first').html();
+  });
+</script>
+</body>
+</html>

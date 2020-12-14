@@ -31,4 +31,13 @@ src/bamsnap/data/preproc_EnsembleGene_gtf2bed.py
 src/bamsnap/templates/VeraMono-Bold.ttf
 src/bamsnap/templates/VeraMono.ttf
 src/bamsnap/templates/__init__.py
+src/bamsnap/templates/bamsnap_index.html
+src/bamsnap/templates/bootstrap.bundle.min.js
+src/bamsnap/templates/bootstrap.bundle.min.js.map
+src/bamsnap/templates/bootstrap.min.css
+src/bamsnap/templates/bootstrap.min.css.map
+src/bamsnap/templates/sample_list.html
+src/bamsnap/templates/sample_temp.html
 src/bamsnap/templates/template.html
+src/bamsnap/templates/variant_list.html
+src/bamsnap/templates/variant_temp.html

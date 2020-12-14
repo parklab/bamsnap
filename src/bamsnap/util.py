@@ -141,3 +141,9 @@ def load_json(jsonfile):
     with open(jsonfile) as jfp:
         ds = json.load(jfp)
     return ds
+
+def renderTemplate(templatefile, outfile, data={}):
+    cont = fileOpen(getTemplatePath(templatefile))
+    for k1 in data.keys():
+        cont = cont.replace('##' + k1+ '##', data[k1])
+    fileSave(outfile, cont, 'w')

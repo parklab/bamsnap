@@ -6,6 +6,7 @@ class BAM():
             self.title = title
         else:
             self.title = self.filename.split('/')[-1]
+        self.title2 = title.replace(' ', '_').replace('(', '_').replace(')', '_')
         self.ref = None
 
     def __str__(self):

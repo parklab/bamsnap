@@ -350,6 +350,17 @@ cmdlist.append("""
 """)
 
 
+# save html
+cmdlist.append("""
+    -bam ./data/NA12877.bam ./data/NA12878.bam ./data/NA12879.bam \
+    -title "NA12877 (Father)" "NA12878 (Mother)" "NA12879 (Daughter)" \
+    -vcf ./data/NATRIO_test_3.vcf \
+    -out ./out/NATRIO_test_3_html \
+    -separated_bam \
+    -margin 20
+""")
+
+
 
 def test_run():
     for cmd in cmdlist:

@@ -10,7 +10,7 @@ from .geneplot import GenePlot
 from .basetrack import BaseTrack
 from .scale import Xscale
 from .bam import BAM
-from .util import get_url, getTemplatePath, fileOpen, fileSave, check_dir, getrgb, get_scale, is_exist
+from .util import get_url, getTemplatePath, fileOpen, fileSave, check_dir, getrgb, get_scale, is_exist, renderTemplate
 from .conf import COLOR, IMAGE_MARGIN_BOTTOM
 
 
@@ -81,6 +81,103 @@ class BamSnap():
         for tno in range(self.opt['process']):
             self.process[tno] = mp.Process(target=run_process_drawplot_bamlist, args=(image_w, bamlist, self.split_poslist[tno], self.opt, self.is_single_image_out), name='proc ' + str(tno+1))
             self.process[tno].start()
+
+    def save_html(self):
+        
+        check_dir(os.path.join(self.opt['out'], 'css', 'aa') )
+        check_dir(os.path.join(self.opt['out'], 'js', 'aa') )
+        check_dir(os.path.join(self.opt['out'], 'sample_list', 'aa') )
+        check_dir(os.path.join(self.opt['out'], 'variant_list', 'aa') )
+        renderTemplate('bootstrap.min.css', os.path.join(self.opt['out'], 'css','bootstrap.min.css') , {})
+        renderTemplate('bootstrap.min.css.map', os.path.join(self.opt['out'], 'css','bootstrap.min.css.map') , {})
+        renderTemplate('bootstrap.bundle.min.js', os.path.join(self.opt['out'], 'css','bootstrap.bundle.min.js') , {})
+        renderTemplate('bootstrap.bundle.min.js.map', os.path.join(self.opt['out'], 'css','bootstrap.bundle.min.js.map') , {})
+        renderTemplate('bamsnap_index.html', os.path.join(self.opt['out'], 'bamsnap_index.html') , {})
+        
+        d = {}
+        # d['COLHEADER'] = "<th>SID</th><th>Het</th><th>Hom</th><th>All</th>"
+        d['COLHEADER'] = "<th>SID</th>"
+        h = ""
+        for bam in self.bamlist:
+            htmlfile = './sample_list/' + bam.title2 + '.html'
+
+            d2 = {'SID':bam.title}
+            all_tab = ""
+            img_list = ""
+            for pos1 in self.opt['poslist']:
+                link = pos1['chrom'] + '_' + str(pos1['t_pos'])
+                vid = pos1['chrom'] + ':' + str(pos1['t_pos'])
+                all_tab += '<li class="nav-item"><a class="nav-link cl" mid="' + link + '" href="#' + link + '"><span data-feather="file-text"></span>'+pos1['chrom']+':'+str(pos1['t_pos'])+'</a></li>'
+                # h3 += '<a name="'+t1+'"></a><div class="ic" id="s20_63231_T_G"><div class="text-block"><span class="it">'+t1+'</span><span class="badge badge-secondary gt">GT 0|0</span><span class="badge badge-secondary gt">DP 3</span></div><img src="./HG01468/20:63231.png" alt="'+t1+'" style="width:100%;"></div>'
+                img_list += '<a name="'+vid+'"></a><div class="ic" id="s'+vid+'"><div class="text-block"><span class="it">'+vid+'</span></div><img src="../bamsnap_images/'+bam.title.replace(' ','_')+'_'+vid+'.png" alt="'+vid+'" style="width:100%;"></div>'
+            d2['ALL'] = all_tab
+            d2['IMGLIST'] = img_list
+            d2['ALL_TOTAL'] = str(len(self.opt['poslist']))
+            renderTemplate('sample_temp.html', os.path.join(self.opt['out'], 'sample_list', bam.title2 + '.html') , d2)
+            
+
+            h += '<tr class=cl>'
+            h += '<td><a href="' + htmlfile + '" target="body">' + bam.title + '</a></td>'
+            # h += '<td><a href="' + htmlfile + '" target="body">' + str(pos1['t_pos']) + '</a></td>'
+            h += '</tr>'
+        d['SAMPLE_LIST'] = h
+        renderTemplate('sample_list.html', os.path.join(self.opt['out'], 'sample_list.html') , d)
+
+        d = {}
+        # d['COLHEADER'] = "<th>CHROM</th><th>POS</th><th>ID</th><th>REF</th><th>ALT</th>"
+        d['COLHEADER'] = "<th>CHROM</th><th>POS</th>"
+        h = ""
+        for pos1 in self.opt['poslist']:
+            htmlfile = './variant_list/' + pos1['chrom'] + '_' + str(pos1['t_pos']) + '.html'
+            vid = pos1['chrom'] + ':' + str(pos1['t_pos'])
+            d2 = {'VID':vid}
+
+            all_tab = ""
+            img_list = ""
+            for bam in self.bamlist:
+                sid = bam.title
+                sid2 = bam.title.replace(' ','_')
+                # all_tab += '<li class="nav-item"><a class="nav-link cl" mid="'+sid+'" href="#'+sid+'"><span data-feather="file-text"></span>'+sid+' 0|1 53</a></li>'
+                all_tab += '<li class="nav-item"><a class="nav-link cl" mid="'+sid+'" href="#'+sid+'"><span data-feather="file-text"></span>'+sid+'</a></li>'
+                # img_list += '<a name="'+sid+'"></a><div class="ic" id="s'+sid+'"><div class="text-block"><span class="it">'+sid+'</span><span class="badge badge-warning gt">GT 0|1</span><span class="badge badge-warning gt">DP 53</span></div><img src="../bamsnap_images/'+sid2+'_'+vid+'.png" alt="'+sid+'" style="width:100%;"></div>'
+                img_list += '<a name="'+sid+'"></a><div class="ic" id="s'+sid+'"><div class="text-block"><span class="it">'+sid+'</span></div><img src="../bamsnap_images/'+sid2+'_'+vid+'.png" alt="'+sid+'" style="width:100%;"></div>'
+
+            d2['ALL'] = all_tab
+            d2['IMGLIST'] = img_list
+            d2['ALL_TOTAL'] = str(len(self.bamlist))
+            renderTemplate('variant_temp.html', os.path.join(self.opt['out'], 'variant_list', pos1['chrom'] + '_' + str(pos1['t_pos']) + '.html') , d2)
+
+            h += '<tr class=cl>'
+            h += '<td><a href="' + htmlfile + '" target="body">' + pos1['chrom'] + '</a></td>'
+            h += '<td><a href="' + htmlfile + '" target="body">' + str(pos1['t_pos']) + '</a></td>'
+            h += '</tr>'
+        
+        d['VARIANT_LIST'] = h
+        renderTemplate('variant_list.html', os.path.join(self.opt['out'], 'variant_list.html') , d)
+
+        self.opt['log'].info('Saved '+os.path.join(self.opt['out'], 'bamsnap_index.html'))
+
+    def get_outfnamelist(self):
+        outfnamelist = []
+        for pos1 in self.opt['poslist']:
+            if self.opt['separated_bam']:
+                for bam in self.bamlist:
+                    metainfo = get_out_file_metainfo(bam, pos1, self.opt, self.is_single_image_out)
+                    outfnamelist.append(metainfo)
+            else:
+                metainfo = get_out_file_metainfo(self.bamlist, pos1, self.opt, self.is_single_image_out)
+                outfnamelist.append(metainfo)
+        return outfnamelist
+    
+    def generate_zipfile(self):
+        outzip = self.opt['out'] + '.zip'
+        zo = ZipFile(outzip, 'w')
+        for folderName, subfolders, filenames in os.walk(self.opt['out']):
+            for filename in filenames:
+                filePath = os.path.join(folderName, filename)
+                zo.write(filePath, filePath)
+        zo.close()
+        self.opt['log'].info("(" + mp.current_process().name + ") Saved " + outzip)
         
     def run(self):
         t0 = time.time()
@@ -91,9 +188,8 @@ class BamSnap():
             image_w = self.opt['width'] - self.opt['plot_margin_left'] - self.opt['plot_margin_right']
 
             if self.opt['separated_bam']:
-                for bidx, bam in enumerate(self.bamlist):
+                for bam in self.bamlist:
                     self.start_process_drawplot(image_w, [bam])
-                    
             else:
                 self.start_process_drawplot(image_w, self.bamlist)
                 
@@ -122,12 +218,41 @@ def run_process_drawplot_bamlist(image_w, bamlist, poslist, opt, is_single_image
         t12 = time.time()
         opt['log'].info("(" + mp.current_process().name + ") Saved " + imagefname + " : " + str(round(t12-t11, 5)) + " sec")
 
+def get_out_file_metainfo(bam, pos1, opt, is_single_image_out):
+    meta = {'imgtitle':"", 'outfname':""}
+    imgtitle = ""
+    if is_single_image_out:
+        outfname = opt['out']
+        imgtitle = outfname
+        u = outfname.upper()
+        if not (u.endswith('.JPG') or u.endswith('.JPEG') or u.endswith('.PNG')):
+            outfname += '.' + opt['imagetype']
+    else:
+        if opt['save_image_only']:
+            path = os.path.join(opt['out'])
+        else:
+            path = os.path.join(opt['out'], opt['image_dir_name'])
+
+        bamtitle = bam.title.replace(' ', '_').replace('#', '_')
+        
+        if opt['separated_bam']:
+            imgtitle = bamtitle + '_'
+
+        if 't_pos' in pos1:
+            imgtitle += pos1['chrom'] + ':' + str(pos1['t_pos'])
+        else:
+            imgtitle += pos1['chrom'] + ':' + str(pos1['t_spos']) + '-' + str(pos1['t_epos'])
+        
+        outfname = os.path.join(path, imgtitle) + '.' + opt['imagetype']
+    
+    meta['imgtitle'] = imgtitle
+    meta['outfname'] = outfname
+    return meta
 
 class BamSnapPlot():
     def __init__(self, opt):
         self.opt = opt
         self.font = {}
-        self.outfnamelist = []
         self.drawplot = self.opt['draw']
         self.bamplot = self.opt['bamplot']
         self.is_single_image_out = False
@@ -156,54 +281,17 @@ class BamSnapPlot():
         return ia
 
     def save_image(self, ia, bam, pos1):
-        imgtitle = ""
-        if self.is_single_image_out:
-            outfname = self.opt['out']
-            imgtitle = outfname
-            u = outfname.upper()
-            if not (u.endswith('.JPG') or u.endswith('.JPEG') or u.endswith('.PNG')):
-                outfname += '.' + self.opt['imagetype']
-        else:
-            if self.opt['save_image_only']:
-                path = os.path.join(self.opt['out'])
-            else:
-                path = os.path.join(self.opt['out'], self.opt['image_dir_name'])
+        outfile_metainfo = get_out_file_metainfo(bam, pos1, self.opt, self.is_single_image_out)
+        check_dir(outfile_metainfo['outfname'])
 
-            bamtitle = bam.title.replace(' ', '_').replace('#', '_')
-            
-            if self.opt['separated_bam']:
-                imgtitle = bamtitle + '_'
-
-            if 't_pos' in pos1:
-                imgtitle += pos1['chrom'] + ':' + str(pos1['t_pos'])
-            else:
-                imgtitle += pos1['chrom'] + ':' + str(pos1['t_spos']) + '-' + str(pos1['t_epos'])
-            
-            outfname = os.path.join(path, imgtitle) + '.' + self.opt['imagetype']
-
-        check_dir(outfname)
         if self.opt['imagetype'] == "jpg":
             ia = ia.convert("RGB")
-            ia.save(outfname, "JPEG", quality=100, optimize=True)
+            ia.save(outfile_metainfo['outfname'], "JPEG", quality=100, optimize=True)
         else:
-            ia.save(outfname, "PNG", quality=1, optimize=True)
+            ia.save(outfile_metainfo['outfname'], "PNG", quality=1, optimize=True)
 
-        self.opt['log'].info("(" + mp.current_process().name + ") Saved " + outfname)
-        self.outfnamelist.append({'t': imgtitle, 'img': outfname.split('/')[-1]})
-        return outfname
-
-    def save_html(self):
-        cont = fileOpen(getTemplatePath('template.html'))
-        out = os.path.join(self.opt['out'], 'bamsnap_index.html')
-        cont_bamsnapimages = ""
-        for imgfile in self.outfnamelist:
-            imgpath = os.path.join(self.opt['image_dir_name'], imgfile['img'])
-            # print (imgpath)
-            cont_bamsnapimages += imgfile['t'] + "<br>"
-            cont_bamsnapimages += "<img src='"+imgpath+"'><br>"
-        cont = cont.replace('##BAMSNAPIMAGES##', cont_bamsnapimages)
-        fileSave(out, cont, 'w')
-        self.opt['log'].info('Saved '+out)
+        self.opt['log'].info("(" + mp.current_process().name + ") Saved " + outfile_metainfo['outfname'])
+        return outfile_metainfo['outfname']
 
     def get_title_image(self, title, w, fontsize):
         margin = 10
@@ -336,15 +424,15 @@ class BamSnapPlot():
 
     
     
-    def generate_zipfile(self):
-        outzip = self.opt['out'] + '.zip'
-        zo = ZipFile(outzip, 'w')
-        for folderName, subfolders, filenames in os.walk(self.opt['out']):
-            for filename in filenames:
-                filePath = os.path.join(folderName, filename)
-                zo.write(filePath, filePath)
-        zo.close()
-        self.opt['log'].info("(" + mp.current_process().name + ") Saved " + outzip)
+    # def generate_zipfile(self):
+    #     outzip = self.opt['out'] + '.zip'
+    #     zo = ZipFile(outzip, 'w')
+    #     for folderName, subfolders, filenames in os.walk(self.opt['out']):
+    #         for filename in filenames:
+    #             filePath = os.path.join(folderName, filename)
+    #             zo.write(filePath, filePath)
+    #     zo.close()
+    #     self.opt['log'].info("(" + mp.current_process().name + ") Saved " + outzip)
     
     def drawplot_bamlist(self, pos1, image_w, bamlist, xscale, refseq):
         ia = self.init_image(image_w, self.opt['bgcolor'])
