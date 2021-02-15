@@ -28,10 +28,11 @@ class CoveragePlot():
 
     def get_vaf(self, base_composition, dp, posi, refseq):
         aflist = []
-        for b1 in base_composition.keys():
-            if refseq[posi] != b1:
-                aflist.append(base_composition[b1]/dp)
-        return max(aflist)
+        ref_base = str(refseq[posi]).upper()
+        for b1, v1 in base_composition.items():
+            if ref_base != b1:
+                aflist.append(v1/dp)
+        return max(aflist, default=0.0)
 
     def draw_coverage(self, dr, w, h):
         try:
