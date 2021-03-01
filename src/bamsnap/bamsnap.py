@@ -253,9 +253,9 @@ def get_out_file_metainfo(bam, pos1, opt, is_single_image_out):
             imgtitle = bamtitle + '_'
 
         if 't_pos' in pos1:
-            imgtitle += pos1['chrom'] + ':' + str(pos1['t_pos'])
+            imgtitle += pos1['chrom'] + '_' + str(pos1['t_pos'])
         else:
-            imgtitle += pos1['chrom'] + ':' + str(pos1['t_spos']) + '-' + str(pos1['t_epos'])
+            imgtitle += pos1['chrom'] + '_' + str(pos1['t_spos']) + '-' + str(pos1['t_epos'])
 
         outfname = os.path.join(path, imgtitle) + '.' + opt['imagetype']
 
