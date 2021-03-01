@@ -9,7 +9,8 @@ NOPRINTOPTLIST = ['log', 'chrom', 'g_epos', 'g_spos']
 
 def postprocessing_option(opt):
     if 'out' in opt.keys() and (('logfile' not in opt.keys()) or (opt['logfile'] == "")):
-        opt['logfile'] = os.path.join(opt['out'] + '_bamsnap.log')
+        # opt['logfile'] = os.path.join(opt['out'] + '_bamsnap.log')
+        opt['logfile'] = ""
     return opt
 
 

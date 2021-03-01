@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: bamsnap
-Version: 0.2.18
+Version: 0.2.19
 Summary: A converter from .bam to .png for specific genomic region.
 Home-page: https://github.com/danielmsk/bamsnap
 Author: Daniel Minseok Kwon
