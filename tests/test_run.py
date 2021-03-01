@@ -1,6 +1,3 @@
-
-
-
 import sys
 import shlex
 
@@ -190,7 +187,7 @@ cmdlist.append("""
     -plot_margin_top 0 \
     -plot_margin_bottom 0 \
     -out ./out/NATRIO_chr10_117542948_baseplot_ex1.png
-""") # base plot example 1
+""")  # base plot example 1
 cmdlist.append("""
     -bam ./data/NA12879.bam \
     -title "NA12879 (Daughter)" \
@@ -204,7 +201,7 @@ cmdlist.append("""
     -plot_margin_top 0 \
     -plot_margin_bottom 0 \
     -out ./out/NATRIO_chr10_117542948_baseplot_ex2.png
-""") # base plot example 2
+""")  # base plot example 2
 cmdlist.append("""
     -bam ./data/NA12879.bam \
     -title "NA12879 (Daughter)" \
@@ -218,7 +215,7 @@ cmdlist.append("""
     -plot_margin_top 0 \
     -plot_margin_bottom 0 \
     -out ./out/NATRIO_chr10_117542948_baseplot_ex3.png
-""") # base plot example 3
+""")  # base plot example 3
 
 cmdlist.append("""
     -bam ./data/NA12879.bam \
@@ -228,7 +225,7 @@ cmdlist.append("""
     -out ./out/NATRIO_chr10_117542948_coordinates3.png \
     -no_target_line \
     -coordinates_axisloc middle
-""") # coordinates track example 3
+""")  # coordinates track example 3
 
 cmdlist.append("""
     -bam ./data/test_INVERSION_4_180098865_hg19.bam\
@@ -279,7 +276,7 @@ cmdlist.append("""
     -read_color_by interchrom \
     -read_group strand \
     -save_image_only
-""")  
+""")
 
 cmdlist.append("""
     -bam ./data/test_DEL_chr12_47977510_F.bam ./data/test_DEL_chr12_47977510_M.bam ./data/test_DEL_chr12_47977510_P.bam \
@@ -291,7 +288,7 @@ cmdlist.append("""
     -read_color_by interchrom \
     -read_group strand \
     -save_image_only
-""")  
+""")
 
 cmdlist.append("""
     -bam ./data/test_DEL_chr12_47977510_F.bam ./data/test_DEL_chr12_47977510_M.bam ./data/test_DEL_chr12_47977510_P.bam \

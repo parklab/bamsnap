@@ -192,6 +192,10 @@ class BamSnap():
         zo.close()
         self.opt['log'].info("(" + mp.current_process().name + ") Saved " + outzip)
 
+    def join_process(self):
+        for k1 in self.process.keys():
+            self.process[k1].join()
+
     def run(self):
         t0 = time.time()
         timemap = {'set_refseq': 0}
@@ -206,6 +210,8 @@ class BamSnap():
             else:
                 self.start_process_drawplot(image_w, self.bamlist)
 
+        self.join_process()
+
         t2 = time.time()
         if not self.is_single_image_out:
             if not self.opt['save_image_only']:
@@ -214,7 +220,7 @@ class BamSnap():
                 self.generate_zipfile()
 
         self.opt['log'].debug('Total running time for getting reference sequence (set_refseq): ' +
-                              str(round(timemap['set_refseq'], 3))+' sec')
+                            str(round(timemap['set_refseq'], 3))+' sec')
         self.opt['log'].info('Total running time: ' + str(round(t2-t0, 1))+' sec')
 
 
