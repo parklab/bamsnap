@@ -1,6 +1,5 @@
 MANIFEST.in
 README.md
-setup.cfg
 setup.py
 src/bamsnap/__init__.py
 src/bamsnap/_logging.py
