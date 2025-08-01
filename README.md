@@ -36,6 +36,7 @@ make build
 
 ### Simple usage examples
 ```bash
+$ bamsnap --help // to see all the options
 $ bamsnap --bam test.bam --pos chr1:7364529 --out test.png
 $ bamsnap --bam test1.bam --bam test2.bam --title "BAM Test 1" --title "BAM Test 2" --pos chr1:7364529 --out test.png
 ```
