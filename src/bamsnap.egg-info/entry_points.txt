@@ -1,3 +1,0 @@
-[console_scripts]
-bamsnap = bamsnap:cli
-

@@ -1,7 +1,4 @@
 # BamSnap
-<!--[![Build Status](https://travis-ci.org/bamsnap/bamsnap.svg?branch=develop)](https://travis-ci.org/bamsnap/bamsnap) 
-[![Code Health](https://landscape.io/github/bamsnap/bamsnap/develop/landscape.svg?style=flat)](https://landscape.io/github/bamsnap/bamsnap/develop) 
-[![Coverage Status](https://img.shields.io/codecov/c/github/bamsnap/bamsnap/develop.svg)](https://codecov.io/github/bamsnap/bamsnap?branch=develop)-->
 
 BamSnap: a lightweight command-based visualization tool for sequencing reads in BAM files
 
@@ -16,46 +13,43 @@ For more details, see BamSnap [**Documentation**](http://bamsnap.readthedocs.io/
 
 ## Installation
 
-### Prerequisites
-* python 3.4+
-* [Pillow (Python Imaging Library)](https://pypi.org/project/Pillow/)
-* [pysam](https://pypi.org/project/pysam/)
-* [pyfaidx](https://pypi.org/project/pyfaidx/)
-* [pytabix](https://pypi.org/project/pytabix/)
+### Prerequisites (installed via pip)
 
-### Install with pip
+BamSnap (>= v1.0.0) requires Python 3.9+. It uses Pillow, pysam, pyfaidx and pytabix under the hood.
+
+### Install with pip (NOT WORKING FOR V1 YET!)
 
 ```bash
-pip install bamsnap
+pip install bamsnap 
 ```
 * [pypi site for bamsnap](https://pypi.org/project/bamsnap/)
 
-### Install with github
+### Install from source
 
 ```
 git clone https://github.com/parklab/bamsnap
 cd bamsnap
-python setup.py install
+make build
 ```
 
 ## Usage
 
-### Simple usage
+### Simple usage examples
 ```bash
-$ bamsnap -bam test.bam -pos 1:7364529 -out test.png
+$ bamsnap --bam test.bam --pos chr1:7364529 --out test.png
+$ bamsnap --bam test1.bam --bam test2.bam --title "BAM Test 1" --title "BAM Test 2" --pos chr1:7364529 --out test.png
 ```
 
 For more details, see BamSnap [**Documentation**](http://bamsnap.readthedocs.io/en/latest).
 
 ### Usage with docker
 ```bash
-$ docker pull danielmsk/bamsnap
-$ docker run --rm -it -v /local_directory_path:/directory_path_in_image danielmsk/bamsnap bamsnap \
-    -bam /directory_path_in_image/test.bam \
-    -pos 1:7364529 \
-    -out /directory_path_in_image/test.png
+$ docker pull aveit/bamsnap
+$ docker run --rm -it -v /local_directory_path:/directory_path_in_image aveit/bamsnap bamsnap \
+    --bam /directory_path_in_image/test.bam \
+    --pos chr1:7364529 \
+    --out /directory_path_in_image/test.png
 ```
-
 
 
 ## Example Use Case

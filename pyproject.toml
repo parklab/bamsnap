@@ -1,0 +1,63 @@
+[tool.poetry]
+name = "bamsnap"
+version = "1.0.0"
+description = "A converter from .bam to .png for specific genomic region."
+authors = [
+    "Daniel Minseok Kwon <daniel.minseok.kwon@gmail.com>",
+    "Alexander Veit <alexander_veit@hms.harvard.edu>",
+]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/parklab/bamsnap"
+repository = "https://github.com/parklab/bamsnap"
+keywords = ["genomics", "bioinformatics"]
+classifiers = [
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+packages = [{ include = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pyfaidx = ">=0.5.3.1,<1.0.0"
+pysam = ">=0.23.0,<0.24.0"
+Pillow = ">=11.0.0,<12.0.0"
+pytabix = ">=0.1.0"
+click = ">=8.0.0,<9.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0.0"
+pytest-cov = "^4.0.0"
+pytest-mock = "^3.10.0"
+pytest-xdist = "^3.0.0"
+
+
+[tool.poetry.scripts]
+bamsnap = "src.cli:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--verbose",
+    "--tb=short",
+    "--strict-markers",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "cli: marks tests for CLI functionality",
+]
+minversion = "7.0"
